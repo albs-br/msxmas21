@@ -69,42 +69,84 @@ SPRATR:     equ 0xfa00
 
 ; --------- Load sprites
 
+    ; ld      hl, SpritePatternsAndAttrs_SantaClaus_StandingRight
+    ; call    LoadSpriteAndPatterns
+
     ; Spr 0 pattern
     ld      a, 0000 0001 b
-    ld      hl, SPRPAT
+    ld      hl, SPRPAT + (32 * 0)
     call    SetVdp_Write
-    ld      b, SpritePattern_1.size
+    ld      b, 32
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePattern_1
+    ld      hl, SpritePatternsAndAttrs_SantaClaus_Standing_Right + (48 * 0)
     otir
 
-    ; ; Spr 1 pattern
-    ; ld      a, 0000 0001 b
-    ; ld      hl, SPRPAT + 32
-    ; call    SetVdp_Write
-    ; ld      b, SpritePattern_2.size
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ; ld      hl, SpritePattern_2
-    ; otir
+    ; Spr 1 pattern
+    ld      a, 0000 0001 b
+    ld      hl, SPRPAT + (32 * 1)
+    call    SetVdp_Write
+    ld      b, 32
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpritePatternsAndAttrs_SantaClaus_Standing_Right + (48 * 1)
+    otir
+
+    ; Spr 2 pattern
+    ld      a, 0000 0001 b
+    ld      hl, SPRPAT + (32 * 2)
+    call    SetVdp_Write
+    ld      b, 32
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpritePatternsAndAttrs_SantaClaus_Standing_Right + (48 * 2)
+    otir
+
+    ; Spr 3 pattern
+    ld      a, 0000 0001 b
+    ld      hl, SPRPAT + (32 * 3)
+    call    SetVdp_Write
+    ld      b, 32
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpritePatternsAndAttrs_SantaClaus_Standing_Right + (48 * 3)
+    otir
+
 
 
     ; Spr 0 color
     ld      a, 0000 0001 b
-    ld      hl, SPRCOL
+    ld      hl, SPRCOL + (16 * 0)
     call    SetVdp_Write
-    ld      b, SpriteColors_1.size
+    ld      b, 16
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_1
+    ld      hl, SpritePatternsAndAttrs_SantaClaus_Standing_Right + (48 * 0) + 32
     otir
 
-    ; ; Spr 1 color
-    ; ld      a, 0000 0001 b
-    ; ld      hl, SPRCOL + 16
-    ; call    SetVdp_Write
-    ; ld      b, SpriteColors_2.size
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ; ld      hl, SpriteColors_2
-    ; otir
+    ; Spr 1 color
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + (16 * 1)
+    call    SetVdp_Write
+    ld      b, 16
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpritePatternsAndAttrs_SantaClaus_Standing_Right + (48 * 1) + 32
+    otir
+
+    ; Spr 2 color
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + (16 * 2)
+    call    SetVdp_Write
+    ld      b, 16
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpritePatternsAndAttrs_SantaClaus_Standing_Right + (48 * 2) + 32
+    otir
+
+    ; Spr 3 color
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + (16 * 3)
+    call    SetVdp_Write
+    ld      b, 16
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpritePatternsAndAttrs_SantaClaus_Standing_Right + (48 * 3) + 32
+    otir
+
+
 
     ; Atributes of all sprites
     ld      a, 0000 0001 b
@@ -132,6 +174,11 @@ SPRATR:     equ 0xfa00
 
 
 End:
+
+
+SpritePatternsAndAttrs_SantaClaus_Standing_Right:
+    INCLUDE "Sprites/SantaClaus/Standing_Right.s"
+.size:  equ $ - SpritePatternsAndAttrs_SantaClaus_Standing_Right
 
 
 ;SpritePattern_1:
@@ -263,19 +310,21 @@ SpriteAttributes:
     ;   Y, X, Pattern, Reserved
     db  150, 100, 0, 0
     db  150, 100, 4, 0
+    db  150, 100, 8, 0
+    db  150, 100, 12, 0
 .size:  equ $ - SpriteAttributes
 
 
-ImageTest:
-    db  0xff, 0xff, 0xff, 0xff
-    db  0xff, 0xff, 0xff, 0xff
-    db  0xff, 0xff, 0xff, 0xff
-    db  0xff, 0xff, 0xff, 0xff
-    db  0xff, 0xff, 0xff, 0xff
-    db  0xff, 0xff, 0xff, 0xff
-    db  0xff, 0xff, 0xff, 0xff
-    db  0xff, 0xff, 0xff, 0xff
-.size:  equ $ - ImageTest
+; ImageTest:
+;     db  0xff, 0xff, 0xff, 0xff
+;     db  0xff, 0xff, 0xff, 0xff
+;     db  0xff, 0xff, 0xff, 0xff
+;     db  0xff, 0xff, 0xff, 0xff
+;     db  0xff, 0xff, 0xff, 0xff
+;     db  0xff, 0xff, 0xff, 0xff
+;     db  0xff, 0xff, 0xff, 0xff
+;     db  0xff, 0xff, 0xff, 0xff
+; .size:  equ $ - ImageTest
 
 
 
