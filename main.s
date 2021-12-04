@@ -5,10 +5,14 @@ PageSize:	    equ	0x4000	        ; 16kB
 ; Compilation address
     org 0x4000, 0xbeff	                    ; 0x8000 can be also used here if Rom size is 16kB or less.
 
+    ; Common
     INCLUDE "Include/RomHeader.s"
     INCLUDE "Include/MsxBios.s"
     INCLUDE "Include/MsxConstants.s"
     INCLUDE "Include/CommonRoutines.s"
+
+    ; Game
+    INCLUDE "Sprites/LoadSprites.s"
 
 Execute:
     ; screen 5
@@ -67,84 +71,8 @@ SPRATR:     equ 0xfa00
 
 
 
-; --------- Load sprites
 
-    ; ld      hl, SpritePatternsAndAttrs_SantaClaus_StandingRight
-    ; call    LoadSpriteAndPatterns
-
-    ; Spr 0 pattern
-    ld      a, 0000 0001 b
-    ld      hl, SPRPAT + (32 * 0)
-    call    SetVdp_Write
-    ld      b, 32
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePatternsAndAttrs_SantaClaus_Standing_Right + (48 * 0)
-    otir
-
-    ; Spr 1 pattern
-    ld      a, 0000 0001 b
-    ld      hl, SPRPAT + (32 * 1)
-    call    SetVdp_Write
-    ld      b, 32
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePatternsAndAttrs_SantaClaus_Standing_Right + (48 * 1)
-    otir
-
-    ; Spr 2 pattern
-    ld      a, 0000 0001 b
-    ld      hl, SPRPAT + (32 * 2)
-    call    SetVdp_Write
-    ld      b, 32
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePatternsAndAttrs_SantaClaus_Standing_Right + (48 * 2)
-    otir
-
-    ; Spr 3 pattern
-    ld      a, 0000 0001 b
-    ld      hl, SPRPAT + (32 * 3)
-    call    SetVdp_Write
-    ld      b, 32
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePatternsAndAttrs_SantaClaus_Standing_Right + (48 * 3)
-    otir
-
-
-
-    ; Spr 0 color
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + (16 * 0)
-    call    SetVdp_Write
-    ld      b, 16
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePatternsAndAttrs_SantaClaus_Standing_Right + (48 * 0) + 32
-    otir
-
-    ; Spr 1 color
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + (16 * 1)
-    call    SetVdp_Write
-    ld      b, 16
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePatternsAndAttrs_SantaClaus_Standing_Right + (48 * 1) + 32
-    otir
-
-    ; Spr 2 color
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + (16 * 2)
-    call    SetVdp_Write
-    ld      b, 16
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePatternsAndAttrs_SantaClaus_Standing_Right + (48 * 2) + 32
-    otir
-
-    ; Spr 3 color
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + (16 * 3)
-    call    SetVdp_Write
-    ld      b, 16
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePatternsAndAttrs_SantaClaus_Standing_Right + (48 * 3) + 32
-    otir
+    call    LoadSprites
 
 
 
@@ -152,9 +80,9 @@ SPRATR:     equ 0xfa00
     ld      a, 0000 0001 b
     ld      hl, SPRATR
     call    SetVdp_Write
-    ld      b, SpriteAttributes.size
+    ld      b, TestSpriteAttributes.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteAttributes
+    ld      hl, TestSpriteAttributes
     otir
 
 ; -----------
@@ -176,9 +104,9 @@ SPRATR:     equ 0xfa00
 End:
 
 
-SpritePatternsAndAttrs_SantaClaus_Standing_Right:
+SpritePatternsAndColors_SantaClaus_Standing_Right:
     INCLUDE "Sprites/SantaClaus/Standing_Right.s"
-.size:  equ $ - SpritePatternsAndAttrs_SantaClaus_Standing_Right
+.size:  equ $ - SpritePatternsAndColors_SantaClaus_Standing_Right
 
 
 ;SpritePattern_1:
@@ -306,13 +234,13 @@ SpriteColors_1:
 ;     db  0100 0000 b + 2
 ; .size:  equ $ - SpriteColors_2
 
-SpriteAttributes:
+TestSpriteAttributes:
     ;   Y, X, Pattern, Reserved
     db  150, 100, 0, 0
     db  150, 100, 4, 0
     db  150, 100, 8, 0
     db  150, 100, 12, 0
-.size:  equ $ - SpriteAttributes
+.size:  equ $ - TestSpriteAttributes
 
 
 ; ImageTest:
