@@ -13,6 +13,7 @@ PageSize:	    equ	0x4000	        ; 16kB
 
     ; Game
     INCLUDE "Sprites/LoadSprites.s"
+    INCLUDE "ReadInput.s"
 
 Execute:
     ; screen 5
@@ -97,8 +98,18 @@ SPRATR:     equ 0xfa00
     call    BIOS_ENASCR
 
 
-.endlessLoop:
-    jp      .endlessLoop
+MainLoop:
+    ld      hl, BIOS_JIFFY              ; (v-blank sync)
+    ld      a, (hl)
+.waitVBlank:
+    cp      (hl)
+    jr      z, .waitVBlank
+
+
+    call    ReadInput
+
+    
+    jp      MainLoop
 
 
 End:
@@ -300,5 +311,4 @@ PaletteData:
 ; RAM
 	org     0xc000, 0xe5ff                   ; for machines with 16kb of RAM (use it if you need 16kb RAM, will crash on 8kb machines, such as the Casio PV-7)
 
-
-
+    INCLUDE "Variables.s"
