@@ -3,11 +3,18 @@ ReadInput:
     ld      a, 8                    ; 8th line
     call    BIOS_SNSMAT         ; Read Data Of Specified Line From Keyboard Matrix
 
+
+
+
     bit     4, a                    ; 4th bit (key left)
     jp      z, .playerLeft
 
     bit     7, a                    ; 7th bit (key right)
     jp      z, .playerRight
+
+    ; default animation frame
+    or      a
+    ld      (PlayerAnimationFrame), a
 
     ret
 
@@ -31,5 +38,10 @@ ReadInput:
 
     add     a, 2
     ld      (PlayerX), a
+
+
+
+    ld      a, 4
+    ld      (PlayerAnimationFrame), a
 
     ret
