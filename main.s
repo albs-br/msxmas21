@@ -14,8 +14,15 @@ PageSize:	    equ	0x4000	        ; 16kB
     ; Game
     INCLUDE "Sprites/LoadSprites.s"
     INCLUDE "ReadInput.s"
+    INCLUDE "InitVariables.s"
+    INCLUDE "UpdateSprites.s"
 
 Execute:
+
+    ; disable keyboard click
+    ld 		a, 0
+    ld 		(BIOS_CLIKSW), a     ; Key Press Click Switch 0:Off 1:On (1B/RW)
+
     ; screen 5
     ld      a, 5
     call    BIOS_CHGMOD
@@ -98,6 +105,15 @@ SPRATR:     equ 0xfa00
     call    BIOS_ENASCR
 
 
+
+InitGame:
+    call    ClearRam
+
+    call    InitVariables
+
+
+
+
 MainLoop:
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
     ld      a, (hl)
@@ -108,6 +124,9 @@ MainLoop:
 
     call    ReadInput
 
+    ;call    GameLogic
+
+    call    UpdateSprites
     
     jp      MainLoop
 
@@ -247,10 +266,10 @@ SpriteColors_1:
 
 TestSpriteAttributes:
     ;   Y, X, Pattern, Reserved
-    db  150, 100, 0, 0
-    db  150, 100, 4, 0
-    db  150, 100, 8, 0
-    db  150, 100, 12, 0
+    db  150, 120, 0, 0
+    db  150, 120, 4, 0
+    db  150, 120, 8, 0
+    db  150, 120, 12, 0
 .size:  equ $ - TestSpriteAttributes
 
 
@@ -311,4 +330,8 @@ PaletteData:
 ; RAM
 	org     0xc000, 0xe5ff                   ; for machines with 16kb of RAM (use it if you need 16kb RAM, will crash on 8kb machines, such as the Casio PV-7)
 
+
+RamStart:
+
     INCLUDE "Variables.s"
+RamEnd:

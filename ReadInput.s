@@ -13,11 +13,23 @@ ReadInput:
 
 .playerLeft:
     ld      a, (PlayerX)
-    inc     a
-    ld      (PlayerX), a
 
+    cp      0
+    ret     z
+    ret     c
+
+    sub     a, 2
+    ld      (PlayerX), a
 
     ret
 
 .playerRight:
+    ld      a, (PlayerX)
+
+    cp      255 - 16
+    ret     nc
+
+    add     a, 2
+    ld      (PlayerX), a
+
     ret
