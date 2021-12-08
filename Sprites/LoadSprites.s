@@ -5,10 +5,22 @@ LoadSprites:
     ; --- Sprite patterns
 
 
-    ld      hl, SpritePatternsAndColors_SantaClaus_Standing_Right
+    ld      hl, SpritePatternsAndColors_SantaClaus_Standing_Right_Top
     ld      IX, SPRPAT
     ld      IY, SPRCOL
     ld      b, 4
+    call    LoadSpritesWithColors
+
+    ld      hl, SpritePatternsAndColors_SantaClaus_Standing_Right_Bottom
+    ld      IX, SPRPAT + (4 * 32)
+    ld      IY, SPRCOL + (4 * 16)
+    ld      b, 3
+    call    LoadSpritesWithColors
+
+    ld      hl, SpritePatternsAndColors_Gift_1
+    ld      IX, SPRPAT + (7 * 32)
+    ld      IY, SPRCOL + (7 * 16)
+    ld      b, 3
     call    LoadSpritesWithColors
 
     ; Spr 0 pattern

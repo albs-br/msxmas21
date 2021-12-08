@@ -2,6 +2,7 @@ UpdateSprites:
 
     ld      hl, SpriteAttributes
     
+    ; Santa Claus top
     inc     hl
     ld      a, (PlayerX)
     ld      (hl), a
@@ -23,6 +24,27 @@ UpdateSprites:
     inc     hl
     inc     hl
     ld      (hl), a
+
+    ; Santa Claus bottom
+    inc     hl
+    inc     hl
+    inc     hl
+    inc     hl
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
+    inc     hl
+    inc     hl
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
+    inc     hl
+    inc     hl
+    ld      (hl), a
+
+
 
     ; update sprite attributes table
     ld      a, 0000 0001 b

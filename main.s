@@ -50,180 +50,40 @@ MainLoop:
 End:
 
 
-SpritePatternsAndColors_SantaClaus_Standing_Right:
-    INCLUDE "Sprites/SantaClaus/Standing_Right.s"
-.size:  equ $ - SpritePatternsAndColors_SantaClaus_Standing_Right
+SpritePatternsAndColors_SantaClaus_Standing_Right_Top:
+    INCLUDE "Sprites/SantaClaus/Standing_Right_Top.s"
+.size:  equ $ - SpritePatternsAndColors_SantaClaus_Standing_Right_Top
+
+SpritePatternsAndColors_SantaClaus_Standing_Right_Bottom:
+    INCLUDE "Sprites/SantaClaus/Standing_Right_Bottom.s"
+.size:  equ $ - SpritePatternsAndColors_SantaClaus_Standing_Right_Bottom
+
+SpritePatternsAndColors_Gift_1:
+    INCLUDE "Sprites/Gifts/Gift_1.s"
+.size:  equ $ - SpritePatternsAndColors_Gift_1
 
 
-;SpritePattern_1:
-;     INCBIN "Images/player_plane_0.pat"
-; .size:  equ $ - SpritePattern_1
-
-SpritePattern_1:
-    DB 00000111b
-    DB 00011111b
-    DB 00111111b
-    DB 01111111b
-    DB 01110011b
-    DB 11110011b
-    DB 11111111b
-    DB 11111111b
-
-    DB 11111111b
-    DB 11111111b
-    DB 11110111b
-    DB 01111011b
-    DB 01111100b
-    DB 00111111b
-    DB 00011111b
-    DB 00000111b
-
-    DB 11100000b
-    DB 11111000b
-    DB 11111100b
-    DB 11111110b
-    DB 11001110b
-    DB 11001111b
-    DB 11111111b
-    DB 11111111b
-    
-    DB 11111111b
-    DB 11111111b
-    DB 11101111b
-    DB 11011110b
-    DB 00111110b
-    DB 11111100b
-    DB 11111000b
-    DB 11100000b
-.size:  equ $ - SpritePattern_1
-
-; SpritePattern_2:
-;     DB 00000111b
-;     DB 00011000b
-;     DB 00100000b
-;     DB 01000000b
-;     DB 01001100b
-;     DB 10001100b
-;     DB 10000000b
-;     DB 10000000b
-
-;     DB 11111111b
-;     DB 11111111b
-;     DB 11110111b
-;     DB 01111011b
-;     DB 01111100b
-;     DB 00111111b
-;     DB 00011111b
-;     DB 00000111b
-
-;     DB 11100000b
-;     DB 11111000b
-;     DB 11111100b
-;     DB 11111110b
-;     DB 11001110b
-;     DB 11001111b
-;     DB 11111111b
-;     DB 11111111b
-    
-;     DB 11111111b
-;     DB 11111111b
-;     DB 11101111b
-;     DB 11011110b
-;     DB 00111110b
-;     DB 11111100b
-;     DB 11111000b
-;     DB 11100000b
-; .size:  equ $ - SpritePattern_2
-
-; SpriteColors_1:
-;     INCBIN "Images/player_plane_0.col"
-; .size:  equ $ - SpriteColors_1
-
-
-SpriteColors_1:
-    ;db 0x02, 0x0a, 0x03, 0x03, 0x08, 0x08, 0x03, 0x0a, 0x04, 0x07, 0x0a, 0x0a, 0x0a, 0x0a, 0x0f, 0x0f
-    db  4
-    db  4
-    db  4
-    db  4
-    db  4
-    db  4
-    db  4
-    db  4
-    db  4
-    db  4
-    db  4
-    db  4
-    db  4
-    db  4
-    db  4
-    db  4
-.size:  equ $ - SpriteColors_1
-
-; SpriteColors_2:
-;     ; Only the sprite on the lower layer should have the bit 6 set to enable the OR-color
-;     db  0100 0000 b + 2
-;     db  0100 0000 b + 2
-;     db  0100 0000 b + 2
-;     db  0100 0000 b + 2
-;     db  0100 0000 b + 2
-;     db  0100 0000 b + 2
-;     db  0100 0000 b + 2
-;     db  0100 0000 b + 2
-;     db  0100 0000 b + 2
-;     db  0100 0000 b + 2
-;     db  0100 0000 b + 2
-;     db  0100 0000 b + 2
-;     db  0100 0000 b + 2
-;     db  0100 0000 b + 2
-;     db  0100 0000 b + 2
-;     db  0100 0000 b + 2
-; .size:  equ $ - SpriteColors_2
 
 TestSpriteAttributes:
     ;   Y, X, Pattern, Reserved
+    
+    ; Santa Claus Top
     db  150, 120, 0, 0
     db  150, 120, 4, 0
     db  150, 120, 8, 0
     db  150, 120, 12, 0
+
+    ; Santa Claus Bottom
+    db  166, 120, 16, 0
+    db  166, 120, 20, 0
+    db  166, 120, 24, 0
+
+    ; Gift 1
+    db  0, 0, 28, 0
+    db  0, 0, 32, 0
+    db  0, 0, 36, 0
+
 .size:  equ $ - TestSpriteAttributes
-
-
-; ImageTest:
-;     db  0xff, 0xff, 0xff, 0xff
-;     db  0xff, 0xff, 0xff, 0xff
-;     db  0xff, 0xff, 0xff, 0xff
-;     db  0xff, 0xff, 0xff, 0xff
-;     db  0xff, 0xff, 0xff, 0xff
-;     db  0xff, 0xff, 0xff, 0xff
-;     db  0xff, 0xff, 0xff, 0xff
-;     db  0xff, 0xff, 0xff, 0xff
-; .size:  equ $ - ImageTest
-
-
-
-; TODO: put correct palette here
-PaletteData:
-;     INCBIN "Images/player_plane_0.pal"
-
-    ;  data 1 (red 0-7; blue 0-7); data 2 (0000; green 0-7)
-    db 0x00, 0x00 ; Color index 0
-    db 0x77, 0x00 ; Color index 1
-    db 0x10, 0x00 ; Color index 2
-    db 0x20, 0x00 ; Color index 3
-    db 0x30, 0x00 ; Color index 4
-    db 0x40, 0x00 ; Color index 5
-    db 0x50, 0x00 ; Color index 6
-    db 0x60, 0x00 ; Color index 7
-    db 0x70, 0x00 ; Color index 8
-    db 0x11, 0x01 ; Color index 9
-    db 0x22, 0x02 ; Color index 10
-    db 0x33, 0x03 ; Color index 11
-    db 0x77, 0x07 ; Color index 12
-    db 0x66, 0x06 ; Color index 13
-    db 0x55, 0x05 ; Color index 14
-    db 0x44, 0x04 ; Color index 15
-
 
 
     db      "End ROM started at 0x4000"
