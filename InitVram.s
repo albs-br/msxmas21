@@ -1,7 +1,7 @@
 NAMTBL:     equ 0x0000
-SPRPAT:     equ 0xf000 ; actually 0x1f000, but 17 bits address are not accepted
-SPRCOL:     equ 0xf800
-SPRATR:     equ 0xfa00
+SPRPAT:     equ 0x7800
+SPRCOL:     equ 0x7400
+SPRATR:     equ 0x7600
 
 
 
@@ -34,34 +34,34 @@ InitVram:
 
     call    SetColor0ToTransparent
 
-    ; set Video RAM active (instead of Expansion RAM)
+    ; ; set Video RAM active (instead of Expansion RAM)
     ; ld      b, 0000 0000 b  ; data
     ; ld      c, 45            ; register #
     ; call    BIOS_WRTVDP
 
 
 
-; ---- set SPRATR to 0x1fa00 (SPRCOL is automatically set 512 bytes before SPRATR, so 0x1f800)
-    ; bits:    16 14        7
-    ;           |  |        |
-    ; 0x1fa00 = 1 1111 1010 1000 0000
-    ; low bits (aaaaaaaa: bits 14 to 7)
-    ld      b, 1111 0101 b  ; data
-    ld      c, 5            ; register #
-    call    BIOS_WRTVDP
-    ; high bits (000000aa: bits 16 to 15)
-    ld      b, 0000 0011 b  ; data
-    ld      c, 11           ; register #
-    call    BIOS_WRTVDP
+; ; ---- set SPRATR to 0x1fa00 (SPRCOL is automatically set 512 bytes before SPRATR, so 0x1f800)
+;     ; bits:    16 14        7
+;     ;           |  |        |
+;     ; 0x1fa00 = 1 1111 1010 1000 0000
+;     ; low bits (aaaaaaaa: bits 14 to 7)
+;     ld      b, 1111 0101 b  ; data
+;     ld      c, 5            ; register #
+;     call    BIOS_WRTVDP
+;     ; high bits (000000aa: bits 16 to 15)
+;     ld      b, 0000 0011 b  ; data
+;     ld      c, 11           ; register #
+;     call    BIOS_WRTVDP
 
-; ---- set SPRPAT to 0x1f000
-    ; bits:    16     11
-    ;           |      |
-    ; 0x1fa00 = 1 1111 0000 0000 0000
-    ; high bits (00aaaaaa: bits 16 to 11)
-    ld      b, 0011 1110 b  ; data
-    ld      c, 6            ; register #
-    call    BIOS_WRTVDP
+; ; ---- set SPRPAT to 0x1f000
+;     ; bits:    16     11
+;     ;           |      |
+;     ; 0x1fa00 = 1 1111 0000 0000 0000
+;     ; high bits (00aaaaaa: bits 16 to 11)
+;     ld      b, 0011 1110 b  ; data
+;     ld      c, 6            ; register #
+;     call    BIOS_WRTVDP
 
 
 
@@ -77,7 +77,7 @@ InitVram:
 
 
     ; Atributes of all sprites
-    ld      a, 0000 0001 b
+    ld      a, 0000 0000 b
     ld      hl, SPRATR
     call    SetVdp_Write
     ld      b, TestSpriteAttributes.size

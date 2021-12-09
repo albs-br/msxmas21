@@ -47,7 +47,7 @@ UpdateSprites:
 
 
     ; update sprite attributes table
-    ld      a, 0000 0001 b
+    ld      a, 0000 0000 b
     ld      hl, SPRATR
     call    SetVdp_Write
     ld      b, SpriteAttributes.size

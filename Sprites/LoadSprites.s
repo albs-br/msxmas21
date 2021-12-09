@@ -17,21 +17,25 @@ LoadSprites:
     ld      b, 3
     call    LoadSpritesWithColors
 
-    ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Right_1_Top
-    ld      IX, SPRPAT + (7 * 32)
-    ld      IY, SPRCOL + (7 * 16)
-    ld      b, 4
-    call    LoadSpritesWithColors
 
-    ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Right_1_Bottom
-    ld      IX, SPRPAT + (11 * 32)
-    ld      IY, SPRCOL + (11 * 16)
-    ld      b, 3
-    call    LoadSpritesWithColors
+
+    ; ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Right_1_Top
+    ; ld      IX, SPRPAT + (7 * 32)
+    ; ld      IY, SPRCOL + (7 * 16)
+    ; ld      b, 4
+    ; call    LoadSpritesWithColors
+
+    ; ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Right_1_Bottom
+    ; ld      IX, SPRPAT + (11 * 32)
+    ; ld      IY, SPRCOL + (11 * 16)
+    ; ld      b, 3
+    ; call    LoadSpritesWithColors
+
+
 
     ld      hl, SpritePatternsAndColors_Gift_1
-    ld      IX, SPRPAT + (14 * 32)
-    ld      IY, SPRCOL + (14 * 16)
+    ld      IX, SPRPAT + (7 * 32)
+    ld      IY, SPRCOL + (7 * 16)
     ld      b, 3
     call    LoadSpritesWithColors
 
@@ -210,7 +214,7 @@ LoadSpritesWithColors:
 ; DE: destiny on VRAM
 LoadSpritePatterns_16x16:
     push    hl
-        ld      a, 0000 0001 b
+        ld      a, 0000 0000 b
         ld      h, d
         ld      l, e
         call    SetVdp_Write
@@ -226,7 +230,7 @@ LoadSpritePatterns_16x16:
 ; DE: destiny on VRAM
 LoadSpriteColors_16x16:
     push    hl
-        ld      a, 0000 0001 b
+        ld      a, 0000 0000 b
         ld      h, d
         ld      l, e
         call    SetVdp_Write
