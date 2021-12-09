@@ -50,38 +50,41 @@ MainLoop:
 End:
 
 
-SpritePatternsAndColors_SantaClaus_Standing_Right_Top:
-    INCLUDE "Sprites/SantaClaus/Standing_Right_Top.s"
-.size:  equ $ - SpritePatternsAndColors_SantaClaus_Standing_Right_Top
+    INCLUDE "Sprites/SpritesAssets.s"
 
-SpritePatternsAndColors_SantaClaus_Standing_Right_Bottom:
-    INCLUDE "Sprites/SantaClaus/Standing_Right_Bottom.s"
-.size:  equ $ - SpritePatternsAndColors_SantaClaus_Standing_Right_Bottom
 
-SpritePatternsAndColors_Gift_1:
-    INCLUDE "Sprites/Gifts/Gift_1.s"
-.size:  equ $ - SpritePatternsAndColors_Gift_1
 
 
 
 TestSpriteAttributes:
     ;   Y, X, Pattern, Reserved
-    
+
+    ; ; Santa Claus Top
+    ; db  150, 120, 0 * 4, 0
+    ; db  150, 120, 1 * 4, 0
+    ; db  150, 120, 2 * 4, 0
+    ; db  150, 120, 3 * 4, 0
+
+    ; ; Santa Claus Bottom
+    ; db  166, 120, 4 * 4, 0
+    ; db  166, 120, 5 * 4, 0
+    ; db  166, 120, 6 * 4, 0
+
     ; Santa Claus Top
-    db  150, 120, 0, 0
-    db  150, 120, 4, 0
-    db  150, 120, 8, 0
-    db  150, 120, 12, 0
+    db  150, 120, 7 * 4, 0
+    db  150, 120, 8 * 4, 0
+    db  150, 120, 9 * 4, 0
+    db  150, 120, 10 * 4, 0
 
     ; Santa Claus Bottom
-    db  166, 120, 16, 0
-    db  166, 120, 20, 0
-    db  166, 120, 24, 0
+    db  166, 120, 11 * 4, 0
+    db  166, 120, 12 * 4, 0
+    db  166, 120, 13 * 4, 0
 
     ; Gift 1
-    db  0, 0, 28, 0
-    db  0, 0, 32, 0
-    db  0, 0, 36, 0
+    db  0, 0, 14 * 4, 0
+    db  0, 0, 15 * 4, 0
+    db  0, 0, 16 * 4, 0
 
 .size:  equ $ - TestSpriteAttributes
 
