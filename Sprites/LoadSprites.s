@@ -24,7 +24,7 @@ LoadSprites:
     call    LoadSpritePatternsWithColors
 
 
-; -------------- Santa Claus walking right
+; -------------- Santa Claus walking right 1
 
     ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Right_1_Top
     ld      IX, SPRPAT + (10 * 32)
@@ -33,6 +33,18 @@ LoadSprites:
 
     ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Right_1_Bottom
     ld      IX, SPRPAT + (14 * 32)
+    ld      b, 3
+    call    LoadSpritePatterns
+
+; -------------- Santa Claus walking right 2
+
+    ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Right_2_Top
+    ld      IX, SPRPAT + (17 * 32)
+    ld      b, 4
+    call    LoadSpritePatterns
+
+    ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Right_2_Bottom
+    ld      IX, SPRPAT + (21 * 32)
     ld      b, 3
     call    LoadSpritePatterns
 

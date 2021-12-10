@@ -17,20 +17,7 @@ ReadInput:
     ; ------------ no key pressed
 
 
-    ; default animation frame
-    xor      a
-    ld      (PlayerAnimationFrame), a
-
-    ; load colors
-    ld      hl, SpritePatternsAndColors_SantaClaus_Standing_Right_Top
-    ld      iy, SPRCOL + (0 * 16)
-    ld      b, 4
-    call    LoadSpriteColors
-
-    ld      hl, SpritePatternsAndColors_SantaClaus_Standing_Right_Bottom
-    ld      iy, SPRCOL + (4 * 16)
-    ld      b, 3
-    call    LoadSpriteColors
+    jp      .setFrame0
 
     ret
 
@@ -50,12 +37,27 @@ ReadInput:
     ld      a, (PlayerX)
 
     cp      255 - 16
-    ret     nc
+    jp      nc, .setFrame0
 
     add     a, 2
     ld      (PlayerX), a
 
 
+
+
+
+    ; animation
+    
+    ld      a, (BIOS_JIFFY)
+    and     0000 1000b
+    
+    or      a       ; if (a == 0)
+    jp      nz, .frame2
+
+; frame1
+
+    ld      a, 10 * 4
+    ld      (PlayerAnimationFrame), a
 
     ; load colors
     ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Right_1_Top
@@ -68,13 +70,42 @@ ReadInput:
     ld      b, 3
     call    LoadSpriteColors
 
+    jp      .continue
 
-    ld      a, 10 * 4
+.frame2:
 
-    ; ld a, 10
-    ; add JIFFY AND 0000 0001
-    ; mult a by 4
-
+    ld      a, 17 * 4
     ld      (PlayerAnimationFrame), a
+
+    ; load colors
+    ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Right_2_Top
+    ld      iy, SPRCOL + (0 * 16)
+    ld      b, 4
+    call    LoadSpriteColors
+
+    ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Right_2_Bottom
+    ld      iy, SPRCOL + (4 * 16)
+    ld      b, 3
+    call    LoadSpriteColors
+
+.continue:
+
+    ret
+
+.setFrame0:
+    ; default animation frame
+    xor      a
+    ld      (PlayerAnimationFrame), a
+
+    ; load colors
+    ld      hl, SpritePatternsAndColors_SantaClaus_Standing_Right_Top
+    ld      iy, SPRCOL + (0 * 16)
+    ld      b, 4
+    call    LoadSpriteColors
+
+    ld      hl, SpritePatternsAndColors_SantaClaus_Standing_Right_Bottom
+    ld      iy, SPRCOL + (4 * 16)
+    ld      b, 3
+    call    LoadSpriteColors
 
     ret
