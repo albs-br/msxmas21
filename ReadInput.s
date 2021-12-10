@@ -14,6 +14,7 @@ ReadInput:
 
 
 
+    ; ------------ no key pressed
 
 
     ; default animation frame
@@ -69,6 +70,11 @@ ReadInput:
 
 
     ld      a, 10 * 4
+
+    ; ld a, 10
+    ; add JIFFY AND 0000 0001
+    ; mult a by 4
+
     ld      (PlayerAnimationFrame), a
 
     ret

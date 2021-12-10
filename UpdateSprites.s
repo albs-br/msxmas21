@@ -3,9 +3,10 @@ UpdateSprites:
     ld      hl, SpriteAttributes
 
 
+; --------------------------------- Santa Claus top -----------------------------------
+
 ; --------- Sprite #0
 
-    ; Santa Claus top
     inc     hl
     ld      a, (PlayerX)
     ld      (hl), a
@@ -59,9 +60,10 @@ UpdateSprites:
     inc     hl
     inc     hl
 
+; --------------------------------- Santa Claus bottom -----------------------------------
+
 ; --------- Sprite #4
 
-    ; Santa Claus bottom
     inc     hl
     ld      a, (PlayerX)
     ld      (hl), a
