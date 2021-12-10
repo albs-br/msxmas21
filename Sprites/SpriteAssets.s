@@ -14,6 +14,15 @@ SpritePatternsAndColors_SantaClaus_Walking_Right_1_Bottom:
     INCLUDE "Sprites/SantaClaus/Walking_Right_1_Bottom.s"
 .size:  equ $ - SpritePatternsAndColors_SantaClaus_Walking_Right_1_Bottom
 
+SpritePatternsAndColors_SantaClaus_Walking_Right_2_Top:
+    INCLUDE "Sprites/SantaClaus/Walking_Right_2_Top.s"
+.size:  equ $ - SpritePatternsAndColors_SantaClaus_Walking_Right_2_Top
+
+SpritePatternsAndColors_SantaClaus_Walking_Right_2_Bottom:
+    INCLUDE "Sprites/SantaClaus/Walking_Right_2_Bottom.s"
+.size:  equ $ - SpritePatternsAndColors_SantaClaus_Walking_Right_2_Bottom
+
+
 SpritePatternsAndColors_Gift_1:
     INCLUDE "Sprites/Gifts/Gift_1.s"
 .size:  equ $ - SpritePatternsAndColors_Gift_1

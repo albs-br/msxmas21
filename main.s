@@ -51,7 +51,7 @@ MainLoop:
 End:
 
 
-    INCLUDE "Sprites/SpritesAssets.s"
+    INCLUDE "Sprites/SpriteAssets.s"
 
 
 

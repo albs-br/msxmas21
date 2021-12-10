@@ -12,9 +12,24 @@ ReadInput:
     bit     7, a                    ; 7th bit (key right)
     jp      z, .playerRight
 
+
+
+
+
     ; default animation frame
-    or      a
+    xor      a
     ld      (PlayerAnimationFrame), a
+
+    ; load colors
+    ld      hl, SpritePatternsAndColors_SantaClaus_Standing_Right_Top
+    ld      iy, SPRCOL + (0 * 16)
+    ld      b, 4
+    call    LoadSpriteColors
+
+    ld      hl, SpritePatternsAndColors_SantaClaus_Standing_Right_Bottom
+    ld      iy, SPRCOL + (4 * 16)
+    ld      b, 3
+    call    LoadSpriteColors
 
     ret
 
@@ -41,6 +56,7 @@ ReadInput:
 
 
 
+    ; load colors
     ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Right_1_Top
     ld      iy, SPRCOL + (0 * 16)
     ld      b, 4

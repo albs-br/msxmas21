@@ -1,7 +1,10 @@
 UpdateSprites:
 
     ld      hl, SpriteAttributes
-    
+
+
+; --------- Sprite #0
+
     ; Santa Claus top
     inc     hl
     ld      a, (PlayerX)
@@ -13,6 +16,9 @@ UpdateSprites:
 
     inc     hl
     inc     hl
+
+; --------- Sprite #1
+
     inc     hl
     ld      a, (PlayerX)
     ld      (hl), a
@@ -24,6 +30,9 @@ UpdateSprites:
 
     inc     hl
     inc     hl
+
+; --------- Sprite #2
+
     inc     hl
     ld      a, (PlayerX)
     ld      (hl), a
@@ -35,6 +44,9 @@ UpdateSprites:
 
     inc     hl
     inc     hl
+
+; --------- Sprite #3
+
     inc     hl
     ld      a, (PlayerX)
     ld      (hl), a
@@ -47,25 +59,50 @@ UpdateSprites:
     inc     hl
     inc     hl
 
+; --------- Sprite #4
+
     ; Santa Claus bottom
     inc     hl
     ld      a, (PlayerX)
     ld      (hl), a
 
     inc     hl
+    ld      a, (PlayerAnimationFrame)
+    add     a, 4 * 4
+    ld      (hl), a
+
     inc     hl
     inc     hl
+
+; --------- Sprite #5
+
     inc     hl
     ld      a, (PlayerX)
     ld      (hl), a
 
     inc     hl
+    ld      a, (PlayerAnimationFrame)
+    add     a, 5 * 4
+    ld      (hl), a
+
     inc     hl
     inc     hl
+
+; --------- Sprite #6
+
     inc     hl
     ld      a, (PlayerX)
     ld      (hl), a
 
+    inc     hl
+    ld      a, (PlayerAnimationFrame)
+    add     a, 6 * 4
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
+
+; --------- Sprite #7
 
 
     ; update sprite attributes table
