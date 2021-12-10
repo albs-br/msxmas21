@@ -8,40 +8,62 @@ UpdateSprites:
     ld      (hl), a
 
     inc     hl
-    inc     hl
-    inc     hl
-    inc     hl
+    ld      a, (PlayerAnimationFrame)
     ld      (hl), a
 
     inc     hl
     inc     hl
     inc     hl
+    ld      a, (PlayerX)
+    ld      (hl), a
+
     inc     hl
+    ld      a, (PlayerAnimationFrame)
+    add     a, 1 * 4
     ld      (hl), a
 
     inc     hl
     inc     hl
     inc     hl
-    inc     hl
+    ld      a, (PlayerX)
     ld      (hl), a
+
+    inc     hl
+    ld      a, (PlayerAnimationFrame)
+    add     a, 2 * 4
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
+    inc     hl
+    ld      a, (PlayerX)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (PlayerAnimationFrame)
+    add     a, 3 * 4
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
 
     ; Santa Claus bottom
     inc     hl
-    inc     hl
-    inc     hl
-    inc     hl
+    ld      a, (PlayerX)
     ld      (hl), a
 
     inc     hl
     inc     hl
     inc     hl
     inc     hl
+    ld      a, (PlayerX)
     ld      (hl), a
 
     inc     hl
     inc     hl
     inc     hl
     inc     hl
+    ld      a, (PlayerX)
     ld      (hl), a
 
 

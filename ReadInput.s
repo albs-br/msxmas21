@@ -41,7 +41,18 @@ ReadInput:
 
 
 
-    ld      a, 4
+    ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Right_1_Top
+    ld      iy, SPRCOL + (0 * 16)
+    ld      b, 4
+    call    LoadSpriteColors
+
+    ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Right_1_Bottom
+    ld      iy, SPRCOL + (4 * 16)
+    ld      b, 3
+    call    LoadSpriteColors
+
+
+    ld      a, 10 * 4
     ld      (PlayerAnimationFrame), a
 
     ret

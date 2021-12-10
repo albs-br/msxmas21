@@ -31,8 +31,6 @@ InitGame:
 
 
 MainLoop:
-    jp      MainLoop ; debug
-
 
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
     ld      a, (hl)
@@ -77,19 +75,17 @@ TestSpriteAttributes:
     ; db  126, 120, 13 * 4, 0
 
     
-    db  220, 0, 0, 0
-    db  220, 0, 0, 0
 
     ; Santa Claus Top
-    db  50, 120, 0 * 4, 0
-    db  50, 120, 1 * 4, 0
-    db  50, 120, 2 * 4, 0
-    db  50, 120, 3 * 4, 0
+    db  192 - 16 - 8 - 16, 120, 0 * 4, 0
+    db  192 - 16 - 8 - 16, 120, 1 * 4, 0
+    db  192 - 16 - 8 - 16, 120, 2 * 4, 0
+    db  192 - 16 - 8 - 16, 120, 3 * 4, 0
 
     ; Santa Claus Bottom
-    db  66, 120, 4 * 4, 0
-    db  66, 120, 5 * 4, 0
-    db  66, 120, 6 * 4, 0
+    db  192 - 16 - 8, 120, 4 * 4, 0
+    db  192 - 16 - 8, 120, 5 * 4, 0
+    db  192 - 16 - 8, 120, 6 * 4, 0
 
 
 
