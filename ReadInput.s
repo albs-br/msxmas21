@@ -25,7 +25,7 @@ ReadInput:
     ld      a, (PlayerX)
 
     ; if (a <= 0)
-    or      a
+    cp      0
     jp      z, .setFrame0
     jp      c, .setFrame0
 

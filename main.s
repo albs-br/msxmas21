@@ -16,7 +16,10 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "Sprites/LoadSprites.s"
     INCLUDE "ReadInput.s"
     INCLUDE "InitVariables.s"
+    INCLUDE "GameLogic.s"
     INCLUDE "UpdateSprites.s"
+
+    INCLUDE "Sprites/SpriteAssets.s"
 
 Execute:
 
@@ -41,7 +44,7 @@ MainLoop:
 
     call    ReadInput
 
-    ;call    GameLogic
+    call    GameLogic
 
     call    UpdateSprites
     
@@ -51,7 +54,6 @@ MainLoop:
 End:
 
 
-    INCLUDE "Sprites/SpriteAssets.s"
 
 
 
@@ -59,9 +61,6 @@ End:
 
 TestSpriteAttributes:
     ;   Y, X, Pattern, Reserved
-
-
-
 
     ; ; Santa Claus Top
     ; db  110, 120, 7 * 4, 0
@@ -77,18 +76,23 @@ TestSpriteAttributes:
     
 
     ; Santa Claus Top
-    db  192 - 16 - 8 - 16, 120, 0 * 4, 0
-    db  192 - 16 - 8 - 16, 120, 1 * 4, 0
-    db  192 - 16 - 8 - 16, 120, 2 * 4, 0
-    db  192 - 16 - 8 - 16, 120, 3 * 4, 0
+    ; db  192 - 16 - 8 - 16, 120, 0 * 4, 0
+    ; db  192 - 16 - 8 - 16, 120, 1 * 4, 0
+    ; db  192 - 16 - 8 - 16, 120, 2 * 4, 0
+    ; db  192 - 16 - 8 - 16, 120, 3 * 4, 0
 
-    ; Santa Claus Bottom
-    db  192 - 16 - 8, 120, 4 * 4, 0
-    db  192 - 16 - 8, 120, 5 * 4, 0
-    db  192 - 16 - 8, 120, 6 * 4, 0
+    ; ; Santa Claus Bottom
+    ; db  192 - 16 - 8, 120, 4 * 4, 0
+    ; db  192 - 16 - 8, 120, 5 * 4, 0
+    ; db  192 - 16 - 8, 120, 6 * 4, 0
 
-
-
+    db  0, 0, 0, 0
+    db  0, 0, 0, 0
+    db  0, 0, 0, 0
+    db  0, 0, 0, 0
+    db  0, 0, 0, 0
+    db  0, 0, 0, 0
+    db  0, 0, 0, 0
 
 
 
@@ -97,54 +101,12 @@ TestSpriteAttributes:
     db  0, 0, 8 * 4, 0
     db  0, 0, 9 * 4, 0
 
-
-
-
-    db  216, 0, 0, 0
-    ; db  220, 0, 0, 0
-
-    ; db  220, 0, 0, 0
-    ; db  220, 0, 0, 0
-    ; db  220, 0, 0, 0
-    ; db  220, 0, 0, 0
-
-    ; db  220, 0, 0, 0
-    ; db  220, 0, 0, 0
-    ; db  220, 0, 0, 0
-    ; db  220, 0, 0, 0
-
-    ; db  220, 0, 0, 0
-    ; db  220, 0, 0, 0
-    ; db  220, 0, 0, 0
-    ; db  220, 0, 0, 0
-
-    ; db  220, 0, 0, 0
-    ; db  220, 0, 0, 0
-    ; db  220, 0, 0, 0
-    ; db  220, 0, 0, 0
-
-    ; db  220, 0, 0, 0
-    ; db  220, 0, 0, 0
-    ; db  220, 0, 0, 0
-    ; db  220, 0, 0, 0
-
 .size:  equ $ - TestSpriteAttributes
 
 
     db      "End ROM started at 0x4000"
 
 	ds PageSize - ($ - 0x4000), 255	; Fill the unused area with 0xFF
-
-
-
-
-; 	org	0x8000, 0xBFFF
-; ImageData_1:
-;     ;INCBIN "Images/aerofighters_0.sra.new"
-;     ;INCBIN "Images/aerofighters_0.sr8.new"
-;     ;INCBIN "Images/metalslug-xaa"
-; .size:      equ $ - ImageData_1
-; 	ds PageSize - ($ - 0x8000), 255
 
 
 

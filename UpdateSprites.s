@@ -7,6 +7,9 @@ UpdateSprites:
 
 ; --------- Sprite #0
 
+    ld      a, (PlayerY)
+    ld      (hl), a
+
     inc     hl
     ld      a, (PlayerX)
     ld      (hl), a
@@ -19,6 +22,9 @@ UpdateSprites:
     inc     hl
 
 ; --------- Sprite #1
+
+    ld      a, (PlayerY)
+    ld      (hl), a
 
     inc     hl
     ld      a, (PlayerX)
@@ -34,6 +40,9 @@ UpdateSprites:
 
 ; --------- Sprite #2
 
+    ld      a, (PlayerY)
+    ld      (hl), a
+
     inc     hl
     ld      a, (PlayerX)
     ld      (hl), a
@@ -47,6 +56,9 @@ UpdateSprites:
     inc     hl
 
 ; --------- Sprite #3
+
+    ld      a, (PlayerY)
+    ld      (hl), a
 
     inc     hl
     ld      a, (PlayerX)
@@ -64,6 +76,10 @@ UpdateSprites:
 
 ; --------- Sprite #4
 
+    ld      a, (PlayerY)
+    add     a, 16
+    ld      (hl), a
+
     inc     hl
     ld      a, (PlayerX)
     ld      (hl), a
@@ -78,6 +94,10 @@ UpdateSprites:
 
 ; --------- Sprite #5
 
+    ld      a, (PlayerY)
+    add     a, 16
+    ld      (hl), a
+
     inc     hl
     ld      a, (PlayerX)
     ld      (hl), a
@@ -91,6 +111,10 @@ UpdateSprites:
     inc     hl
 
 ; --------- Sprite #6
+
+    ld      a, (PlayerY)
+    add     a, 16
+    ld      (hl), a
 
     inc     hl
     ld      a, (PlayerX)
