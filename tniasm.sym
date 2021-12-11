@@ -196,6 +196,7 @@ BIOS_LSTCOM: equ 0FB1Fh ; last def. pass 3
 BIOS_CLSSUB: equ 0115h ; last def. pass 3
 BIOS_VDP_DR: equ 06h ; last def. pass 3
 BIOS_TOCNT: equ 0FB03h ; last def. pass 3
+SANTA_CLAUS_WALKING_RIGHT_2: equ 011h ; last def. pass 3
 BIOS_ASPCT2: equ 0F40Dh ; last def. pass 3
 BIOS_INTVAL: equ 0FCA0h ; last def. pass 3
 BIOS_CALBAS: equ 0159h ; last def. pass 3
@@ -293,6 +294,7 @@ SetColor0ToTransparent: equ 040E1h ; last def. pass 3
 Wait.waitVBlank: equ 0405Fh ; last def. pass 3
 BIOS_RDPRIM: equ 0F380h ; last def. pass 3
 MSXID1: equ 02Bh ; last def. pass 3
+SANTA_CLAUS_STANDING_RIGHT: equ 00h ; last def. pass 3
 BIOS_LOHCNT: equ 0F94Dh ; last def. pass 3
 BIOS_TEMP: equ 0F6A7h ; last def. pass 3
 BIOS_EOL: equ 0168h ; last def. pass 3
@@ -400,6 +402,7 @@ BIOS_CNPNTS: equ 0F936h ; last def. pass 3
 BIOS_ERAFNK: equ 0CCh ; last def. pass 3
 BIOS_MLTATR: equ 0F3D7h ; last def. pass 3
 BIOS_FILNAM: equ 0F866h ; last def. pass 3
+SANTA_CLAUS_WALKING_RIGHT_1: equ 0Ah ; last def. pass 3
 BIOS_QUETAB: equ 0F959h ; last def. pass 3
 BIOS_GRPACY: equ 0FCB9h ; last def. pass 3
 BIOS_H_SAVD: equ 0FE94h ; last def. pass 3

@@ -102,7 +102,7 @@ ReadInput:
 
 ; frame1
 
-    ld      a, 10 * 4
+    ld      a, SANTA_CLAUS_WALKING_RIGHT_1 * 4
     ld      (PlayerAnimationFrame), a
 
     ; load colors
@@ -120,7 +120,7 @@ ReadInput:
 
 .frame2:
 
-    ld      a, 17 * 4
+    ld      a, SANTA_CLAUS_WALKING_RIGHT_2 * 4
     ld      (PlayerAnimationFrame), a
 
     ; load colors
