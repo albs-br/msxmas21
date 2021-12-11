@@ -1,8 +1,10 @@
 ; animation frames constants
 
 SANTA_CLAUS_STANDING_RIGHT:     equ 0
-SANTA_CLAUS_WALKING_RIGHT_1:     equ 10
-SANTA_CLAUS_WALKING_RIGHT_2:     equ 17
+SANTA_CLAUS_WALKING_RIGHT_1:    equ 10
+SANTA_CLAUS_WALKING_RIGHT_2:    equ 17
+SANTA_CLAUS_WALKING_LEFT_1:     equ 24
+SANTA_CLAUS_WALKING_LEFT_2:     equ 31
 
 
 
@@ -59,24 +61,24 @@ LoadSprites:
 ; -------------- Santa Claus walking left 1
 
     ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Left_1_Top
-    ld      IX, SPRPAT + (24 * 32)
+    ld      IX, SPRPAT + (SANTA_CLAUS_WALKING_LEFT_1 * 32)
     ld      b, 4
     call    LoadSpritePatterns
 
     ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Left_1_Bottom
-    ld      IX, SPRPAT + (28 * 32)
+    ld      IX, SPRPAT + ((SANTA_CLAUS_WALKING_LEFT_1 + 4) * 32)
     ld      b, 3
     call    LoadSpritePatterns
 
 ; -------------- Santa Claus walking left 2
 
     ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Left_2_Top
-    ld      IX, SPRPAT + (31 * 32)
+    ld      IX, SPRPAT + (SANTA_CLAUS_WALKING_LEFT_2 * 32)
     ld      b, 4
     call    LoadSpritePatterns
 
     ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Left_2_Bottom
-    ld      IX, SPRPAT + (35 * 32)
+    ld      IX, SPRPAT + ((SANTA_CLAUS_WALKING_LEFT_2 + 4) * 32)
     ld      b, 3
     call    LoadSpritePatterns
 

@@ -24,9 +24,9 @@ ReadInput:
 .playerLeft:
     ld      a, (PlayerX)
 
-    cp      0
-    ret     z
-    ret     c
+    or      a
+    jp      z, .setFrame0
+    jp      c, .setFrame0
 
     sub     a, 2
     ld      (PlayerX), a
@@ -43,9 +43,9 @@ ReadInput:
     or      a       ; if (a == 0)
     jp      nz, .frame2_Left
 
-; frame1
+; frame1_Left
 
-    ld      a, 24 * 4
+    ld      a, SANTA_CLAUS_WALKING_LEFT_1 * 4
     ld      (PlayerAnimationFrame), a
 
     ; load colors
@@ -63,7 +63,7 @@ ReadInput:
 
 .frame2_Left:
 
-    ld      a, 31 * 4
+    ld      a, SANTA_CLAUS_WALKING_LEFT_2 * 4
     ld      (PlayerAnimationFrame), a
 
     ; load colors
@@ -98,9 +98,9 @@ ReadInput:
     and     0000 1000b
     
     or      a       ; if (a == 0)
-    jp      nz, .frame2
+    jp      nz, .frame2_Right
 
-; frame1
+; frame1_Right
 
     ld      a, SANTA_CLAUS_WALKING_RIGHT_1 * 4
     ld      (PlayerAnimationFrame), a
@@ -118,7 +118,7 @@ ReadInput:
 
     jp      .continue
 
-.frame2:
+.frame2_Right:
 
     ld      a, SANTA_CLAUS_WALKING_RIGHT_2 * 4
     ld      (PlayerAnimationFrame), a

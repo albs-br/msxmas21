@@ -26,11 +26,11 @@ BIOS_MLTNAM: equ 0F3D1h ; last def. pass 3
 BIOS_PINLIN: equ 0AEh ; last def. pass 3
 Screen11: equ 040BCh ; last def. pass 3
 ClearVram_MSX2.loop: equ 040AFh ; last def. pass 3
-UpdateSprites: equ 04335h ; last def. pass 3
+UpdateSprites: equ 04338h ; last def. pass 3
 BIOS_TAPOOF: equ 0F0h ; last def. pass 3
-SpritePatternsAndColors_SantaClaus_Standing_Right_Bottom: equ 04483h ; last def. pass 3
+SpritePatternsAndColors_SantaClaus_Standing_Right_Bottom: equ 04486h ; last def. pass 3
 BIOS_ROMSLT: equ 0FCC0h ; last def. pass 3
-SpritePatternsAndColors_SantaClaus_Standing_Right_Top: equ 043C3h ; last def. pass 3
+SpritePatternsAndColors_SantaClaus_Standing_Right_Top: equ 043C6h ; last def. pass 3
 BIOS_VOICEN: equ 0FB38h ; last def. pass 3
 BIOS_ERRTXT: equ 0F6B7h ; last def. pass 3
 BIOS_CPNCNT8: equ 0F93Bh ; last def. pass 3
@@ -73,9 +73,9 @@ BIOS_TAPIN: equ 0E4h ; last def. pass 3
 BIOS_H_CHPH: equ 0FDA4h ; last def. pass 3
 BIOS_NSETRD: equ 016Eh ; last def. pass 3
 BIOS_JIFFY: equ 0FC9Eh ; last def. pass 3
-MainLoop: equ 043B3h ; last def. pass 3
+MainLoop: equ 043B6h ; last def. pass 3
 BIOS_H_GONE: equ 0FF43h ; last def. pass 3
-SpritePatternsAndColors_SantaClaus_Walking_Left_2_Bottom: equ 049F3h ; last def. pass 3
+SpritePatternsAndColors_SantaClaus_Walking_Left_2_Bottom: equ 049F6h ; last def. pass 3
 BIOS_PRSCNT: equ 0FB35h ; last def. pass 3
 BIOS_H_CVI: equ 0FE3Fh ; last def. pass 3
 BIOS_TEMP9: equ 0F7B8h ; last def. pass 3
@@ -93,6 +93,7 @@ BIOS_H_NOTR: equ 0FF34h ; last def. pass 3
 BIOS_INIPLT: equ 0141h ; last def. pass 3
 BIOS_DEVNUM: equ 0FB17h ; last def. pass 3
 BIOS_SLTATR: equ 0FCC9h ; last def. pass 3
+ReadInput.frame2_Right: equ 042E8h ; last def. pass 3
 BIOS_H_WIDT: equ 0FF84h ; last def. pass 3
 BIOS_GRPNAM: equ 0F3C7h ; last def. pass 3
 BIOS_VDP_DW: equ 07h ; last def. pass 3
@@ -113,7 +114,7 @@ BIOS_KILBUF: equ 0156h ; last def. pass 3
 BIOS_DRWFLG: equ 0FCBBh ; last def. pass 3
 BIOS_DOT: equ 0F6B5h ; last def. pass 3
 BIOS_VOICCQ: equ 0FA75h ; last def. pass 3
-Execute: equ 043AAh ; last def. pass 3
+Execute: equ 043ADh ; last def. pass 3
 BIOS_ESTBLS: equ 0FB1Dh ; last def. pass 3
 BIOS_CYOFF: equ 0F947h ; last def. pass 3
 BIOS_CXOFF: equ 0F945h ; last def. pass 3
@@ -124,11 +125,11 @@ BIOS_H_ISMI: equ 0FF7Fh ; last def. pass 3
 BIOS_SETPLT: equ 014Dh ; last def. pass 3
 BIOS_H_DSKF: equ 0FE12h ; last def. pass 3
 BIOS_CONLO: equ 0F66Ah ; last def. pass 3
-SpritePatternsAndColors_Gift_1: equ 04AB3h ; last def. pass 3
+SpritePatternsAndColors_Gift_1: equ 04AB6h ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Left_2_Bottom.size: equ 0C0h ; last def. pass 3
 BIOS_SLTTBL: equ 0FCC5h ; last def. pass 3
 BIOS_DSCTMP: equ 0F698h ; last def. pass 3
-End: equ 043C3h ; last def. pass 3
+End: equ 043C6h ; last def. pass 3
 BIOS_H_LOC: equ 0FE99h ; last def. pass 3
 BIOS_H_CVS: equ 0FE44h ; last def. pass 3
 BIOS_MIVCNT: equ 0F951h ; last def. pass 3
@@ -161,7 +162,7 @@ BIOS_H_DSKC: equ 0FEEEh ; last def. pass 3
 BIOS_WRTCLK: equ 01F9h ; last def. pass 3
 BIOS_LDIRMV: equ 059h ; last def. pass 3
 BIOS_OLDLIN: equ 0F6BEh ; last def. pass 3
-SpritePatternsAndColors_SantaClaus_Walking_Left_1_Top: equ 047E3h ; last def. pass 3
+SpritePatternsAndColors_SantaClaus_Walking_Left_1_Top: equ 047E6h ; last def. pass 3
 BIOS_GXPOS: equ 0FCB3h ; last def. pass 3
 MSXID4: equ 02Eh ; last def. pass 3
 BIOS_H_POSD: equ 0FEBCh ; last def. pass 3
@@ -177,7 +178,7 @@ BIOS_GRPATR: equ 0F3CDh ; last def. pass 3
 BIOS_USRDATA: equ 0F7F8h ; last def. pass 3
 BIOS_TEMP8: equ 0F69Fh ; last def. pass 3
 BIOS_BEEP: equ 0C0h ; last def. pass 3
-SpritePatternsAndColors_SantaClaus_Walking_Right_1_Top: equ 04513h ; last def. pass 3
+SpritePatternsAndColors_SantaClaus_Walking_Right_1_Top: equ 04516h ; last def. pass 3
 ReadInput.playerLeft: equ 0425Ch ; last def. pass 3
 BIOS_MAXFIL: equ 0F85Fh ; last def. pass 3
 BIOS_H_DSPF: equ 0FDB3h ; last def. pass 3
@@ -190,7 +191,7 @@ BIOS_H_CLEAR: equ 0FED0h ; last def. pass 3
 BIOS_TRAPTBL: equ 0FC4Ch ; last def. pass 3
 BIOS_ASPECT: equ 0F931h ; last def. pass 3
 BIOS_FLBMEM: equ 0FCAEh ; last def. pass 3
-SpritePatternsAndColors_SantaClaus_Walking_Right_2_Bottom: equ 04723h ; last def. pass 3
+SpritePatternsAndColors_SantaClaus_Walking_Right_2_Bottom: equ 04726h ; last def. pass 3
 BIOS_TEMPPT: equ 0F768h ; last def. pass 3
 BIOS_LSTCOM: equ 0FB1Fh ; last def. pass 3
 BIOS_CLSSUB: equ 0115h ; last def. pass 3
@@ -203,6 +204,7 @@ BIOS_CALBAS: equ 0159h ; last def. pass 3
 ClearVram_MSX2.loop_2: equ 040ABh ; last def. pass 3
 BIOS_OLDINT: equ 0FB12h ; last def. pass 3
 BIOS_TEMP3: equ 0F69Dh ; last def. pass 3
+SANTA_CLAUS_WALKING_LEFT_2: equ 01Fh ; last def. pass 3
 BIOS_H_ISRE: equ 0FF2Ah ; last def. pass 3
 BIOS_TEMPST: equ 0F67Ah ; last def. pass 3
 BIOS_PRMFLG: equ 0F7B4h ; last def. pass 3
@@ -221,11 +223,11 @@ BIOS_ENDPRG: equ 0F40Fh ; last def. pass 3
 BIOS_MCLPTR: equ 0FB3Ch ; last def. pass 3
 BIOS_OLDSTT: equ 0FB0Ch ; last def. pass 3
 BIOS_TAPOON: equ 0EAh ; last def. pass 3
-ReadInput.frame2_Left: equ 04291h ; last def. pass 3
-MainLoop.waitVBlank: equ 043B7h ; last def. pass 3
+ReadInput.frame2_Left: equ 04294h ; last def. pass 3
+MainLoop.waitVBlank: equ 043BAh ; last def. pass 3
 BIOS_MINUPD: equ 0F3EFh ; last def. pass 3
 BIOS_ATRBAS: equ 0F928h ; last def. pass 3
-InitVariables: equ 04320h ; last def. pass 3
+InitVariables: equ 04323h ; last def. pass 3
 PORT_2: equ 09Ah ; last def. pass 3
 BIOS_LOWLIM: equ 0FCA4h ; last def. pass 3
 BIOS_PRMLEN: equ 0F6E6h ; last def. pass 3
@@ -242,7 +244,7 @@ BIOS_LDIRVM: equ 05Ch ; last def. pass 3
 BIOS_TXTPAT: equ 0F3BBh ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Standing_Right_Top.size: equ 0C0h ; last def. pass 3
 BIOS_CALATR: equ 087h ; last def. pass 3
-SpritePatternsAndColors_SantaClaus_Walking_Right_2_Top: equ 04663h ; last def. pass 3
+SpritePatternsAndColors_SantaClaus_Walking_Right_2_Top: equ 04666h ; last def. pass 3
 BIOS_BIGFIL: equ 016Bh ; last def. pass 3
 BIOS_CAPST: equ 0FCABh ; last def. pass 3
 BIOS_GRPPRT: equ 08Dh ; last def. pass 3
@@ -318,7 +320,7 @@ SpritePatternsAndColors_SantaClaus_Walking_Right_2_Top.size: equ 0C0h ; last def
 BIOS_CLS: equ 0C3h ; last def. pass 3
 BIOS_PRTFLG: equ 0F416h ; last def. pass 3
 BIOS_DISSCR: equ 041h ; last def. pass 3
-SpritePatternsAndColors_SantaClaus_Walking_Left_1_Bottom: equ 048A3h ; last def. pass 3
+SpritePatternsAndColors_SantaClaus_Walking_Left_1_Bottom: equ 048A6h ; last def. pass 3
 NAMTBL: equ 00h ; last def. pass 3
 BIOS_PARM2: equ 0F750h ; last def. pass 3
 BIOS_RG9SAV: equ 0FFE8h ; last def. pass 3
@@ -354,6 +356,7 @@ BIOS_ASPCT1: equ 0F40Bh ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Right_2_Bottom.size: equ 0C0h ; last def. pass 3
 BIOS_LOHDIR: equ 0F94Ah ; last def. pass 3
 BIOS_CALPAT: equ 084h ; last def. pass 3
+SANTA_CLAUS_WALKING_LEFT_1: equ 018h ; last def. pass 3
 BIOS_DATCNT: equ 0FB18h ; last def. pass 3
 BIOS_ENDBUF: equ 0F660h ; last def. pass 3
 BIOS_INIMLT: equ 075h ; last def. pass 3
@@ -370,7 +373,7 @@ BIOS_QUEUES: equ 0F3F3h ; last def. pass 3
 BIOS_RUNFLG: equ 0F866h ; last def. pass 3
 BIOS_TXTTAB: equ 0F676h ; last def. pass 3
 BIOS_CONSAV: equ 0F668h ; last def. pass 3
-TestSpriteAttributes: equ 04B43h ; last def. pass 3
+TestSpriteAttributes: equ 04B46h ; last def. pass 3
 BIOS_T32CGP: equ 0F3C1h ; last def. pass 3
 BIOS_H_TIMI: equ 0FD9Fh ; last def. pass 3
 BIOS_TRCFLG: equ 0F7C4h ; last def. pass 3
@@ -420,7 +423,7 @@ BIOS_H_NAME: equ 0FDF9h ; last def. pass 3
 BIOS_H_CHRG: equ 0FF48h ; last def. pass 3
 BIOS_RSLREG: equ 0138h ; last def. pass 3
 BIOS_ENDFOR: equ 0F6A1h ; last def. pass 3
-ReadInput.setFrame0: equ 04303h ; last def. pass 3
+ReadInput.setFrame0: equ 04306h ; last def. pass 3
 LoadSpritePatterns.nextHLAndIX: equ 041EEh ; last def. pass 3
 BIOS_VDPSTA: equ 0131h ; last def. pass 3
 BIOS_DATPTR: equ 0F6C8h ; last def. pass 3
@@ -433,9 +436,8 @@ BIOS_RG0SAV: equ 0F3DFh ; last def. pass 3
 BIOS_LINL40: equ 0F3AEh ; last def. pass 3
 BIOS_CURLIN: equ 0F41Ch ; last def. pass 3
 BIOS_H_NULO: equ 0FE5Dh ; last def. pass 3
-SpritePatternsAndColors_SantaClaus_Walking_Right_1_Bottom: equ 045D3h ; last def. pass 3
+SpritePatternsAndColors_SantaClaus_Walking_Right_1_Bottom: equ 045D6h ; last def. pass 3
 LoadSpritePatternsWithColors: equ 041D2h ; last def. pass 3
-ReadInput.frame2: equ 042E5h ; last def. pass 3
 BIOS_CGPNT: equ 0F91Fh ; last def. pass 3
 BIOS_FNKSTR: equ 0F87Fh ; last def. pass 3
 BIOS_SAVSP: equ 0FB36h ; last def. pass 3
@@ -519,7 +521,7 @@ BIOS_H_RUNC: equ 0FECBh ; last def. pass 3
 BIOS_H_DIRD: equ 0FF11h ; last def. pass 3
 BIOS_LINL32: equ 0F3AFh ; last def. pass 3
 BIOS_CNVCHR: equ 0ABh ; last def. pass 3
-ReadInput.continue: equ 04302h ; last def. pass 3
+ReadInput.continue: equ 04305h ; last def. pass 3
 BIOS_H_SETS: equ 0FDF4h ; last def. pass 3
 BIOS_INITXT: equ 06Ch ; last def. pass 3
 BIOS_H_LIST: equ 0FF89h ; last def. pass 3
@@ -555,7 +557,7 @@ BIOS_H_FPOS: equ 0FEA8h ; last def. pass 3
 BIOS_RTPROG: equ 0F955h ; last def. pass 3
 BIOS_INIT32: equ 06Fh ; last def. pass 3
 BIOS_MLTCGP: equ 0F3D5h ; last def. pass 3
-SpritePatternsAndColors_SantaClaus_Walking_Left_2_Top: equ 04933h ; last def. pass 3
+SpritePatternsAndColors_SantaClaus_Walking_Left_2_Top: equ 04936h ; last def. pass 3
 BIOS_MEXBIH: equ 0FB07h ; last def. pass 3
 BIOS_TAPIOF: equ 0E7h ; last def. pass 3
 BIOS_INITIO: equ 03Bh ; last def. pass 3
@@ -566,7 +568,7 @@ BIOS_T32NAM: equ 0F3BDh ; last def. pass 3
 BIOS_NVBXLN: equ 0C9h ; last def. pass 3
 LDIRVM_MSX2.loop_1: equ 040F7h ; last def. pass 3
 BIOS_KNJPRT: equ 01BDh ; last def. pass 3
-ReadInput.playerRight: equ 042AFh ; last def. pass 3
+ReadInput.playerRight: equ 042B2h ; last def. pass 3
 BIOS_PADY: equ 0FC9Ch ; last def. pass 3
 BIOS_SYNCHR: equ 08h ; last def. pass 3
 BIOS_VLZDAT: equ 0F41Bh ; last def. pass 3
@@ -585,7 +587,7 @@ BIOS_ACPAGE: equ 0FAF6h ; last def. pass 3
 BIOS_RSFCB: equ 0FB04h ; last def. pass 3
 BIOS_LINTTB: equ 0FBB2h ; last def. pass 3
 BIOS_FRETOP: equ 0F69Bh ; last def. pass 3
-InitGame: equ 043ADh ; last def. pass 3
+InitGame: equ 043B0h ; last def. pass 3
 BIOS_H_FILO: equ 0FE85h ; last def. pass 3
 BIOS_GRPCOL: equ 0F3C9h ; last def. pass 3
 BIOS_DRWANG: equ 0FCBDh ; last def. pass 3
