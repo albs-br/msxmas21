@@ -31,6 +31,52 @@ ReadInput:
     sub     a, 2
     ld      (PlayerX), a
 
+
+
+
+
+    ; animation
+    
+    ld      a, (BIOS_JIFFY)
+    and     0000 1000b
+    
+    or      a       ; if (a == 0)
+    jp      nz, .frame2_Left
+
+; frame1
+
+    ld      a, 24 * 4
+    ld      (PlayerAnimationFrame), a
+
+    ; load colors
+    ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Left_1_Top
+    ld      iy, SPRCOL + (0 * 16)
+    ld      b, 4
+    call    LoadSpriteColors
+
+    ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Left_1_Bottom
+    ld      iy, SPRCOL + (4 * 16)
+    ld      b, 3
+    call    LoadSpriteColors
+
+    jp      .continue
+
+.frame2_Left:
+
+    ld      a, 31 * 4
+    ld      (PlayerAnimationFrame), a
+
+    ; load colors
+    ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Left_2_Top
+    ld      iy, SPRCOL + (0 * 16)
+    ld      b, 4
+    call    LoadSpriteColors
+
+    ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Left_2_Bottom
+    ld      iy, SPRCOL + (4 * 16)
+    ld      b, 3
+    call    LoadSpriteColors
+
     ret
 
 .playerRight:
