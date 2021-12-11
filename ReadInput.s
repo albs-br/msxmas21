@@ -24,6 +24,7 @@ ReadInput:
 .playerLeft:
     ld      a, (PlayerX)
 
+    ; if (a <= 0)
     or      a
     jp      z, .setFrame0
     jp      c, .setFrame0
@@ -82,6 +83,7 @@ ReadInput:
 .playerRight:
     ld      a, (PlayerX)
 
+    ; if (a > 239)
     cp      255 - 16
     jp      nc, .setFrame0
 
