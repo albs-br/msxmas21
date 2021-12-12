@@ -64,6 +64,10 @@ InitGift:
     ; Dx:                  rb 1    ; Delta X (amount of pixels to move horizontally each frame; can be negative)
     ; Dy:                  rb 1    ; Delta Y
 
+
+    jp .topRight; debug
+
+.topLeft:
     ; Status
     ld      a, 0
     ld      (hl), a
@@ -90,6 +94,36 @@ InitGift:
 
     ; DY
     inc     hl    
+    ld      a, 0
+    ld      (hl), a
+
+.topRight:
+    ; Status
+    ld      a, 0
+    ld      (hl), a
+
+    ; ConveyorBeltEnd
+    inc     hl
+    ld      a, 180
+    ld      (hl), a
+
+    ; X
+    inc     hl
+    ld      a, 255
+    ld      (hl), a
+
+    ; Y
+    inc     hl
+    ld      a, 16 + 32 + 32
+    ld      (hl), a
+
+    ; DX
+    inc     hl
+    ld      a, -1
+    ld      (hl), a
+
+    ; DY
+    inc     hl
     ld      a, 0
     ld      (hl), a
 
