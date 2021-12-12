@@ -3,7 +3,7 @@ UpdateSprites:
     ld      hl, SpriteAttributes
 
 
-; --------------------------------- Santa Claus top -----------------------------------
+; ================================== Santa Claus top ==================================
 
 ; --------- Sprite #0
 
@@ -72,7 +72,7 @@ UpdateSprites:
     inc     hl
     inc     hl
 
-; --------------------------------- Santa Claus bottom -----------------------------------
+; ================================== Santa Claus bottom ==================================
 
 ; --------- Sprite #4
 
@@ -128,7 +128,56 @@ UpdateSprites:
     inc     hl
     inc     hl
 
+; ================================== Gift 1 ==================================
+
 ; --------- Sprite #7
+
+    ld      a, (Gift_1_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Gift_1_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, 7 * 4
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
+
+; --------- Sprite #8
+
+    ld      a, (Gift_1_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Gift_1_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, 8 * 4
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
+
+; --------- Sprite #9
+
+    ld      a, (Gift_1_Y)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Gift_1_X)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, 9 * 4
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
+
 
 
     ; update sprite attributes table

@@ -6,12 +6,12 @@ PlayerAnimationFrame:       rb 1
 
 ; Gift struct
 Gift_1_Struct:
-Gift_1_Status:              rb 1
-Gift_1_ConveyorBeltEnd:     rb 1
+Gift_1_Status:              rb 1    ; 0: Horizontal; >= 1: Falling
+Gift_1_ConveyorBeltEnd:     rb 1    ; X coordinate where the conveyor belt ends (gift starts falling)
 Gift_1_X:                   rb 1
 Gift_1_Y:                   rb 1
-Gift_1_Dx:                  rb 1
-Gift_1_Dy:                  rb 1
+Gift_1_Dx:                  rb 1    ; Delta X (amount of pixels to move horizontally each frame; can be negative)
+Gift_1_Dy:                  rb 1    ; Delta Y
 Gift_1_Struct.size:         equ $ - Gift_1_Struct
 
 
