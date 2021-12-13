@@ -9,7 +9,10 @@ PlayerAnimationFrame:       rb 1
 
 CheckIfConveyorBeltIsFree_TempVar:      rb 1
 
-; Gift_Temp_Struct_ReturnAddr:    rw 1
+ConveyorBeltOccupation:         rb 6
+
+
+Gift_Temp_Struct_ReturnAddr:    rw 1
 
 ; Gift struct
 Gift_Temp_Struct:
@@ -19,6 +22,7 @@ Gift_Temp_X:                   rb 1
 Gift_Temp_Y:                   rb 1
 Gift_Temp_Dx:                  rb 1    ; Delta X (amount of pixels to move horizontally each frame; can be negative)
 Gift_Temp_Dy:                  rb 1    ; Delta Y
+Gift_Temp_ConveyorBelt_Number: rb 1    ; 0 - 5
 Gift_Temp_Struct.size:         equ $ - Gift_Temp_Struct
 
 

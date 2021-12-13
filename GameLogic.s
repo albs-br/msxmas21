@@ -22,18 +22,20 @@ InitGift:
     ; Dx:                  rb 1    ; Delta X (amount of pixels to move horizontally each frame; can be negative)
     ; Dy:                  rb 1    ; Delta Y
 
+
+    jp      .topLeft;debug
+
     call    RandomNumber
     and     0000 0001b
-    or      a
     jp      z, .topRight
     jp      .topLeft
 
 .topLeft:
 
-    ld      a, CONVEYOR_BELT_TOP_LEFT_Y
-    call    CheckIfConveyorBeltIsFree
-    or      a
-    jp      nz, InitGift
+    ; ld      a, 0
+    ; call    CheckIfConveyorBeltIsFree
+    ; or      a
+    ; jp      nz, InitGift
 
     ; Status
     ld      a, 0
@@ -64,9 +66,14 @@ InitGift:
     ld      a, 0
     ld      (hl), a
 
+    ; Conveyor belt number
+    inc     hl    
+    ld      a, 0
+    ld      (hl), a
+
 .topRight:
 
-    ld      a, CONVEYOR_BELT_TOP_LEFT_Y
+    ld      a, 1
     call    CheckIfConveyorBeltIsFree
     or      a
     jp      nz, InitGift
@@ -100,58 +107,77 @@ InitGift:
     ld      a, 0
     ld      (hl), a
 
-    ret
-
-
-
-; Input: 
-;   a: Y coord of conveyor belt
-; Return: 
-;   a = 0 : Free
-;   a = 1 : Occupied
-CheckIfConveyorBeltIsFree:
-    ld      (CheckIfConveyorBeltIsFree_TempVar), a
-
-    ; loop through all gift structs
-    ld      d, 6
-    ld      hl, Gift_1_Struct
-.loop:
-    ; if(status == 0)
-    ld      a, (hl)
-    or      a
-    jp      nz, .next
-
-    ; if(y == A)
-    push    hl
-        ld      bc, 3
-        add     hl, bc
-        ld      a, (hl)
-    pop     hl
-    ld      b, a
-    ld      a, (CheckIfConveyorBeltIsFree_TempVar)
-    cp      b
-    jp      z, .occupied
-
-.next:
-    ; next gift
-    ld      bc, Gift_Temp_Struct.size
-    add     hl, bc
-
-    dec     d
-    jp      nz, .loop
-
-; not found
-    ld      a, 0
-    ret
-
-.occupied:
+    ; Conveyor belt number
+    inc     hl    
     ld      a, 1
+    ld      (hl), a
+
     ret
+
+
+
+; ; Input: 
+; ;   a: Y coord of conveyor belt
+; ; Return: 
+; ;   a = 0 : Free
+; ;   a = 1 : Occupied
+; CheckIfConveyorBeltIsFree:
+;     ld      (CheckIfConveyorBeltIsFree_TempVar), a
+
+;     ; loop through all gift structs
+;     ld      d, 6
+;     ld      hl, Gift_1_Struct
+; .loop:
+;     ; if(status == 0)
+;     ld      a, (hl)
+;     or      a
+;     jp      nz, .next
+
+;     ; if(y == A)
+;     push    hl
+;         ld      bc, 3
+;         add     hl, bc
+;         ld      a, (hl)
+;     pop     hl
+;     ld      b, a
+;     ld      a, (CheckIfConveyorBeltIsFree_TempVar)
+;     cp      b
+;     jp      z, .occupied
+
+; .next:
+;     ; next gift
+;     ld      bc, Gift_Temp_Struct.size
+;     add     hl, bc
+
+;     dec     d
+;     jp      nz, .loop
+
+; ; not found
+;     ld      a, 0
+;     ret
+
+; .occupied:
+;     ld      a, 1
+;     ret
+
+
+
+CheckIfConveyorBeltIsFree:
+    ld      hl, ConveyorBeltOccupation
+    ld      b, 0
+    ld      c, a
+    add     hl, bc
+    ld      a, (hl)
+    ret
+
 
 GiftLogic:
 
     ; save hl
     push     hl
+
+        ld      (Gift_Temp_Struct_ReturnAddr), hl
+
 
         ; Copy object vars to temp vars
         ;ld      hl, ?                                          ; source
@@ -204,14 +230,14 @@ GiftLogic:
         add     a, b
         ld      (Gift_Temp_Y), a
 
-        ld      hl, Gift_Temp_Struct
+        ld      hl, (Gift_Temp_Struct_ReturnAddr)
 
         ; (if Y >= 192)
         ld      b, a
         ld      a, 192
         cp      b
-        call    z, InitGift
-        call    c, InitGift
+        call    z, ResetGift
+        call    c, ResetGift
 
 
 .return:
@@ -220,5 +246,29 @@ GiftLogic:
     pop     de                                              ; destiny
     ld      bc, Gift_Temp_Struct.size                       ; size
     ldir                                                    ; Copy BC bytes from HL to DE
+
+    ret
+
+
+
+ResetGift:
+
+    push    hl
+        ; hl += 6 (point to ConveyorBelt_Number)
+        ld      bc, 6
+        add     hl, bc
+
+        ; get ConveyorBelt_Number
+        ld      c, (hl)
+
+        ld      hl, ConveyorBeltOccupation
+        ld      b, 0
+        add     hl, bc
+
+        ld      a, 0
+        ld      (hl), a
+
+    pop     hl
+    call    InitGift
 
     ret
