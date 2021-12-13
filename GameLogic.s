@@ -1,56 +1,7 @@
 GameLogic:
 
-    ; if (Status == 0)
-    ld      a, (Gift_1_Status)
-    or      a
-
-    jp      nz, .falling
-
-    ; move horizontally
-    
-    ; X += DX
-    ld      a, (Gift_1_Dx)
-    ld      b, a
-    ld      a, (Gift_1_X)
-    add     a, b
-    ld      (Gift_1_X), a
-
-    ; (if X == ConveyorBeltEnd)
-    ld      b, a
-    ld      a, (Gift_1_ConveyorBeltEnd)
-    cp      b
-    jp      z, .startFalling
-
-    ret
-
-
-
-.startFalling:
-    ld      a, 1
-    ld      (Gift_1_Status), a
-    ld      a, 2
-    ld      (Gift_1_Dy), a
-
-    ret
-
-
-
-.falling:
-    ; Y += DY
-    ld      a, (Gift_1_Dy)
-    ld      b, a
-    ld      a, (Gift_1_Y)
-    add     a, b
-    ld      (Gift_1_Y), a
-
     ld      hl, Gift_1_Struct
-
-    ; (if Y >= 192)
-    ld      b, a
-    ld      a, 192
-    cp      b
-    call    z, InitGift
-    call    c, InitGift
+    call    GiftLogic
 
     ret
 
@@ -126,5 +77,82 @@ InitGift:
     inc     hl
     ld      a, 0
     ld      (hl), a
+
+    ret
+
+
+
+GiftLogic:
+
+    ; save hl
+    push     hl
+
+        ; Copy object vars to temp vars
+        ;ld      hl, ?                                          ; source
+        ld      de, Gift_Temp_Struct                            ; destiny
+        ld      bc, Gift_Temp_Struct.size                       ; size
+        ldir                                                    ; Copy BC bytes from HL to DE
+
+
+
+        ; if (Status == 0)
+        ld      a, (Gift_Temp_Status)
+        or      a
+
+        jp      nz, .falling
+
+        ; move horizontally
+        
+        ; X += DX
+        ld      a, (Gift_Temp_Dx)
+        ld      b, a
+        ld      a, (Gift_Temp_X)
+        add     a, b
+        ld      (Gift_Temp_X), a
+
+        ; (if X == ConveyorBeltEnd)
+        ld      b, a
+        ld      a, (Gift_Temp_ConveyorBeltEnd)
+        cp      b
+        jp      z, .startFalling
+
+        jp      .return
+
+
+
+.startFalling:
+        ld      a, 1
+        ld      (Gift_Temp_Status), a
+        ld      a, 2
+        ld      (Gift_Temp_Dy), a
+
+        jp      .return
+
+
+
+.falling:
+        ; Y += DY
+        ld      a, (Gift_Temp_Dy)
+        ld      b, a
+        ld      a, (Gift_Temp_Y)
+        add     a, b
+        ld      (Gift_Temp_Y), a
+
+        ld      hl, Gift_Temp_Struct
+
+        ; (if Y >= 192)
+        ld      b, a
+        ld      a, 192
+        cp      b
+        call    z, InitGift
+        call    c, InitGift
+
+
+.return:
+        ; Copy temp vars back to object vars
+        ld      hl, Gift_Temp_Struct                        ; source
+    pop     de                                              ; destiny
+    ld      bc, Gift_Temp_Struct.size                       ; size
+    ldir                                                    ; Copy BC bytes from HL to DE
 
     ret

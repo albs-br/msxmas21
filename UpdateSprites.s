@@ -132,11 +132,16 @@ UpdateSprites:
 
 ; --------- Sprite #7
 
-    ld      a, (Gift_1_Y)
+
+    ; Y
+    ld      de, Gift_1_Struct + 3
+    ld      a, (de)
     ld      (hl), a
 
+    ; X
+    ld      de, Gift_1_Struct + 2
     inc     hl
-    ld      a, (Gift_1_X)
+    ld      a, (de)
     ld      (hl), a
 
     inc     hl
@@ -148,11 +153,15 @@ UpdateSprites:
 
 ; --------- Sprite #8
 
-    ld      a, (Gift_1_Y)
+    ; Y
+    ld      de, Gift_1_Struct + 3
+    ld      a, (de)
     ld      (hl), a
 
+    ; X
+    ld      de, Gift_1_Struct + 2
     inc     hl
-    ld      a, (Gift_1_X)
+    ld      a, (de)
     ld      (hl), a
 
     inc     hl
@@ -164,11 +173,15 @@ UpdateSprites:
 
 ; --------- Sprite #9
 
-    ld      a, (Gift_1_Y)
+    ; Y
+    ld      de, Gift_1_Struct + 3
+    ld      a, (de)
     ld      (hl), a
 
+    ; X
+    ld      de, Gift_1_Struct + 2
     inc     hl
-    ld      a, (Gift_1_X)
+    ld      a, (de)
     ld      (hl), a
 
     inc     hl
