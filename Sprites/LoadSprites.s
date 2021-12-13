@@ -1,12 +1,17 @@
 ; animation frames constants
 
 SANTA_CLAUS_STANDING_RIGHT:     equ 0
-SANTA_CLAUS_WALKING_RIGHT_1:    equ 10
-SANTA_CLAUS_WALKING_RIGHT_2:    equ 17
-SANTA_CLAUS_WALKING_LEFT_1:     equ 24
-SANTA_CLAUS_WALKING_LEFT_2:     equ 31
+SANTA_CLAUS_WALKING_RIGHT_1:    equ 10 + 15
+SANTA_CLAUS_WALKING_RIGHT_2:    equ 17 + 15
+SANTA_CLAUS_WALKING_LEFT_1:     equ 24 + 15
+SANTA_CLAUS_WALKING_LEFT_2:     equ 31 + 15
 
-
+GIFT_1:                         equ 7
+GIFT_2:                         equ 10
+GIFT_3:                         equ 13
+GIFT_4:                         equ 16
+GIFT_5:                         equ 19
+GIFT_6:                         equ 22
 
 LoadSprites:
 
@@ -28,11 +33,17 @@ LoadSprites:
 ; --------------- Gift 1
 
     ld      hl, SpritePatternsAndColors_Gift_1
-    ld      IX, SPRPAT + (7 * 32)
-    ld      IY, SPRCOL + (7 * 16)
+    ld      IX, SPRPAT + (GIFT_1 * 32)
+    ld      IY, SPRCOL + (GIFT_1 * 16)
     ld      b, 3
     call    LoadSpritePatternsWithColors
 
+; --------------- Gift 2
+
+    ld      hl, SpritePatternsAndColors_Gift_1
+    ld      IY, SPRCOL + (GIFT_2 * 16)
+    ld      b, 3
+    call    LoadSpriteColors
 
 ; -------------- Santa Claus walking right 1
 

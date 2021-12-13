@@ -1,8 +1,13 @@
+Seed:                       rw 1            ; Seed for random number generator
+
+
 PlayerX:                    rb 1
 PlayerY:                    rb 1
 PlayerAnimationFrame:       rb 1
 
 
+
+CheckIfConveyorBeltIsFree_TempVar:      rb 1
 
 ; Gift_Temp_Struct_ReturnAddr:    rw 1
 

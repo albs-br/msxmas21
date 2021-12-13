@@ -289,3 +289,34 @@ LDIRVM_MSX2:
     dec     d
     jp      nz, .loop_1
 	ret
+
+
+
+;Random number generator:
+; In: nothing
+; Out: A with a random number
+; Destroys: nothing
+;Author: Ricardo Bittencourt aka RicBit (BrMSX, Tetrinet and several other projects)
+; choose a random number in the set [0,255] with uniform distribution
+RandomNumber:
+    push    hl
+        ld      hl, (Seed)
+        add     hl, hl
+        sbc     a, a
+        and     0x83
+        xor     l
+        ld      l, a
+        ld      (Seed), hl
+    pop     hl
+    ret
+
+    ; The random number generated will be any number from 0 to FFh.
+    ; Despite be a random number generator routine, your results will pass in several statistical tests.
+    ; Before the first call, the SEED value must be initiated with a value different of 0.
+    ; For a deterministic behavior (the sequence of values will be the same if the program was initiated), use a fixed SEED value.
+    ; For a somewhat more random sequence, use:
+    ; LD A,(JIFFY);MSX BIOS time variable
+    ; OR 80H ;A value different of zero is granted
+    ; LD A,(SEED)
+
+    ; The values obtained from this method is much more *random* that what you get from LD A,R.

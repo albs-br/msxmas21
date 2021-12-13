@@ -1,6 +1,13 @@
+CONVEYOR_BELT_TOP_LEFT_Y:           equ 16
+CONVEYOR_BELT_TOP_RIGHT_Y:           equ 16 + 16
+
+
 GameLogic:
 
     ld      hl, Gift_1_Struct
+    call    GiftLogic
+
+    ld      hl, Gift_2_Struct
     call    GiftLogic
 
     ret
@@ -15,10 +22,19 @@ InitGift:
     ; Dx:                  rb 1    ; Delta X (amount of pixels to move horizontally each frame; can be negative)
     ; Dy:                  rb 1    ; Delta Y
 
-
-    jp .topRight; debug
+    call    RandomNumber
+    and     0000 0001b
+    or      a
+    jp      z, .topRight
+    jp      .topLeft
 
 .topLeft:
+
+    ld      a, CONVEYOR_BELT_TOP_LEFT_Y
+    call    CheckIfConveyorBeltIsFree
+    or      a
+    jp      nz, InitGift
+
     ; Status
     ld      a, 0
     ld      (hl), a
@@ -35,7 +51,7 @@ InitGift:
 
     ; Y
     inc     hl    
-    ld      a, 16
+    ld      a, CONVEYOR_BELT_TOP_LEFT_Y
     ld      (hl), a
 
     ; DX
@@ -49,6 +65,12 @@ InitGift:
     ld      (hl), a
 
 .topRight:
+
+    ld      a, CONVEYOR_BELT_TOP_LEFT_Y
+    call    CheckIfConveyorBeltIsFree
+    or      a
+    jp      nz, InitGift
+
     ; Status
     ld      a, 0
     ld      (hl), a
@@ -65,7 +87,7 @@ InitGift:
 
     ; Y
     inc     hl
-    ld      a, 16 + 32 + 32
+    ld      a, CONVEYOR_BELT_TOP_RIGHT_Y
     ld      (hl), a
 
     ; DX
@@ -81,6 +103,50 @@ InitGift:
     ret
 
 
+
+; Input: 
+;   a: Y coord of conveyor belt
+; Return: 
+;   a = 0 : Free
+;   a = 1 : Occupied
+CheckIfConveyorBeltIsFree:
+    ld      (CheckIfConveyorBeltIsFree_TempVar), a
+
+    ; loop through all gift structs
+    ld      d, 6
+    ld      hl, Gift_1_Struct
+.loop:
+    ; if(status == 0)
+    ld      a, (hl)
+    or      a
+    jp      nz, .next
+
+    ; if(y == A)
+    push    hl
+        ld      bc, 3
+        add     hl, bc
+        ld      a, (hl)
+    pop     hl
+    ld      b, a
+    ld      a, (CheckIfConveyorBeltIsFree_TempVar)
+    cp      b
+    jp      z, .occupied
+
+.next:
+    ; next gift
+    ld      bc, Gift_Temp_Struct.size
+    add     hl, bc
+
+    dec     d
+    jp      nz, .loop
+
+; not found
+    ld      a, 0
+    ret
+
+.occupied:
+    ld      a, 1
+    ret
 
 GiftLogic:
 

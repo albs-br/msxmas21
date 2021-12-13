@@ -1,4 +1,7 @@
 InitVariables:
+    ld      a, (BIOS_JIFFY)                  ; MSX BIOS time variable
+    or      0x80                             ; A value different of zero is granted
+    ld      (Seed), a
 
     ld      a, 128 - 8
     ld      (PlayerX), a
@@ -13,6 +16,9 @@ InitVariables:
 
 
     ld      hl, Gift_1_Struct
+    call    InitGift
+
+    ld      hl, Gift_2_Struct
     call    InitGift
 
 
