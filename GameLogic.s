@@ -34,16 +34,16 @@ _D:     equ 30                      ; distance from screen border to first/last 
 _X:     equ (256 - (2 * _D)) / 5    ; space from one conveyor belt end to another
 
 TopLeft_ConveyorBelt_Data:
-    db      0, _D + ((3 - 1) * _X),   0, 16,   1, 0, 1
+    db      0, _D + ((3 - 1) * _X),   0, 0,   1, 0, 1
 
 TopRight_ConveyorBelt_Data:
-    db      0, _D + ((4 - 1) * _X), 255, 32, -1, 0, 2
+    db      0, _D + ((4 - 1) * _X), 255, 16, -1, 0, 2
 
 MidLeft_ConveyorBelt_Data:
-    db      0, _D + ((2 - 1) * _X),   0, 48,   1, 0, 3
+    db      0, _D + ((2 - 1) * _X),   0, 32,   1, 0, 3
 
 MidRight_ConveyorBelt_Data:
-    db      0, _D + ((5 - 1) * _X), 255, 64, -1, 0, 4
+    db      0, _D + ((5 - 1) * _X), 255, 48, -1, 0, 4
 
 
 
@@ -157,17 +157,32 @@ GiftLogic:
         add     a, b
         ld      (Gift_Temp_Y), a
 
-        ld      hl, Gift_Temp_Struct
-        ld      a, (Gift_Temp_ConveyorBelt_Number)
-        ld      d, a
 
         ; (if Y >= 192)
         ld      a, (Gift_Temp_Y)
         ld      b, a
         ld      a, 192
         cp      b
+        ld      hl, Gift_Temp_Struct
+        ld      a, (Gift_Temp_ConveyorBelt_Number)
+        ld      d, a
         call    z, InitGift
         call    c, InitGift
+
+
+
+        ld      a, (PlayerX)
+        ld      b, a
+        ld      a, (PlayerY)
+        ld      c, a
+
+        ld      a, (Gift_Temp_X)
+        ld      d, a
+        ld      a, (Gift_Temp_Y)
+        ld      e, a
+
+        call    CheckCollision_16x16_16x16
+        call    c, .collision
 
 
 .return:
@@ -179,27 +194,12 @@ GiftLogic:
 
     ret
 
+.collision:
+    call    BIOS_BEEP
 
-
-; ResetGift:
-
-;     ; push    hl
-;     ;     ; hl += 6 (point to ConveyorBelt_Number)
-;     ;     ld      bc, 6
-;     ;     add     hl, bc
-
-;     ;     ; get ConveyorBelt_Number
-;     ;     ld      c, (hl)
-
-;     ;     ld      hl, ConveyorBeltOccupation
-;     ;     ld      b, 0
-;     ;     add     hl, bc
-
-;     ;     ld      a, 0
-;     ;     ld      (hl), a
-
-;     ; pop     hl
+    ld      hl, Gift_Temp_Struct
+    ld      a, (Gift_Temp_ConveyorBelt_Number)
+    ld      d, a
+    call    InitGift
     
-;     call    InitGift
-
-;     ret
+    ret
