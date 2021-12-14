@@ -16,13 +16,13 @@ InitVariables:
 
 
 
-    ld      hl, ConveyorBeltOccupation
-    ld      b, 6
-    xor     a
-.loop:
-    ld      (hl), a
-    inc     hl
-    djnz    .loop
+;     ld      hl, ConveyorBeltOccupation
+;     ld      b, 6
+;     xor     a
+; .loop:
+;     ld      (hl), a
+;     inc     hl
+;     djnz    .loop
     
 
 

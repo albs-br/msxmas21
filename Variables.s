@@ -7,9 +7,9 @@ PlayerAnimationFrame:       rb 1
 
 
 
-CheckIfConveyorBeltIsFree_TempVar:      rb 1
+; CheckIfConveyorBeltIsFree_TempVar:      rb 1
 
-ConveyorBeltOccupation:         rb 6
+; ConveyorBeltOccupation:         rb 6
 
 
 Gift_Temp_Struct_ReturnAddr:    rw 1

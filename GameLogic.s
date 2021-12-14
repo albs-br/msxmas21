@@ -23,12 +23,19 @@ InitGift:
     ; Dy:                  rb 1    ; Delta Y
 
 
-    jp      .topLeft;debug
+    ; call    RandomNumber
+    ; and     0000 0001b
+    ; jp      z, .topRight
+    ; jp      .topLeft
 
-    call    RandomNumber
-    and     0000 0001b
+    ld      de, Gift_1_Struct
+    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    jp      z, .topLeft
+    
+    ld      de, Gift_2_Struct
+    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     jp      z, .topRight
-    jp      .topLeft
+    
 
 .topLeft:
 
@@ -73,10 +80,10 @@ InitGift:
 
 .topRight:
 
-    ld      a, 1
-    call    CheckIfConveyorBeltIsFree
-    or      a
-    jp      nz, InitGift
+    ; ld      a, 1
+    ; call    CheckIfConveyorBeltIsFree
+    ; or      a
+    ; jp      nz, InitGift
 
     ; Status
     ld      a, 0
@@ -162,13 +169,13 @@ InitGift:
 
 
 
-CheckIfConveyorBeltIsFree:
-    ld      hl, ConveyorBeltOccupation
-    ld      b, 0
-    ld      c, a
-    add     hl, bc
-    ld      a, (hl)
-    ret
+; CheckIfConveyorBeltIsFree:
+;     ld      hl, ConveyorBeltOccupation
+;     ld      b, 0
+;     ld      c, a
+;     add     hl, bc
+;     ld      a, (hl)
+;     ret
 
 
 GiftLogic:
@@ -253,22 +260,23 @@ GiftLogic:
 
 ResetGift:
 
-    push    hl
-        ; hl += 6 (point to ConveyorBelt_Number)
-        ld      bc, 6
-        add     hl, bc
+    ; push    hl
+    ;     ; hl += 6 (point to ConveyorBelt_Number)
+    ;     ld      bc, 6
+    ;     add     hl, bc
 
-        ; get ConveyorBelt_Number
-        ld      c, (hl)
+    ;     ; get ConveyorBelt_Number
+    ;     ld      c, (hl)
 
-        ld      hl, ConveyorBeltOccupation
-        ld      b, 0
-        add     hl, bc
+    ;     ld      hl, ConveyorBeltOccupation
+    ;     ld      b, 0
+    ;     add     hl, bc
 
-        ld      a, 0
-        ld      (hl), a
+    ;     ld      a, 0
+    ;     ld      (hl), a
 
-    pop     hl
+    ; pop     hl
+    
     call    InitGift
 
     ret
