@@ -27,9 +27,11 @@ InitVariables:
 
 
     ld      hl, Gift_1_Struct
+    ld      d, 1
     call    InitGift
 
     ld      hl, Gift_2_Struct
+    ld      d, 2
     call    InitGift
 
 

@@ -13,169 +13,55 @@ GameLogic:
     ret
 
 
+    ; Status:                   rb 1    ; 0: Horizontal; >= 1: Falling
+    ; ConveyorBeltEnd:          rb 1    ; X coordinate where the conveyor belt ends (gift starts falling)
+    ; X:                        rb 1
+    ; Y:                        rb 1
+    ; Dx:                       rb 1    ; Delta X (amount of pixels to move horizontally each frame; can be negative)
+    ; Dy:                       rb 1    ; Delta Y
+    ; Conveyor belt number:     rb 1    ; 1-6
+TopLeft_ConveyorBelt_Data:
+    db      0, 127,   0, CONVEYOR_BELT_TOP_LEFT_Y,   1, 0, 1
+
+TopRight_ConveyorBelt_Data:
+    db      0, 180, 255, CONVEYOR_BELT_TOP_RIGHT_Y, -1, 0, 2
+
+
+; x = (256 - 2d) / 5
+
 InitGift:
-
-    ; Status:              rb 1    ; 0: Horizontal; >= 1: Falling
-    ; ConveyorBeltEnd:     rb 1    ; X coordinate where the conveyor belt ends (gift starts falling)
-    ; X:                   rb 1
-    ; Y:                   rb 1
-    ; Dx:                  rb 1    ; Delta X (amount of pixels to move horizontally each frame; can be negative)
-    ; Dy:                  rb 1    ; Delta Y
-
 
     ; call    RandomNumber
     ; and     0000 0001b
     ; jp      z, .topRight
     ; jp      .topLeft
+    
+    ld      a, d
 
-    ld      de, Gift_1_Struct
-    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    cp      1
     jp      z, .topLeft
-    
-    ld      de, Gift_2_Struct
-    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+
+    cp      2
     jp      z, .topRight
-    
+
 
 .topLeft:
 
-    ; ld      a, 0
-    ; call    CheckIfConveyorBeltIsFree
-    ; or      a
-    ; jp      nz, InitGift
-
-    ; Status
-    ld      a, 0
-    ld      (hl), a
-
-    ; ConveyorBeltEnd
-    inc     hl    
-    ld      a, 127
-    ld      (hl), a
-
-    ; X
-    inc     hl    
-    ld      a, 0
-    ld      (hl), a
-
-    ; Y
-    inc     hl    
-    ld      a, CONVEYOR_BELT_TOP_LEFT_Y
-    ld      (hl), a
-
-    ; DX
-    inc     hl    
-    ld      a, 1
-    ld      (hl), a
-
-    ; DY
-    inc     hl    
-    ld      a, 0
-    ld      (hl), a
-
-    ; Conveyor belt number
-    inc     hl    
-    ld      a, 0
-    ld      (hl), a
+    ld      de, TopLeft_ConveyorBelt_Data
+    jp      .return
 
 .topRight:
 
-    ; ld      a, 1
-    ; call    CheckIfConveyorBeltIsFree
-    ; or      a
-    ; jp      nz, InitGift
+    ld      de, TopRight_ConveyorBelt_Data
+    jp      .return
 
-    ; Status
-    ld      a, 0
-    ld      (hl), a
+.return:
+    ex      de, hl
+    ld      bc, Gift_Temp_Struct.size
+    ldir                                                    ; Copy BC bytes from HL to DE
 
-    ; ConveyorBeltEnd
-    inc     hl
-    ld      a, 180
-    ld      (hl), a
+    ret    
 
-    ; X
-    inc     hl
-    ld      a, 255
-    ld      (hl), a
-
-    ; Y
-    inc     hl
-    ld      a, CONVEYOR_BELT_TOP_RIGHT_Y
-    ld      (hl), a
-
-    ; DX
-    inc     hl
-    ld      a, -1
-    ld      (hl), a
-
-    ; DY
-    inc     hl
-    ld      a, 0
-    ld      (hl), a
-
-    ; Conveyor belt number
-    inc     hl    
-    ld      a, 1
-    ld      (hl), a
-
-    ret
-
-
-
-; ; Input: 
-; ;   a: Y coord of conveyor belt
-; ; Return: 
-; ;   a = 0 : Free
-; ;   a = 1 : Occupied
-; CheckIfConveyorBeltIsFree:
-;     ld      (CheckIfConveyorBeltIsFree_TempVar), a
-
-;     ; loop through all gift structs
-;     ld      d, 6
-;     ld      hl, Gift_1_Struct
-; .loop:
-;     ; if(status == 0)
-;     ld      a, (hl)
-;     or      a
-;     jp      nz, .next
-
-;     ; if(y == A)
-;     push    hl
-;         ld      bc, 3
-;         add     hl, bc
-;         ld      a, (hl)
-;     pop     hl
-;     ld      b, a
-;     ld      a, (CheckIfConveyorBeltIsFree_TempVar)
-;     cp      b
-;     jp      z, .occupied
-
-; .next:
-;     ; next gift
-;     ld      bc, Gift_Temp_Struct.size
-;     add     hl, bc
-
-;     dec     d
-;     jp      nz, .loop
-
-; ; not found
-;     ld      a, 0
-;     ret
-
-; .occupied:
-;     ld      a, 1
-;     ret
-
-
-
-; CheckIfConveyorBeltIsFree:
-;     ld      hl, ConveyorBeltOccupation
-;     ld      b, 0
-;     ld      c, a
-;     add     hl, bc
-;     ld      a, (hl)
-;     ret
 
 
 GiftLogic:
@@ -183,7 +69,7 @@ GiftLogic:
     ; save hl
     push     hl
 
-        ld      (Gift_Temp_Struct_ReturnAddr), hl
+        ;ld      (Gift_Temp_Struct_ReturnAddr), hl
 
 
         ; Copy object vars to temp vars
@@ -237,14 +123,17 @@ GiftLogic:
         add     a, b
         ld      (Gift_Temp_Y), a
 
-        ld      hl, (Gift_Temp_Struct_ReturnAddr)
+        ld      hl, Gift_Temp_Struct
+        ld      a, (Gift_Temp_ConveyorBelt_Number)
+        ld      d, a
 
         ; (if Y >= 192)
+        ld      a, (Gift_Temp_Y)
         ld      b, a
         ld      a, 192
         cp      b
-        call    z, ResetGift
-        call    c, ResetGift
+        call    z, InitGift
+        call    c, InitGift
 
 
 .return:
@@ -258,25 +147,25 @@ GiftLogic:
 
 
 
-ResetGift:
+; ResetGift:
 
-    ; push    hl
-    ;     ; hl += 6 (point to ConveyorBelt_Number)
-    ;     ld      bc, 6
-    ;     add     hl, bc
+;     ; push    hl
+;     ;     ; hl += 6 (point to ConveyorBelt_Number)
+;     ;     ld      bc, 6
+;     ;     add     hl, bc
 
-    ;     ; get ConveyorBelt_Number
-    ;     ld      c, (hl)
+;     ;     ; get ConveyorBelt_Number
+;     ;     ld      c, (hl)
 
-    ;     ld      hl, ConveyorBeltOccupation
-    ;     ld      b, 0
-    ;     add     hl, bc
+;     ;     ld      hl, ConveyorBeltOccupation
+;     ;     ld      b, 0
+;     ;     add     hl, bc
 
-    ;     ld      a, 0
-    ;     ld      (hl), a
+;     ;     ld      a, 0
+;     ;     ld      (hl), a
 
-    ; pop     hl
+;     ; pop     hl
     
-    call    InitGift
+;     call    InitGift
 
-    ret
+;     ret
