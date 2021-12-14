@@ -254,6 +254,131 @@ UpdateSprites:
     inc     hl
     inc     hl
 
+; ================================== Gift 3 ==================================
+
+; --------- Sprite #13
+
+    ; Y
+    ld      de, Gift_3_Struct + 3
+    ld      a, (de)
+    ld      (hl), a
+
+    ; X
+    ld      de, Gift_3_Struct + 2
+    inc     hl
+    ld      a, (de)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, GIFT_1 * 4
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
+
+; --------- Sprite #14
+
+    ; Y
+    ld      de, Gift_3_Struct + 3
+    ld      a, (de)
+    ld      (hl), a
+
+    ; X
+    ld      de, Gift_3_Struct + 2
+    inc     hl
+    ld      a, (de)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, 0 + (GIFT_1 + 1) * 4
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
+
+; --------- Sprite #15
+
+    ; Y
+    ld      de, Gift_3_Struct + 3
+    ld      a, (de)
+    ld      (hl), a
+
+    ; X
+    ld      de, Gift_3_Struct + 2
+    inc     hl
+    ld      a, (de)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, 0 + (GIFT_1 + 2) * 4
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
+
+
+; ================================== Gift 4 ==================================
+
+; --------- Sprite #16
+
+    ; Y
+    ld      de, Gift_4_Struct + 3
+    ld      a, (de)
+    ld      (hl), a
+
+    ; X
+    ld      de, Gift_4_Struct + 2
+    inc     hl
+    ld      a, (de)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, GIFT_1 * 4
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
+
+; --------- Sprite #14
+
+    ; Y
+    ld      de, Gift_4_Struct + 3
+    ld      a, (de)
+    ld      (hl), a
+
+    ; X
+    ld      de, Gift_4_Struct + 2
+    inc     hl
+    ld      a, (de)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, 0 + (GIFT_1 + 1) * 4
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
+
+; --------- Sprite #15
+
+    ; Y
+    ld      de, Gift_4_Struct + 3
+    ld      a, (de)
+    ld      (hl), a
+
+    ; X
+    ld      de, Gift_4_Struct + 2
+    inc     hl
+    ld      a, (de)
+    ld      (hl), a
+
+    inc     hl
+    ld      a, 0 + (GIFT_1 + 2) * 4
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
+
 
 
     ; update sprite attributes table

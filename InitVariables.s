@@ -16,22 +16,20 @@ InitVariables:
 
 
 
-;     ld      hl, ConveyorBeltOccupation
-;     ld      b, 6
-;     xor     a
-; .loop:
-;     ld      (hl), a
-;     inc     hl
-;     djnz    .loop
-    
-
-
     ld      hl, Gift_1_Struct
     ld      d, 1
     call    InitGift
 
     ld      hl, Gift_2_Struct
     ld      d, 2
+    call    InitGift
+
+    ld      hl, Gift_3_Struct
+    ld      d, 3
+    call    InitGift
+
+    ld      hl, Gift_4_Struct
+    ld      d, 4
     call    InitGift
 
 

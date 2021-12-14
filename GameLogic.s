@@ -1,5 +1,7 @@
-CONVEYOR_BELT_TOP_LEFT_Y:           equ 16
-CONVEYOR_BELT_TOP_RIGHT_Y:           equ 16 + 16
+; CONVEYOR_BELT_TOP_LEFT_Y:           equ 16
+; CONVEYOR_BELT_TOP_RIGHT_Y:           equ 16 + 16
+; CONVEYOR_BELT_TOP_LEFT_Y:           equ 16
+; CONVEYOR_BELT_TOP_RIGHT_Y:           equ 16 + 16
 
 
 GameLogic:
@@ -10,24 +12,40 @@ GameLogic:
     ld      hl, Gift_2_Struct
     call    GiftLogic
 
+    ld      hl, Gift_3_Struct
+    call    GiftLogic
+
+    ld      hl, Gift_4_Struct
+    call    GiftLogic
+
     ret
 
 
-    ; Status:                   rb 1    ; 0: Horizontal; >= 1: Falling
-    ; ConveyorBeltEnd:          rb 1    ; X coordinate where the conveyor belt ends (gift starts falling)
-    ; X:                        rb 1
-    ; Y:                        rb 1
-    ; Dx:                       rb 1    ; Delta X (amount of pixels to move horizontally each frame; can be negative)
-    ; Dy:                       rb 1    ; Delta Y
-    ; Conveyor belt number:     rb 1    ; 1-6
-TopLeft_ConveyorBelt_Data:
-    db      0, 127,   0, CONVEYOR_BELT_TOP_LEFT_Y,   1, 0, 1
-
-TopRight_ConveyorBelt_Data:
-    db      0, 180, 255, CONVEYOR_BELT_TOP_RIGHT_Y, -1, 0, 2
-
+; Status:                   rb 1    ; 0: Horizontal; >= 1: Falling
+; ConveyorBeltEnd:          rb 1    ; X coordinate where the conveyor belt ends (gift starts falling)
+; X:                        rb 1
+; Y:                        rb 1
+; Dx:                       rb 1    ; Delta X (amount of pixels to move horizontally each frame; can be negative)
+; Dy:                       rb 1    ; Delta Y
+; Conveyor belt number:     rb 1    ; 1-6
 
 ; x = (256 - 2d) / 5
+_D:     equ 30                      ; distance from screen border to first/last conveyor belt end
+_X:     equ (256 - (2 * _D)) / 5    ; space from one conveyor belt end to another
+
+TopLeft_ConveyorBelt_Data:
+    db      0, _D + ((3 - 1) * _X),   0, 16,   1, 0, 1
+
+TopRight_ConveyorBelt_Data:
+    db      0, _D + ((4 - 1) * _X), 255, 32, -1, 0, 2
+
+MidLeft_ConveyorBelt_Data:
+    db      0, _D + ((2 - 1) * _X),   0, 48,   1, 0, 3
+
+MidRight_ConveyorBelt_Data:
+    db      0, _D + ((5 - 1) * _X), 255, 64, -1, 0, 4
+
+
 
 InitGift:
 
@@ -44,6 +62,12 @@ InitGift:
     cp      2
     jp      z, .topRight
 
+    cp      3
+    jp      z, .midLeft
+
+    cp      4
+    jp      z, .midRight
+
 
 .topLeft:
 
@@ -53,6 +77,16 @@ InitGift:
 .topRight:
 
     ld      de, TopRight_ConveyorBelt_Data
+    jp      .return
+
+.midLeft:
+
+    ld      de, MidLeft_ConveyorBelt_Data
+    jp      .return
+
+.midRight:
+
+    ld      de, MidRight_ConveyorBelt_Data
     jp      .return
 
 .return:

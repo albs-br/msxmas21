@@ -45,6 +45,21 @@ LoadSprites:
     ld      b, 3
     call    LoadSpriteColors
 
+; --------------- Gift 3
+
+    ld      hl, SpritePatternsAndColors_Gift_1
+    ld      IY, SPRCOL + (GIFT_3 * 16)
+    ld      b, 3
+    call    LoadSpriteColors
+
+; --------------- Gift 4
+
+    ld      hl, SpritePatternsAndColors_Gift_1
+    ld      IY, SPRCOL + (GIFT_4 * 16)
+    ld      b, 3
+    call    LoadSpriteColors
+
+
 ; -------------- Santa Claus walking right 1
 
     ld      hl, SpritePatternsAndColors_SantaClaus_Walking_Right_1_Top
