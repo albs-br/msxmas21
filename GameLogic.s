@@ -34,16 +34,16 @@ _D:     equ 30                      ; distance from screen border to first/last 
 _X:     equ (256 - (2 * _D)) / 5    ; space from one conveyor belt end to another
 
 TopLeft_ConveyorBelt_Data:
-    db      0, _D + ((3 - 1) * _X),   0, 0,   1, 0, 1
+    db      240, _D + ((3 - 1) * _X),   0, 0,   1, 0, 1
 
 TopRight_ConveyorBelt_Data:
-    db      0, _D + ((4 - 1) * _X), 255, 16, -1, 0, 2
+    db      180, _D + ((4 - 1) * _X), 255, 16, -1, 0, 2
 
 MidLeft_ConveyorBelt_Data:
-    db      0, _D + ((2 - 1) * _X),   0, 32,   1, 0, 3
+    db      120, _D + ((2 - 1) * _X),   0, 32,   1, 0, 3
 
 MidRight_ConveyorBelt_Data:
-    db      0, _D + ((5 - 1) * _X), 255, 48, -1, 0, 4
+    db      60, _D + ((5 - 1) * _X), 255, 48, -1, 0, 4
 
 
 
@@ -114,6 +114,14 @@ GiftLogic:
 
 
 
+        ; if (Status > 1) Status++
+        ld      a, (Gift_Temp_Status)
+        cp      2
+        jp      c, .dontIncStatus
+        inc     a
+        ld      (Gift_Temp_Status), a
+.dontIncStatus:
+
         ; if (Status == 0)
         ld      a, (Gift_Temp_Status)
         or      a
@@ -181,7 +189,7 @@ GiftLogic:
         ld      a, (Gift_Temp_Y)
         ld      e, a
 
-        call    CheckCollision_16x16_16x16
+        call    CheckCollision_16x24_16x16
         call    c, .collision
 
 
@@ -194,6 +202,8 @@ GiftLogic:
 
     ret
 
+GIFT_WAIT_TIME:         equ 60
+
 .collision:
     call    BIOS_BEEP
 
@@ -202,4 +212,7 @@ GiftLogic:
     ld      d, a
     call    InitGift
     
+    ld      a, GIFT_WAIT_TIME
+    ld      (Gift_Temp_Status), a
+
     ret

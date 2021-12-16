@@ -1,3 +1,6 @@
+
+PLAYER_SPEED:       equ 3
+
 ReadInput:
     ; read keyboard
     ld      a, 8                    ; 8th line
@@ -29,7 +32,7 @@ ReadInput:
     jp      z, .setFrame0
     jp      c, .setFrame0
 
-    sub     a, 2
+    sub     a, PLAYER_SPEED
     ld      (PlayerX), a
 
 
@@ -87,7 +90,7 @@ ReadInput:
     cp      255 - 16
     jp      nc, .setFrame0
 
-    add     a, 2
+    add     a, PLAYER_SPEED
     ld      (PlayerX), a
 
 
