@@ -133,82 +133,11 @@ SetVdp_Read:
     ret
 
 
-; TODO:
-; ClearVram_MSX2:
-;     ; clear VRAM
-;     ; set address counter (bits 16 to 14)
-;     ld      b, 0000 0000 b  ; data
-;     ld      c, 6            ; register #
-;     call    BIOS_WRTVDP
-
-;     ; set address counter (bits 7 to 0)
-;     ld      c, PORT_1
-;     ld      a, 0000 0000 b
-;     di
-;     out     (c), a
-;     ; set address counter (bits 13 to 8) and operation mode
-;     ;           0: read, 1: write
-;     ;           |
-;     ld      a, 0100 0000 b
-;     ei
-;     out     (c), a
-;     ; write to VRAM
-;     xor     a
-;     ld      b, 0 ;256 iterations
-;     ld      c, PORT_0
-; .loop:
-;     di
-;         out (c), a
-;     ei
-;     dec     b
-;     jp      nz, .loop
-	
-; 	ret
-
-; ClearVram_MSX2:
-
-; 	ld		d, 7
-
-; .loop:
-
-;     ; set 3 upper bits of VRAM addr (bits 16 to 14)
-;     ld      b, 1; d  			; data
-;     ld      c, 14           ; register #
-;     call    BIOS_WRTVDP
-
-; 	; Set register #14
-; 	; DI
-; 	; LD    A, 1;d   ; Base adress #4000
-; 	; OUT   (PORT_1), A
-; 	; LD    A, 14 + 128 ; Write regster #14 (BIT 7 is set for writing)
-; 	; OUT   (PORT_1), A
-; 	; EI
-
-; 	xor		a
-; 	ld		hl, 0
-; 	ld		bc, 16384 * 2
-; 	call	BIOS_BIGFIL
-; 	; dec		d
-; 	; jp		nz, .loop
-
-
-; 	ret
-
 
 ClearVram_MSX2:
     xor a           ; set vram write base address
     ld hl, 0     	; to 1st byte of page 0
     call SetVDP_Write
-
-;     xor a
-; FillL1:
-;     ld c, 64          ; fill 1st 8 lines of page 1
-; FillL2:
-;     ld b, 0        ;
-;     out (PORT_0),a     ; could also have been done with
-;     djnz FillL2     ; a vdp command (probably faster)
-;     dec c           ; (and could also use a fast loop)
-;     jp nz,FillL1
 
 	xor		a
 

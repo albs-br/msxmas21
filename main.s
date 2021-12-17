@@ -42,13 +42,12 @@ MainLoop:
     cp      (hl)
     jr      z, .waitVBlank
 
+    call    UpdateSprites
 
     call    ReadInput
 
     call    GameLogic
-
-    call    UpdateSprites
-    
+   
     jp      MainLoop
 
 

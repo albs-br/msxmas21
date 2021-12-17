@@ -99,9 +99,25 @@ InitVram:
     ; test loading 16x16 SC5 image
     ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + 8 + (16 * 128)             ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + (160 / 2) + (25 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image    
 
+    ld      de, NAMTBL + (176 / 2) + (25 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      b, 5                                    ; number of repetitions
+.loop:
+    push    bc
+        push    de
+            ld		hl, ConveyorBelt_Frame2		            ; RAM address (source)
+            ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+            ; ld      de, NAMTBL + (176 / 2) + (25 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+            call    Load_16x16_SC5_Image    
+        pop     de
+        ex      de, hl
+            ld      bc, 8
+            add     hl, bc
+        ex      de, hl
+    pop     bc
+    djnz    .loop
 
 
     call    BIOS_ENASCR
