@@ -20,6 +20,7 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "UpdateSprites.s"
 
     INCLUDE "Sprites/SpriteAssets.s"
+    INCLUDE "Bitmaps/Bitmaps.s"
 
 Execute:
 

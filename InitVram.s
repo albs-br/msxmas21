@@ -87,14 +87,62 @@ InitVram:
 
 ; -----------
 
-    ; ; Load test bg image
-    ; ld		hl, ImageData_1        			        ; RAM address (source)
+    ; Load test bg image
+    ; ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
     ; ld      a, 0                                    ; VRAM address (destiny, bit 16)
-    ; ld		de, NAMTBL + (1 * (256 * 64))           ; VRAM address (destiny, bits 15-0)
-    ; ld		c, 0 + (ImageData_1.size / 256)         ; Block length * 256
+    ; ld		de, NAMTBL ;+ (1 * (256 * 64))           ; VRAM address (destiny, bits 15-0)
+    ; ld		c, 0 + ((16 * 16) / 2) * 256            ; Block length * 256
     ; call    LDIRVM_MSX2
+
+
+
+    ; test loading 16x16 SC5 image
+    ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + 8 + (16 * 128)             ; destiny on VRAM (17 bits)
+    call    Load_16x16_SC5_Image    
+
+
 
     call    BIOS_ENASCR
 
+
+    ret
+
+
+
+Load_16x16_SC5_Image:
+    ld      b, 16               ; number of lines
+
+    ld      c, a                ; save 17th bit of VRAM addr
+.loop:
+    push    bc
+
+        ld      a, c            ; restore 17th bit of VRAM addr
+        ex      de, hl
+            call    SetVdp_Write
+        ex      de, hl
+
+        push    hl
+            push    de
+
+
+                ld      b, 8             ; bytes per line (16 pixels = 8 bytes on SC5)
+                ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+                ;ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
+                otir
+            pop     de
+        pop    hl
+
+        ld      bc, 8              ; next line of image (16 pixels = 8 bytes on SC5)
+        add     hl, bc
+
+        ex      de, hl
+            ld      bc, 128             ; next line of NAMTBL
+            add     hl, bc
+        ex      de, hl
+
+    pop     bc
+    djnz    .loop
 
     ret

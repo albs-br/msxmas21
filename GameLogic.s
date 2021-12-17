@@ -3,6 +3,7 @@
 ; CONVEYOR_BELT_TOP_LEFT_Y:           equ 16
 ; CONVEYOR_BELT_TOP_RIGHT_Y:           equ 16 + 16
 
+GIFT_WAIT_TIME:         equ 60
 
 GameLogic:
 
@@ -202,7 +203,6 @@ GiftLogic:
 
     ret
 
-GIFT_WAIT_TIME:         equ 60
 
 .collision:
     call    BIOS_BEEP
