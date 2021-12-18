@@ -16,7 +16,7 @@ CurrentJiffy:               rb 1
 
 ; Gift struct
 Gift_Temp_Struct:
-Gift_Temp_Status:              rb 1    ; 0: Horizontal; >= 1: Falling
+Gift_Temp_Status:              rb 1    ; 0: Horizontal; 1: Falling ; >1: Waiting
 Gift_Temp_ConveyorBeltEnd:     rb 1    ; X coordinate where the conveyor belt ends (gift starts falling)
 Gift_Temp_X:                   rb 1
 Gift_Temp_Y:                   rb 1

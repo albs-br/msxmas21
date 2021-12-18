@@ -22,13 +22,7 @@ GameLogic:
     ret
 
 
-; Status:                   rb 1    ; 0: Horizontal; >= 1: Falling
-; ConveyorBeltEnd:          rb 1    ; X coordinate where the conveyor belt ends (gift starts falling)
-; X:                        rb 1
-; Y:                        rb 1
-; Dx:                       rb 1    ; Delta X (amount of pixels to move horizontally each frame; can be negative)
-; Dy:                       rb 1    ; Delta Y
-; Conveyor belt number:     rb 1    ; 1-6
+
 
 ; x = (256 - 2d) / 5
 _D:     equ 30                      ; distance from screen border to first/last conveyor belt end
@@ -50,11 +44,6 @@ MidRight_ConveyorBelt_Data:
 
 InitGift:
 
-    ; call    RandomNumber
-    ; and     0000 0001b
-    ; jp      z, .topRight
-    ; jp      .topLeft
-    
     ld      a, d
 
     cp      1
@@ -92,8 +81,14 @@ InitGift:
 
 .return:
     ex      de, hl
-    ld      bc, Gift_Temp_Struct.size
-    ldir                                                    ; Copy BC bytes from HL to DE
+    push    de
+        ld      bc, Gift_Temp_Struct.size
+        ldir                                                    ; Copy BC bytes from HL to DE
+    pop     de
+
+    ; is it working?
+    call    RandomNumber
+    ld      (de), a
 
     ret    
 
