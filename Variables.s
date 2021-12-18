@@ -7,12 +7,12 @@ PlayerAnimationFrame:       rb 1
 
 
 
-; CheckIfConveyorBeltIsFree_TempVar:      rb 1
+; Debug variables:
+FramesSkipped:              rb 1
+CurrentJiffy:               rb 1
 
-; ConveyorBeltOccupation:         rb 6
 
 
-;Gift_Temp_Struct_ReturnAddr:    rw 1
 
 ; Gift struct
 Gift_Temp_Struct:

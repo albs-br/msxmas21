@@ -46,10 +46,10 @@
                     //     "value": "-romtype ASCII16",
                     //     "quoting": "escape"
                     // },
-                    // {
-                    //     "value": "-script C:\\Users\\albs_\\source\\repos\\msx-tests\\msx-tests_debug.tcl",
-                    //     "quoting": "escape"
-                    // }
+                    {
+                        "value": "-script C:\\Users\\albs_\\source\\repos\\msxmas21\\msxmas21_debug.tcl",
+                        "quoting": "escape"
+                    }
                 ],
             "label": "run openmsx",
             "type": "shell",

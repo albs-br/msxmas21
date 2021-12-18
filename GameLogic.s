@@ -170,14 +170,16 @@ GiftLogic:
         ; (if Y >= 192)
         ld      a, (Gift_Temp_Y)
         ld      b, a
-        ld      a, 192
+        ld      a, 192 - 8
         cp      b
         ld      hl, Gift_Temp_Struct
         ld      a, (Gift_Temp_ConveyorBelt_Number)
         ld      d, a
-        call    z, InitGift
-        call    c, InitGift
-
+        ; call    z, InitGift
+        ; call    c, InitGift
+.gameOver:
+        jp      z, .gameOver
+        jp      c, .gameOver
 
 
         ld      a, (PlayerX)

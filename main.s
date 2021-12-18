@@ -2,6 +2,10 @@ FNAME "msxmas21.rom"      ; output file
 
 PageSize:	    equ	0x4000	        ; 16kB
 
+
+; DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
+
+
 ; Compilation address
     org 0x4000, 0xbeff	                    ; 0x8000 can be also used here if Rom size is 16kB or less.
 
@@ -42,13 +46,81 @@ MainLoop:
     cp      (hl)
     jr      z, .waitVBlank
 
+
+
+    ; Save Jiffy to check if previous frame ended
+    ld      a, (hl)
+    ld      (CurrentJiffy), a
+
+
+
+    IFDEF DEBUG
+        ld 		a, 4       	            ; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF
+
     call    UpdateSprites
+
+
+
+
+    ; ld 		a, 8       	            ; Border color
+    ; ld 		(BIOS_BDRCLR), a    
+    ; call 	BIOS_CHGCLR        		; Change Screen Color
+
+    ; call    LoadBackground
+
+
+
+    IFDEF DEBUG
+        ld 		a, 10       	        ; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF
 
     call    ReadInput
 
+
+
+
+    IFDEF DEBUG
+        ld 		a, 12       	        ; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF
+
     call    GameLogic
-   
+
+
+
+
+    IFDEF DEBUG
+        ld 		a, 7       	        ; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF
+
+    ; Checks if main loop takes more than one frame to run
+    ld      a, (BIOS_JIFFY)
+    ld      b, a
+    ld      a, (CurrentJiffy)
+    cp      b
+    call    nz, .frameSkip
+
+
+
     jp      MainLoop
+
+
+
+.frameSkip:
+   
+    ld      hl, FramesSkipped
+    inc     (hl)
+
+    ret
+
 
 
 End:

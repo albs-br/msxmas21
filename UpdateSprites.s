@@ -385,8 +385,9 @@ UpdateSprites:
     ld      a, 0000 0000 b
     ld      hl, SPRATR
     call    SetVdp_Write
-    ld      b, SpriteAttributes.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      b, SpriteAttributes.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      bc, 0 + (SpriteAttributes.size * 256) + PORT_0
     ld      hl, SpriteAttributes
     otir
 
