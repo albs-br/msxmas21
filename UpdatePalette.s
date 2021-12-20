@@ -1,8 +1,12 @@
+                        ;0xrb          0x0g
+COLOR_1:            equ (0x74 * 256) + 0x06
+COLOR_2:            equ (0x63 * 256) + 0x05
+
 UpdatePalette:
 
     ; animation only at n frames
     ld      a, (BIOS_JIFFY)
-    and     0000 1111b
+    and     0000 0111b
     or      a
     ret     nz
 
@@ -15,63 +19,54 @@ UpdatePalette:
 .dontResetCounter:
     ld      (UpdatePaletteCounter), a
     
-    jp      z, .palette_0
+    jp      z, .frame_0
     dec     a
-    jp      z, .palette_1
+    jp      z, .frame_1
     dec     a
-    jp      z, .palette_2
+    jp      z, .frame_2
     
 
-.palette_0:
+.frame_0:
     ld      a, 10
-    ld      b, 0x77
-    ld      c, 0x07
+    ld      bc, COLOR_1
     call    SetPaletteColor
 
     ld      a, 6
-    ld      b, 0x77
-    ld      c, 0x07
+    ld      bc, COLOR_1
     call    SetPaletteColor
 
     ld      a, 13
-    ld      b, 0x00
-    ld      c, 0x00
+    ld      bc, COLOR_2
     call    SetPaletteColor
 
     ret
 
-.palette_1:
+.frame_1:
     ld      a, 10
-    ld      b, 0x77
-    ld      c, 0x07
+    ld      bc, COLOR_1
     call    SetPaletteColor
 
     ld      a, 6
-    ld      b, 0x00
-    ld      c, 0x00
+    ld      bc, COLOR_2
     call    SetPaletteColor
 
     ld      a, 13
-    ld      b, 0x77
-    ld      c, 0x07
+    ld      bc, COLOR_1
     call    SetPaletteColor
 
     ret
 
-.palette_2:
+.frame_2:
     ld      a, 10
-    ld      b, 0x00
-    ld      c, 0x00
+    ld      bc, COLOR_2
     call    SetPaletteColor
 
     ld      a, 6
-    ld      b, 0x77
-    ld      c, 0x07
+    ld      bc, COLOR_1
     call    SetPaletteColor
 
     ld      a, 13
-    ld      b, 0x77
-    ld      c, 0x07
+    ld      bc, COLOR_1
     call    SetPaletteColor
 
     ret
