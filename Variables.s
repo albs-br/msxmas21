@@ -13,6 +13,9 @@ CurrentJiffy:               rb 1
 
 
 
+UpdatePaletteCounter:       rb 1
+
+
 
 ; Gift struct
 Gift_Temp_Struct:

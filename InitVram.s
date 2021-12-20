@@ -108,6 +108,8 @@ InitVram:
     call    LoadBackground
 
 
+
+
     call    BIOS_ENASCR
 
 

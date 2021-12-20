@@ -170,11 +170,11 @@ GiftLogic:
         ld      hl, Gift_Temp_Struct
         ld      a, (Gift_Temp_ConveyorBelt_Number)
         ld      d, a
-        ; call    z, InitGift
-        ; call    c, InitGift
-.gameOver:
-        jp      z, .gameOver
-        jp      c, .gameOver
+        call    z, InitGift
+        call    c, InitGift
+; .gameOver:
+;         jp      z, .gameOver
+;         jp      c, .gameOver
 
 
         ld      a, (PlayerX)

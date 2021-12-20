@@ -22,6 +22,7 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "InitVariables.s"
     INCLUDE "GameLogic.s"
     INCLUDE "UpdateSprites.s"
+    INCLUDE "UpdatePalette.s"
 
     INCLUDE "Sprites/SpriteAssets.s"
     INCLUDE "Bitmaps/Bitmaps.s"
@@ -63,6 +64,10 @@ MainLoop:
     call    UpdateSprites
 
 
+
+
+
+    call    UpdatePalette
 
 
     ; ld 		a, 8       	            ; Border color
