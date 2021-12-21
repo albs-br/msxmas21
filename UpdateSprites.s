@@ -132,11 +132,25 @@ UpdateSprites:
 
 ; --------- Sprite #7
 
+    ; Hide gift?
+    ld      de, Gift_1_Struct + 7
+    ld      a, (de)
+    or      a
+    jp      nz, .hideGift_1
 
     ; Y
     ld      de, Gift_1_Struct + 3
     ld      a, (de)
-    ld      (hl), a
+    jp      .continueGift_1
+
+.hideGift_1:
+    ld      a, 192
+
+.continueGift_1:
+    ld      c, a
+
+    ; Y
+    ld      (hl), c
 
     ; X
     ld      de, Gift_1_Struct + 2
@@ -154,9 +168,7 @@ UpdateSprites:
 ; --------- Sprite #8
 
     ; Y
-    ld      de, Gift_1_Struct + 3
-    ld      a, (de)
-    ld      (hl), a
+    ld      (hl), c
 
     ; X
     ld      de, Gift_1_Struct + 2
@@ -174,9 +186,7 @@ UpdateSprites:
 ; --------- Sprite #9
 
     ; Y
-    ld      de, Gift_1_Struct + 3
-    ld      a, (de)
-    ld      (hl), a
+    ld      (hl), c
 
     ; X
     ld      de, Gift_1_Struct + 2
@@ -195,11 +205,25 @@ UpdateSprites:
 
 ; --------- Sprite #10
 
+    ; Hide gift?
+    ld      de, Gift_2_Struct + 7
+    ld      a, (de)
+    or      a
+    jp      nz, .hideGift_2
 
     ; Y
     ld      de, Gift_2_Struct + 3
     ld      a, (de)
-    ld      (hl), a
+    jp      .continueGift_2
+
+.hideGift_2:
+    ld      a, 192
+
+.continueGift_2:
+    ld      c, a
+
+    ; Y
+    ld      (hl), c
 
     ; X
     ld      de, Gift_2_Struct + 2
@@ -217,9 +241,7 @@ UpdateSprites:
 ; --------- Sprite #11
 
     ; Y
-    ld      de, Gift_2_Struct + 3
-    ld      a, (de)
-    ld      (hl), a
+    ld      (hl), c
 
     ; X
     ld      de, Gift_2_Struct + 2
@@ -237,9 +259,7 @@ UpdateSprites:
 ; --------- Sprite #12
 
     ; Y
-    ld      de, Gift_2_Struct + 3
-    ld      a, (de)
-    ld      (hl), a
+    ld      (hl), c
 
     ; X
     ld      de, Gift_2_Struct + 2
@@ -258,10 +278,25 @@ UpdateSprites:
 
 ; --------- Sprite #13
 
+    ; Hide gift?
+    ld      de, Gift_3_Struct + 7
+    ld      a, (de)
+    or      a
+    jp      nz, .hideGift_3
+
     ; Y
     ld      de, Gift_3_Struct + 3
     ld      a, (de)
-    ld      (hl), a
+    jp      .continueGift_3
+
+.hideGift_3:
+    ld      a, 192
+
+.continueGift_3:
+    ld      c, a
+
+    ; Y
+    ld      (hl), c
 
     ; X
     ld      de, Gift_3_Struct + 2
@@ -279,9 +314,7 @@ UpdateSprites:
 ; --------- Sprite #14
 
     ; Y
-    ld      de, Gift_3_Struct + 3
-    ld      a, (de)
-    ld      (hl), a
+    ld      (hl), c
 
     ; X
     ld      de, Gift_3_Struct + 2
@@ -299,9 +332,7 @@ UpdateSprites:
 ; --------- Sprite #15
 
     ; Y
-    ld      de, Gift_3_Struct + 3
-    ld      a, (de)
-    ld      (hl), a
+    ld      (hl), c
 
     ; X
     ld      de, Gift_3_Struct + 2
@@ -321,10 +352,25 @@ UpdateSprites:
 
 ; --------- Sprite #16
 
+    ; Hide gift?
+    ld      de, Gift_4_Struct + 7
+    ld      a, (de)
+    or      a
+    jp      nz, .hideGift_4
+
     ; Y
     ld      de, Gift_4_Struct + 3
     ld      a, (de)
-    ld      (hl), a
+    jp      .continueGift_4
+
+.hideGift_4:
+    ld      a, 192
+
+.continueGift_4:
+    ld      c, a
+
+    ; Y
+    ld      (hl), c
 
     ; X
     ld      de, Gift_4_Struct + 2
@@ -342,9 +388,7 @@ UpdateSprites:
 ; --------- Sprite #14
 
     ; Y
-    ld      de, Gift_4_Struct + 3
-    ld      a, (de)
-    ld      (hl), a
+    ld      (hl), c
 
     ; X
     ld      de, Gift_4_Struct + 2
@@ -362,9 +406,7 @@ UpdateSprites:
 ; --------- Sprite #15
 
     ; Y
-    ld      de, Gift_4_Struct + 3
-    ld      a, (de)
-    ld      (hl), a
+    ld      (hl), c
 
     ; X
     ld      de, Gift_4_Struct + 2

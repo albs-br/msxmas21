@@ -29,16 +29,16 @@ _D:     equ 30                      ; distance from screen border to first/last 
 _X:     equ (256 - (2 * _D)) / 5    ; space from one conveyor belt end to another
 
 TopLeft_ConveyorBelt_Data:
-    db      240, _D + ((3 - 1) * _X),   0, 0,   1, 0, 1
+    db      240, _D + ((3 - 1) * _X),   0, 0,   1, 0, 1, 1
 
 TopRight_ConveyorBelt_Data:
-    db      180, _D + ((4 - 1) * _X), 255, 16, -1, 0, 2
+    db      180, _D + ((4 - 1) * _X), 255, 16, -1, 0, 2, 1
 
 MidLeft_ConveyorBelt_Data:
-    db      120, _D + ((2 - 1) * _X),   0, 32,   1, 0, 3
+    db      120, _D + ((2 - 1) * _X),   0, 32,   1, 0, 3, 1
 
 MidRight_ConveyorBelt_Data:
-    db      60, _D + ((5 - 1) * _X), 255, 48, -1, 0, 4
+    db      60, _D + ((5 - 1) * _X), 255, 48, -1, 0, 4, 1
 
 
 
@@ -114,9 +114,21 @@ GiftLogic:
         ld      a, (Gift_Temp_Status)
         cp      2
         jp      c, .dontIncStatus
+        
+        ; Status++
         inc     a
         ld      (Gift_Temp_Status), a
+
+        ; hide sprite
+        ld      a, 1
+        ld      (Gift_Temp_Hide), a
+        jp      .return
+
 .dontIncStatus:
+
+        xor     a
+        ld      (Gift_Temp_Hide), a
+
 
         ; if (Status == 0)
         ld      a, (Gift_Temp_Status)

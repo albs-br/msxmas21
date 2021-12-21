@@ -26,6 +26,7 @@ Gift_Temp_Y:                   rb 1
 Gift_Temp_Dx:                  rb 1    ; Delta X (amount of pixels to move horizontally each frame; can be negative)
 Gift_Temp_Dy:                  rb 1    ; Delta Y
 Gift_Temp_ConveyorBelt_Number: rb 1    ; 1-6
+Gift_Temp_Hide:                rb 1    ; 0: show; 1: hide
 Gift_Temp_Struct.size:         equ $ - Gift_Temp_Struct
 
 
