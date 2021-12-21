@@ -156,6 +156,9 @@ Load_16x16_SC5_Image:
 
 
 Loadbackground:
+
+
+    ; ----------------------- Top right conveyor belt
     ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
     ld      de, NAMTBL + (160 / 2) + (25 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
@@ -178,4 +181,29 @@ Loadbackground:
     pop     bc
     djnz    .loop
     
+
+    ; ----------------------- Bottom right conveyor belt
+    ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((199-8) / 2) + (57 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image    
+
+    ld      de, NAMTBL + ((215-8) / 2) + (57 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      b, 3                                    ; number of repetitions
+.loop_1:
+    push    bc
+        push    de
+            ld		hl, ConveyorBelt_Frame2		            ; RAM address (source)
+            ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+            ; ld      de, NAMTBL + (176 / 2) + (25 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+            call    Load_16x16_SC5_Image    
+        pop     de
+        ex      de, hl
+            ld      bc, 8
+            add     hl, bc
+        ex      de, hl
+    pop     bc
+    djnz    .loop_1
+    
+
     ret

@@ -34,11 +34,11 @@ TopLeft_ConveyorBelt_Data:
 TopRight_ConveyorBelt_Data:
     db      180, _D + ((4 - 1) * _X), 255, 16, -1, 0, 2, 1
 
-MidLeft_ConveyorBelt_Data:
+BottomLeft_ConveyorBelt_Data:
     db      120, _D + ((2 - 1) * _X),   0, 32,   1, 0, 3, 1
 
-MidRight_ConveyorBelt_Data:
-    db      60, _D + ((5 - 1) * _X), 255, 48, -1, 0, 4, 1
+BottomRight_ConveyorBelt_Data:
+    db      60, _D + ((5 - 1) * _X) - 8, 255, 48, -1, 0, 4, 1
 
 
 
@@ -71,12 +71,12 @@ InitGift:
 
 .midLeft:
 
-    ld      de, MidLeft_ConveyorBelt_Data
+    ld      de, BottomLeft_ConveyorBelt_Data
     jp      .return
 
 .midRight:
 
-    ld      de, MidRight_ConveyorBelt_Data
+    ld      de, BottomRight_ConveyorBelt_Data
     jp      .return
 
 .return:
