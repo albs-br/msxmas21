@@ -41,3 +41,7 @@ Gift_6_Struct:              rb Gift_Temp_Struct.size
 
 SpriteAttributes:           rb 32 * 4
 .size:                      equ 32 * 4
+
+
+Debug_Temp_Byte:                 rb 1
+Debug_Temp_Word:                 rw 1

@@ -117,6 +117,10 @@ InitVram:
 
 
 
+
+; Input:
+;   HL: source on RAM
+;   ADE: 17-bits destiny on VRAM
 Load_16x16_SC5_Image:
     ld      b, 16               ; number of lines
 
@@ -126,6 +130,14 @@ Load_16x16_SC5_Image:
 
         ld      a, c            ; restore 17th bit of VRAM addr
         ex      de, hl
+
+
+            ; [debug]
+;             ld      (Debug_Temp_Byte), a
+;             ld      (Debug_Temp_Word), hl
+; .endlessLoop:
+;             jp      .endlessLoop
+
             call    SetVdp_Write
         ex      de, hl
 
@@ -143,10 +155,16 @@ Load_16x16_SC5_Image:
         ld      bc, 8              ; next line of image (16 pixels = 8 bytes on SC5)
         add     hl, bc
 
-        ex      de, hl
+        ;ex      de, hl
+        push hl
+            ld h, d
+            ld l, e
             ld      bc, 128             ; next line of NAMTBL
             add     hl, bc
-        ex      de, hl
+            ld d, h
+            ld e, l
+        pop hl
+        ;ex      de, hl
 
     pop     bc
     djnz    .loop
@@ -156,7 +174,6 @@ Load_16x16_SC5_Image:
 
 
 Loadbackground:
-
 
     ; ----------------------- Bricks
     ld      de, NAMTBL + (0 / 2) + (0 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
@@ -318,4 +335,31 @@ Loadbackground:
     pop     bc
     djnz    .loop_3
 
+
+
+
+    ; test
+    ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + (128 / 2) + (160 * 128)    ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image    
+
+    ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + (128 / 2) + (28 * 128)    ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image
+
+    ; test
+    ; ld      a, 0
+    ; ld      hl, NAMTBL + (128 / 2) + (191 * 128)
+    ; call    SetVdp_Write
+    ; ld      b, 8             ; bytes per line (16 pixels = 8 bytes on SC5)
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld		hl, DataTest		            ; RAM address (source)
+    ; otir
+
     ret
+
+
+; DataTest:
+;     db  0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11
