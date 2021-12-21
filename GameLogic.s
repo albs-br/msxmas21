@@ -35,7 +35,7 @@ TopRight_ConveyorBelt_Data:
     db      180, _D + ((4 - 1) * _X), 255, 16, -1, 0, 2, 1
 
 BottomLeft_ConveyorBelt_Data:
-    db      120, _D + ((2 - 1) * _X),   0, 32,   1, 0, 3, 1
+    db      120, _D + ((2 - 1) * _X) - 8,   0, 32,   1, 0, 3, 1
 
 BottomRight_ConveyorBelt_Data:
     db      60, _D + ((5 - 1) * _X) - 8, 255, 48, -1, 0, 4, 1
