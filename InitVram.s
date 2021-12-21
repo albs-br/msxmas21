@@ -107,6 +107,17 @@ InitVram:
 
     call    LoadBackground
 
+    ; ; test
+    ; ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
+    ; ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ; ld      de, NAMTBL + (128 / 2) + (160 * 128)    ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ; call    Load_16x16_SC5_Image    
+
+    ; ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
+    ; ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ; ld      de, NAMTBL + (128 / 2) + (28 * 128)    ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ; call    Load_16x16_SC5_Image    
+
 
 
 
@@ -129,22 +140,17 @@ Load_16x16_SC5_Image:
     push    bc
 
         ld      a, c            ; restore 17th bit of VRAM addr
-        ex      de, hl
-
-
-            ; [debug]
-;             ld      (Debug_Temp_Byte), a
-;             ld      (Debug_Temp_Word), hl
-; .endlessLoop:
-;             jp      .endlessLoop
-
-            call    SetVdp_Write
-        ex      de, hl
 
         push    hl
             push    de
+                ld      h, d
+                ld      l, e
+                call    SetVdp_Write
+            pop     de
+        pop    hl
 
-
+        push    hl
+            push    de
                 ld      b, 8             ; bytes per line (16 pixels = 8 bytes on SC5)
                 ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
                 ;ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
@@ -155,16 +161,10 @@ Load_16x16_SC5_Image:
         ld      bc, 8              ; next line of image (16 pixels = 8 bytes on SC5)
         add     hl, bc
 
-        ;ex      de, hl
-        push hl
-            ld h, d
-            ld l, e
+        ex      de, hl
             ld      bc, 128             ; next line of NAMTBL
             add     hl, bc
-            ld d, h
-            ld e, l
-        pop hl
-        ;ex      de, hl
+        ex      de, hl
 
     pop     bc
     djnz    .loop
@@ -178,7 +178,7 @@ Loadbackground:
     ; ----------------------- Bricks
     ld      de, NAMTBL + (0 / 2) + (0 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
 
-    ld      b, 8
+    ld      b, 12
 .loop_a:
     push    bc
 
@@ -338,16 +338,7 @@ Loadbackground:
 
 
 
-    ; test
-    ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
-    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + (128 / 2) + (160 * 128)    ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
-    call    Load_16x16_SC5_Image    
 
-    ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
-    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + (128 / 2) + (28 * 128)    ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
-    call    Load_16x16_SC5_Image
 
     ; test
     ; ld      a, 0
