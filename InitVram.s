@@ -171,9 +171,64 @@ Load_16x16_SC5_Image:
 
     ret
 
+; Input:
+;   HL: source on RAM
+;   ADE: 17-bits destiny on VRAM
+Load_16x16_SC5_Image_WithTransparency:
+    ld      b, 16               ; number of lines
+
+    ld      c, a                ; save 17th bit of VRAM addr
+.loop:
+    push    bc
+
+        ld      a, c            ; restore 17th bit of VRAM addr
+
+        push    hl
+            push    de
+                ld      h, d
+                ld      l, e
+                call    SetVdp_Write
+            pop     de
+        pop    hl
+
+        push    hl
+            push    de
+                ld      b, 8            ; bytes per line (16 pixels = 8 bytes on SC5)
+                ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+                ;ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
+                
+                ;otir
+.loopOUTI:
+                ld      a, (hl)
+                or      a
+                jp      z, .isTransparentColor
+                outi
+                jp      nz, .loopOUTI
+                jp      .endLoopOUTI
+.isTransparentColor:
+                inc     hl
+                djnz    .loopOUTI
+.endLoopOUTI:
+            pop     de
+        pop    hl
+
+        ld      bc, 8              ; next line of image (16 pixels = 8 bytes on SC5)
+        add     hl, bc
+
+        ex      de, hl
+            ld      bc, 128             ; next line of NAMTBL
+            add     hl, bc
+        ex      de, hl
+
+    pop     bc
+    djnz    .loop
+
+    ret
 
 
-Loadbackground:
+
+
+LoadBackground:
 
     ; ----------------------- Bricks
     ld      de, NAMTBL + (0 / 2) + (0 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
@@ -207,44 +262,12 @@ Loadbackground:
     djnz    .loop_a
 
 
-;     ; ----------------------- Bricks test
-;     ld      de, NAMTBL + (0 / 2) + (0 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
-
-;     ld      b, 4
-; .loop_a1:
-;     push    bc
-
-;         ld      b, 16                                    ; number of repetitions
-; .loop_b1:
-;         push    bc
-;             push    de
-;                 ld		hl, Bricks		            ; RAM address (source)
-;                 ld      a, 0000 0001 b                          ; destiny on VRAM (17 bits)
-;                 ; ld      de, NAMTBL + (176 / 2) + (25 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
-;                 call    Load_16x16_SC5_Image    
-;             pop     de
-;             ex      de, hl
-;                 ld      bc, 8
-;                 add     hl, bc
-;             ex      de, hl
-;         pop     bc
-;         djnz    .loop_b1
-        
-;         ex      de, hl
-;         ld      bc, 128 * 15        ; next (skip 16 lines)
-;             add     hl, bc
-;         ex      de, hl
-
-;     pop     bc
-;     djnz    .loop_a1
-
-
 
     ; ----------------------- Top right conveyor belt
     ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
     ld      de, NAMTBL + (160 / 2) + (25 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
-    call    Load_16x16_SC5_Image    
+    call    Load_16x16_SC5_Image_WithTransparency    
 
     ld      de, NAMTBL + (176 / 2) + (25 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     ld      b, 5                                    ; number of repetitions
