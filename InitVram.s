@@ -12,11 +12,11 @@ InitVram:
     ld 		(BIOS_CLIKSW), a     ; Key Press Click Switch 0:Off 1:On (1B/RW)
 
     ; define screen colors
-    ld 		a, 7       	            ; Foregoung color
+    ld 		a, 14      	            ; Foregoung color
     ld 		(BIOS_FORCLR), a    
-    ld 		a, 7   		            ; Backgroung color
+    ld 		a, 14  		            ; Backgroung color
     ld 		(BIOS_BAKCLR), a     
-    ld 		a, 7       	            ; Border color
+    ld 		a, 14      	            ; Border color
     ld 		(BIOS_BDRCLR), a    
     call 	BIOS_CHGCLR        		; Change Screen Color
 
@@ -74,7 +74,7 @@ InitVram:
     ; Fill NAMTBL with value
     ld      hl, NAMTBL
     ld      bc, 0 + (256 * 192) / 2
-    ld      a, 0x77
+    ld      a, 0x7b
     call    BIOS_BIGFIL
 
 
@@ -158,6 +158,71 @@ Load_16x16_SC5_Image:
 Loadbackground:
 
 
+    ; ----------------------- Bricks
+    ld      de, NAMTBL + (0 / 2) + (0 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+
+    ld      b, 8
+.loop_a:
+    push    bc
+
+        ld      b, 16                                    ; number of repetitions
+.loop_b:
+        push    bc
+            push    de
+                ld		hl, Bricks		            ; RAM address (source)
+                ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+                ; ld      de, NAMTBL + (176 / 2) + (25 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+                call    Load_16x16_SC5_Image    
+            pop     de
+            ex      de, hl
+                ld      bc, 8
+                add     hl, bc
+            ex      de, hl
+        pop     bc
+        djnz    .loop_b
+        
+        ex      de, hl
+        ld      bc, 128 * 15        ; next (skip 16 lines)
+            add     hl, bc
+        ex      de, hl
+
+    pop     bc
+    djnz    .loop_a
+
+
+;     ; ----------------------- Bricks test
+;     ld      de, NAMTBL + (0 / 2) + (0 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+
+;     ld      b, 4
+; .loop_a1:
+;     push    bc
+
+;         ld      b, 16                                    ; number of repetitions
+; .loop_b1:
+;         push    bc
+;             push    de
+;                 ld		hl, Bricks		            ; RAM address (source)
+;                 ld      a, 0000 0001 b                          ; destiny on VRAM (17 bits)
+;                 ; ld      de, NAMTBL + (176 / 2) + (25 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+;                 call    Load_16x16_SC5_Image    
+;             pop     de
+;             ex      de, hl
+;                 ld      bc, 8
+;                 add     hl, bc
+;             ex      de, hl
+;         pop     bc
+;         djnz    .loop_b1
+        
+;         ex      de, hl
+;         ld      bc, 128 * 15        ; next (skip 16 lines)
+;             add     hl, bc
+;         ex      de, hl
+
+;     pop     bc
+;     djnz    .loop_a1
+
+
+
     ; ----------------------- Top right conveyor belt
     ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
@@ -166,7 +231,7 @@ Loadbackground:
 
     ld      de, NAMTBL + (176 / 2) + (25 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     ld      b, 5                                    ; number of repetitions
-.loop:
+.loop_0:
     push    bc
         push    de
             ld		hl, ConveyorBelt_Frame2		            ; RAM address (source)
@@ -179,7 +244,7 @@ Loadbackground:
             add     hl, bc
         ex      de, hl
     pop     bc
-    djnz    .loop
+    djnz    .loop_0
     
 
     ; ----------------------- Bottom right conveyor belt

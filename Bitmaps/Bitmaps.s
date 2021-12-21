@@ -10,3 +10,6 @@ ConveyorBelt_Frame3:
 ConveyorBelt_Frame4:
     INCBIN "Bitmaps/conveyor belt 4 - sc5 - 16x16.bin"
 
+Bricks:
+    INCBIN "Bitmaps/bricks.bin"
+
