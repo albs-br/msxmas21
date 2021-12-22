@@ -23,6 +23,7 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "GameLogic.s"
     INCLUDE "UpdateSprites.s"
     INCLUDE "UpdatePalette.s"
+    INCLUDE "Score.s"
 
     INCLUDE "Sprites/SpriteAssets.s"
     INCLUDE "Bitmaps/Bitmaps.s"

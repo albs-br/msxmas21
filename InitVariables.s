@@ -12,6 +12,7 @@ InitVariables:
 
 
     xor     a
+    ld      (Score), a
     ld      (PlayerAnimationFrame), a
 
 

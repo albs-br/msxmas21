@@ -216,6 +216,8 @@ GiftLogic:
 .collision:
     call    BIOS_BEEP
 
+    call    IncrementScore
+
     ld      hl, Gift_Temp_Struct
     ld      a, (Gift_Temp_ConveyorBelt_Number)
     ld      d, a

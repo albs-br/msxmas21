@@ -15,6 +15,7 @@ CurrentJiffy:               rb 1
 
 UpdatePaletteCounter:       rb 1
 
+Score:                      rw 1
 
 
 ; Gift struct
