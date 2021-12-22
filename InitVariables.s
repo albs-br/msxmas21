@@ -6,7 +6,7 @@ InitVariables:
     ld      a, 128 - 8
     ld      (PlayerX), a
 
-    ld      a, 192 - 24 - 8
+    ld      a, 192 - 24 - 8 + 4
     ld      (PlayerY), a
 
 
