@@ -11,20 +11,20 @@ ConveyorBelt_Frame4:
     INCBIN "Bitmaps/conveyor belt 4 - sc5 - 16x16.bin"
 
 Bricks:
-    INCBIN "Bitmaps/bricks.bin"
+    INCBIN "Bitmaps/bricks - sc5 - 16x16.bin"
 
 Floor:
-    INCBIN "Bitmaps/floor.bin"
+    INCBIN "Bitmaps/floor - sc5 - 16x16.bin"
 
 Window_1:
-    INCBIN "Bitmaps/window 1.bin"
+    INCBIN "Bitmaps/window 1 - sc5 - 16x16.bin"
 
 Window_2:
-    INCBIN "Bitmaps/window 2.bin"
+    INCBIN "Bitmaps/window 2 - sc5 - 16x16.bin"
 
 Window_3:
-    INCBIN "Bitmaps/window 3.bin"
+    INCBIN "Bitmaps/window 3 - sc5 - 16x16.bin"
 
 Window_4:
-    INCBIN "Bitmaps/window 4.bin"
+    INCBIN "Bitmaps/window 4 - sc5 - 16x16.bin"
 
