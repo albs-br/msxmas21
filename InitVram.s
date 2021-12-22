@@ -190,84 +190,109 @@ Load_SC5_Image:
 ;   ADE: 17-bits destiny on VRAM
 Load_16x16_SC5_Image_WithTransparency:
 
+    ; now DE = source, HL = destiny (VRAM)
     ex      de, hl
 
-; loop through 16 pixels (8 bytes) of source image
-    ld      b, 8
 
-.loop:
+    ld      b, 16       
+.loopLines:
     push    bc
+        push    de
+            push    hl
 
-        ; for each nibble:
-        ;   if source color == 0 then result = bgcolor
-        ;   else result = source color
+            ; loop through 16 pixels (8 bytes) of source image
+                ld      b, 8
 
-        ; get byte from source image (2 pixels)
-        ld      a, (de)
-        ld      c, a
+            .loopCols:
+                push    bc
 
-        ; high nibble (left pixel)
-        and     1111 0000b
-        or      a
-        jp      z, .isTransp
+                    ; for each nibble:
+                    ;   if source color == 0 then result = bgcolor
+                    ;   else result = source color
 
-; source not transp
-        ; IXH = result = source color
-        ld      ixh, a
-        jp      .getLowNibble
+                    ; get byte from source image (2 pixels)
+                    ld      a, (de)
+                    ld      c, a
 
-.isTransp:
-        ; get byte from VRAM NAMTBL (2 pixels)
-        call    BIOS_RDVRM
+                    ; high nibble (left pixel)
+                    and     1111 0000b
+                    or      a
+                    jp      z, .isTransp
 
-        ; B = high nibble (left pixel)
-        and     1111 0000b
-        ld      b, a
-        
-        ; IXH = result = bg color
-        ld      ixh, b
+            ; source not transp
+                    ; IXH = result = source color
+                    ld      ixh, a
+                    jp      .getLowNibble
 
-.getLowNibble:
-        ; low nibble (left pixel)
-        ld      a, c
-        and     0000 1111b
-        or      a
-        jp      z, .isTransp_Low
+            .isTransp:
+                    ; get byte from VRAM NAMTBL (2 pixels)
+                    call    BIOS_RDVRM
 
-; source not transp
-        ; IXH = result = source color
-        ld      b, a
-        ; join with high nibble
-        ld      a, ixh
-        or      b
-        jp      .writeResult
+                    ; B = high nibble (left pixel)
+                    and     1111 0000b
+                    ld      b, a
+                    
+                    ; IXH = result = bg color
+                    ld      ixh, b
 
-.isTransp_Low:
-        ; get byte from VRAM NAMTBL (2 pixels)
-        call    BIOS_RDVRM
+            .getLowNibble:
+                    ; low nibble (left pixel)
+                    ld      a, c
+                    and     0000 1111b
+                    or      a
+                    jp      z, .isTransp_Low
 
-        ; B = high nibble (left pixel)
-        and     0000 1111b
-        ld      b, a
-        
-        ; join with high nibble
-        ld      a, ixh
-        or      b
+            ; source not transp
+                    ; IXH = result = source color
+                    ld      b, a
+                    ; join with high nibble
+                    ld      a, ixh
+                    or      b
+                    jp      .writeResult
 
-        ;ld      ixh, a
+            .isTransp_Low:
+                    ; get byte from VRAM NAMTBL (2 pixels)
+                    call    BIOS_RDVRM
 
-.writeResult:
-        ; write result to VRAM NAMTBL    
-        ;ld      a, ixh
-        call    BIOS_WRTVRM
+                    ; B = high nibble (left pixel)
+                    and     0000 1111b
+                    ld      b, a
+                    
+                    ; join with high nibble
+                    ld      a, ixh
+                    or      b
 
-        ; next bytes from source and destiny
-        inc     hl
-        inc     de
+                    ;ld      ixh, a
 
+            .writeResult:
+                    ; write result to VRAM NAMTBL    
+                    ;ld      a, ixh
+                    call    BIOS_WRTVRM
+
+                    ; next bytes from source and destiny
+                    inc     hl
+                    inc     de
+
+
+                pop     bc
+                djnz    .loopCols
+
+
+            pop     hl
+        pop     de
+
+        ; HL += 128         ; destiny on VRAM
+        ld      bc, 128
+        add     hl, bc
+
+        ; DE += 8           ; source image
+        ex      de, hl
+            ld      bc, 8
+            add     hl, bc
+        ex      de, hl
 
     pop     bc
-    djnz    .loop
+    djnz    .loopLines
 
     ret
 
@@ -347,7 +372,7 @@ LoadBackground:
             ld		hl, ConveyorBelt_Frame2		            ; RAM address (source)
             ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
             ; ld      de, NAMTBL + (176 / 2) + (25 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
-            call    Load_16x16_SC5_Image    
+            call    Load_16x16_SC5_Image_WithTransparency    
         pop     de
         ex      de, hl
             ld      bc, 8
@@ -361,7 +386,7 @@ LoadBackground:
     ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
     ld      de, NAMTBL + ((199-8) / 2) + (57 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
-    call    Load_16x16_SC5_Image    
+    call    Load_16x16_SC5_Image_WithTransparency    
 
     ld      de, NAMTBL + ((215-8) / 2) + (57 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     ld      b, 3                                    ; number of repetitions
@@ -371,7 +396,7 @@ LoadBackground:
             ld		hl, ConveyorBelt_Frame2		            ; RAM address (source)
             ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
             ; ld      de, NAMTBL + (176 / 2) + (25 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
-            call    Load_16x16_SC5_Image    
+            call    Load_16x16_SC5_Image_WithTransparency    
         pop     de
         ex      de, hl
             ld      bc, 8
@@ -385,7 +410,7 @@ LoadBackground:
     ld		hl, ConveyorBelt_Frame3		            ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
     ld      de, NAMTBL + ((108-13) / 2) + ((25-16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
-    call    Load_16x16_SC5_Image    
+    call    Load_16x16_SC5_Image_WithTransparency    
 
     ld      de, NAMTBL + (0 / 2) + ((25-16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     ld      b, 6                                    ; number of repetitions
@@ -395,7 +420,7 @@ LoadBackground:
             ld		hl, ConveyorBelt_Frame4		            ; RAM address (source)
             ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
             ; ld      de, NAMTBL + (176 / 2) + (25 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
-            call    Load_16x16_SC5_Image    
+            call    Load_16x16_SC5_Image_WithTransparency    
         pop     de
         ex      de, hl
             ld      bc, 8
@@ -409,7 +434,7 @@ LoadBackground:
     ld		hl, ConveyorBelt_Frame3		            ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
     ld      de, NAMTBL + ((69-13-8) / 2) + ((25+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
-    call    Load_16x16_SC5_Image    
+    call    Load_16x16_SC5_Image_WithTransparency    
 
     ld      de, NAMTBL + (0 / 2) + ((25+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     ld      b, 3                                    ; number of repetitions
@@ -419,7 +444,7 @@ LoadBackground:
             ld		hl, ConveyorBelt_Frame4		            ; RAM address (source)
             ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
             ; ld      de, NAMTBL + (176 / 2) + (25 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
-            call    Load_16x16_SC5_Image    
+            call    Load_16x16_SC5_Image_WithTransparency    
         pop     de
         ex      de, hl
             ld      bc, 8
@@ -445,5 +470,5 @@ LoadBackground:
     ret
 
 
-TestData:
-    db  0x01, 0x10, 0x11, 0x00, 0xb0, 0xbb, 0x0b, 0xff
+; TestData:
+;     db  0x01, 0x10, 0x11, 0x00, 0xb0, 0xbb, 0x0b, 0xff
