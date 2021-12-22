@@ -14,6 +14,7 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "Include/MsxBios.s"
     INCLUDE "Include/MsxConstants.s"
     INCLUDE "Include/CommonRoutines.s"
+    INCLUDE "Include/CommonRoutines_SC5.s"
 
     ; Game
     INCLUDE "InitVram.s"
