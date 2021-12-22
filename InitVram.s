@@ -188,6 +188,53 @@ LoadBackground:
 
 
 
+    ; ----------------------- Window left
+    ld		hl, Window_1		                    ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + (48 / 2) + ((128-32) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ld		hl, Window_2		                    ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + (64 / 2) + ((128-32) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ld		hl, Window_3		                    ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + (48 / 2) + ((128-16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ld		hl, Window_4		                    ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + (64 / 2) + ((128-16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ; ----------------------- Window right
+    ld		hl, Window_1		                    ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((256-48-32) / 2) + ((128-32) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ld		hl, Window_2		                    ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((256-48-16) / 2) + ((128-32) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ld		hl, Window_3		                    ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((256-48-32) / 2) + ((128-16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ld		hl, Window_4		                    ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((256-48-16) / 2) + ((128-16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+
+
+
+
+
     ; ----------------------- Top right conveyor belt
     ld		hl, ConveyorBelt_Frame1		            ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)

@@ -61,7 +61,7 @@ Load_SC5_Image:
 ;   ADE: 17-bits destiny on VRAM
 Load_16x16_SC5_Image_WithTransparency:
 
-    ; now DE = source, HL = destiny (VRAM)
+    ; now DE = source (RAM), HL = destiny (VRAM)
     ex      de, hl
 
 
@@ -97,7 +97,11 @@ Load_16x16_SC5_Image_WithTransparency:
 
             .isTransp:
                     ; get byte from VRAM NAMTBL (2 pixels)
-                    call    BIOS_RDVRM
+                    ; push    hl
+                    ;     push    de
+                            call    BIOS_RDVRM
+                    ;     pop     de
+                    ; pop    hl
 
                     ; B = high nibble (left pixel)
                     and     1111 0000b
@@ -114,7 +118,6 @@ Load_16x16_SC5_Image_WithTransparency:
                     jp      z, .isTransp_Low
 
             ; source not transp
-                    ; IXH = result = source color
                     ld      b, a
                     ; join with high nibble
                     ld      a, ixh
@@ -123,7 +126,11 @@ Load_16x16_SC5_Image_WithTransparency:
 
             .isTransp_Low:
                     ; get byte from VRAM NAMTBL (2 pixels)
-                    call    BIOS_RDVRM
+                    ; push    hl
+                    ;     push    de
+                            call    BIOS_RDVRM
+                    ;     pop     de
+                    ; pop    hl
 
                     ; B = high nibble (left pixel)
                     and     0000 1111b
@@ -138,7 +145,11 @@ Load_16x16_SC5_Image_WithTransparency:
             .writeResult:
                     ; write result to VRAM NAMTBL    
                     ;ld      a, ixh
-                    call    BIOS_WRTVRM
+                    ; push    hl
+                    ;     push    de
+                            call    BIOS_WRTVRM
+                    ;     pop     de
+                    ; pop    hl
 
                     ; next bytes from source and destiny
                     inc     hl

@@ -16,3 +16,15 @@ Bricks:
 Floor:
     INCBIN "Bitmaps/floor.bin"
 
+Window_1:
+    INCBIN "Bitmaps/window 1.bin"
+
+Window_2:
+    INCBIN "Bitmaps/window 2.bin"
+
+Window_3:
+    INCBIN "Bitmaps/window 3.bin"
+
+Window_4:
+    INCBIN "Bitmaps/window 4.bin"
+
