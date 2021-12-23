@@ -16,6 +16,7 @@ Bricks:
 Floor:
     INCBIN "Bitmaps/floor - sc5 - 16x16.bin"
 
+; --------------
 Window_1:
     INCBIN "Bitmaps/window 1 - sc5 - 16x16.bin"
 
@@ -28,3 +29,15 @@ Window_3:
 Window_4:
     INCBIN "Bitmaps/window 4 - sc5 - 16x16.bin"
 
+; --------------
+Tree_1:
+    INCBIN "Bitmaps/xmas tree 1 - sc5 - 16x16.bin"
+
+Tree_2:
+    INCBIN "Bitmaps/xmas tree 2 - sc5 - 16x16.bin"
+
+Tree_3:
+    INCBIN "Bitmaps/xmas tree 3 - sc5 - 16x16.bin"
+
+Tree_4:
+    INCBIN "Bitmaps/xmas tree 4 - sc5 - 16x16.bin"
