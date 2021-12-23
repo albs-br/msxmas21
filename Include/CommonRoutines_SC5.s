@@ -58,7 +58,7 @@ Load_SC5_Image:
 
 ; Input:
 ;   HL: source on RAM
-;   ADE: 17-bits destiny on VRAM
+;   ADE: 17-bits destiny on VRAM ------ CAUTION: currently working only with first 64kb
 Load_16x16_SC5_Image_WithTransparency:
 
     ; now DE = source (RAM), HL = destiny (VRAM)
@@ -73,6 +73,12 @@ Load_16x16_SC5_Image_WithTransparency:
 
             ; loop through 16 pixels (8 bytes) of source image
                 ld      b, 8
+
+            ; .loopTest:
+            ;     ld      a, 0x22
+            ;     call    BIOS_NWRVRM
+            ;     inc     hl
+            ;     djnz    .loopTest
 
             .loopCols:
                 push    bc
@@ -97,11 +103,7 @@ Load_16x16_SC5_Image_WithTransparency:
 
             .isTransp:
                     ; get byte from VRAM NAMTBL (2 pixels)
-                    ; push    hl
-                    ;     push    de
-                            call    BIOS_RDVRM
-                    ;     pop     de
-                    ; pop    hl
+                    call    BIOS_NRDVRM
 
                     ; B = high nibble (left pixel)
                     and     1111 0000b
@@ -126,11 +128,7 @@ Load_16x16_SC5_Image_WithTransparency:
 
             .isTransp_Low:
                     ; get byte from VRAM NAMTBL (2 pixels)
-                    ; push    hl
-                    ;     push    de
-                            call    BIOS_RDVRM
-                    ;     pop     de
-                    ; pop    hl
+                    call    BIOS_NRDVRM
 
                     ; B = high nibble (left pixel)
                     and     0000 1111b
@@ -145,11 +143,7 @@ Load_16x16_SC5_Image_WithTransparency:
             .writeResult:
                     ; write result to VRAM NAMTBL    
                     ;ld      a, ixh
-                    ; push    hl
-                    ;     push    de
-                            call    BIOS_WRTVRM
-                    ;     pop     de
-                    ; pop    hl
+                    call    BIOS_NWRVRM
 
                     ; next bytes from source and destiny
                     inc     hl

@@ -187,6 +187,14 @@ LoadBackground:
 
 
 
+    ; test
+    ld		hl, Window_1		                    ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + (16 / 2) + ((120) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+
+
 
     ; ----------------------- Window left
     ld		hl, Window_1		                    ; RAM address (source)
