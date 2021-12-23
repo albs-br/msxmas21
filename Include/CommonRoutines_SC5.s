@@ -59,6 +59,7 @@ Load_SC5_Image:
 ; Input:
 ;   HL: source on RAM
 ;   ADE: 17-bits destiny on VRAM ------ CAUTION: currently working only with first 64kb
+;   Info: this function is slow as hell, as it's using BIOS calls
 Load_16x16_SC5_Image_WithTransparency:
 
     ; now DE = source (RAM), HL = destiny (VRAM)

@@ -280,7 +280,7 @@ JUMP_DELTA_Y_TABLE:        			                                    ; jump height:
 	db	-2, -2, -2, -2, -2, -2, -2, -2                                  ; 8 steps / 16 pixels
 	db	-1, -1, -1, -1, -1, -1,  0, -1,  0,  0, -1                      ; 11 steps / 8 pixels
 .TOP_OFFSET_ADDR:
-	db	 0,  0,  0,  0,  0,  0
+	;db	 0,  0,  0 ;,  0,  0,  0
 .FALL_OFFSET_ADDR:
 	db	 1,  0,  0,  1,  0,  1,  1,  1,  1,  1,  1
 	db	 2,  2,  2,  2,  2,  2,  2,  2
