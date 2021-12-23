@@ -19,6 +19,14 @@ IncrementScore:
     ret
 
 
+; TODO:
+DrawScore:
+    ld      bc, (Score)
+
+
+
+    ret
+
 ; DrawScore:
 ; ld hl, (Score) ; ld de, (Score)?
 ; ex de, hl

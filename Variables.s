@@ -4,7 +4,10 @@ Seed:                       rw 1            ; Seed for random number generator
 PlayerX:                    rb 1
 PlayerY:                    rb 1
 PlayerAnimationFrame:       rb 1
+PlayerJumpingCounter:       rb 1
+Score:                      rw 1
 
+UpdatePaletteCounter:       rb 1
 
 
 ; Debug variables:
@@ -13,9 +16,7 @@ CurrentJiffy:               rb 1
 
 
 
-UpdatePaletteCounter:       rb 1
 
-Score:                      rw 1
 
 
 ; Gift struct

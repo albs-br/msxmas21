@@ -1,3 +1,5 @@
+PLAYER_Y_ON_GROUND:     equ 192 - 24 - 8 + 4
+
 InitVariables:
     ld      a, (BIOS_JIFFY)                  ; MSX BIOS time variable
     or      0x80                             ; A value different of zero is granted
@@ -6,7 +8,7 @@ InitVariables:
     ld      a, 128 - 8
     ld      (PlayerX), a
 
-    ld      a, 192 - 24 - 8 + 4
+    ld      a, PLAYER_Y_ON_GROUND
     ld      (PlayerY), a
 
 
@@ -14,6 +16,8 @@ InitVariables:
     xor     a
     ld      (Score), a
     ld      (PlayerAnimationFrame), a
+    ld      (PlayerJumpingCounter), a
+    ld      (UpdatePaletteCounter), a
 
 
 

@@ -4,10 +4,15 @@ PLAYER_SPEED:       equ 3
 ReadInput:
     ; read keyboard
     ld      a, 8                    ; 8th line
-    call    BIOS_SNSMAT         ; Read Data Of Specified Line From Keyboard Matrix
+    call    BIOS_SNSMAT             ; Read Data Of Specified Line From Keyboard Matrix
 
 
 
+
+    push    af
+        bit     0, a                    ; 0th bit (space bar)
+        call    z, .playerJump
+    pop     af
 
     bit     4, a                    ; 4th bit (key left)
     jp      z, .playerLeft
@@ -17,10 +22,22 @@ ReadInput:
 
 
 
+
     ; ------------ no key pressed
 
 
     jp      .setFrame0
+
+    ret
+
+.playerJump:
+    ; if (PlayerJumpingCounter == 0) PlayerJumpingCounter = 1
+    ld      a, (PlayerJumpingCounter)
+    or      a
+    ret     nz
+
+    inc     a
+    ld      (PlayerJumpingCounter), a
 
     ret
 
