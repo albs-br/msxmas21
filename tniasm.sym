@@ -28,7 +28,6 @@ BIOS_MLTNAM: equ 0F3D1h ; last def. pass 3
 BIOS_PINLIN: equ 0AEh ; last def. pass 3
 Screen11: equ 040CFh ; last def. pass 3
 FramesSkipped: equ 0C005h ; last def. pass 3
-GIFT_5: equ 013h ; last def. pass 3
 ClearVram_MSX2.loop: equ 040C2h ; last def. pass 3
 UpdateSprites: equ 04682h ; last def. pass 3
 BIOS_TAPOOF: equ 0F0h ; last def. pass 3
@@ -76,6 +75,7 @@ BIOS_CSAVEA: equ 0F942h ; last def. pass 3
 BIOS_EXTROM: equ 015Fh ; last def. pass 3
 BIOS_BREAKX: equ 0B7h ; last def. pass 3
 BIOS_SETTXT: equ 078h ; last def. pass 3
+SpritePatternsAndColors_Gift_2.size: equ 090h ; last def. pass 3
 BIOS_FRCNEW: equ 0F3F5h ; last def. pass 3
 GiftLogic.collision: equ 0466Ch ; last def. pass 3
 BIOS_OUTDLP: equ 014Dh ; last def. pass 3
@@ -85,7 +85,7 @@ BIOS_TAPIN: equ 0E4h ; last def. pass 3
 BIOS_H_CHPH: equ 0FDA4h ; last def. pass 3
 BIOS_NSETRD: equ 016Eh ; last def. pass 3
 BIOS_JIFFY: equ 0FC9Eh ; last def. pass 3
-MainLoop: equ 05506h ; last def. pass 3
+MainLoop: equ 05596h ; last def. pass 3
 BIOS_H_GONE: equ 0FF43h ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Left_2_Bottom: equ 04EADh ; last def. pass 3
 BIOS_PRSCNT: equ 0FB35h ; last def. pass 3
@@ -128,7 +128,7 @@ BIOS_KILBUF: equ 0156h ; last def. pass 3
 BIOS_DRWFLG: equ 0FCBBh ; last def. pass 3
 BIOS_DOT: equ 0F6B5h ; last def. pass 3
 BIOS_VOICCQ: equ 0FA75h ; last def. pass 3
-Execute: equ 054FDh ; last def. pass 3
+Execute: equ 0558Dh ; last def. pass 3
 BIOS_ESTBLS: equ 0FB1Dh ; last def. pass 3
 BIOS_CYOFF: equ 0F947h ; last def. pass 3
 BIOS_CXOFF: equ 0F945h ; last def. pass 3
@@ -148,17 +148,16 @@ SpritePatternsAndColors_Gift_1: equ 04F6Dh ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Left_2_Bottom.size: equ 0C0h ; last def. pass 3
 BIOS_SLTTBL: equ 0FCC5h ; last def. pass 3
 BIOS_DSCTMP: equ 0F698h ; last def. pass 3
-End: equ 05530h ; last def. pass 3
+End: equ 055C0h ; last def. pass 3
 BIOS_H_LOC: equ 0FE99h ; last def. pass 3
 BIOS_H_CVS: equ 0FE44h ; last def. pass 3
 BIOS_MIVCNT: equ 0F951h ; last def. pass 3
 BIOS_H_CRUS: equ 0FF25h ; last def. pass 3
 BIOS_H_NOFO: equ 0FE58h ; last def. pass 3
-ConveyorBelt_Frame4: equ 0517Dh ; last def. pass 3
+ConveyorBelt_Frame4: equ 0520Dh ; last def. pass 3
 BIOS_LINWRK: equ 0FC18h ; last def. pass 3
 BIOS_H_IPL: equ 0FE03h ; last def. pass 3
 BIOS_PUTPNT: equ 0F3F8h ; last def. pass 3
-GIFT_6: equ 016h ; last def. pass 3
 GIFT_4: equ 010h ; last def. pass 3
 BIOS_LPTPOS: equ 0F415h ; last def. pass 3
 BIOS_CHGMOD: equ 05Fh ; last def. pass 3
@@ -206,7 +205,7 @@ MSXID3: equ 02Dh ; last def. pass 3
 BIOS_NWRVRM: equ 0177h ; last def. pass 3
 BIOS_GRPATR: equ 0F3CDh ; last def. pass 3
 BIOS_USRDATA: equ 0F7F8h ; last def. pass 3
-ConveyorBelt_Frame2: equ 0507Dh ; last def. pass 3
+ConveyorBelt_Frame2: equ 0510Dh ; last def. pass 3
 UpdateSprites.hideGift_2: equ 0474Fh ; last def. pass 3
 BIOS_TEMP8: equ 0F69Fh ; last def. pass 3
 BIOS_BEEP: equ 0C0h ; last def. pass 3
@@ -240,7 +239,7 @@ BIOS_OLDINT: equ 0FB12h ; last def. pass 3
 BIOS_TEMP3: equ 0F69Dh ; last def. pass 3
 SANTA_CLAUS_WALKING_LEFT_2: equ 02Eh ; last def. pass 3
 BIOS_H_ISRE: equ 0FF2Ah ; last def. pass 3
-Window_1: equ 052FDh ; last def. pass 3
+Window_1: equ 0538Dh ; last def. pass 3
 BIOS_TEMPST: equ 0F67Ah ; last def. pass 3
 GIFT_2: equ 0Ah ; last def. pass 3
 BIOS_PRMFLG: equ 0F7B4h ; last def. pass 3
@@ -262,7 +261,7 @@ BIOS_OLDSTT: equ 0FB0Ch ; last def. pass 3
 BIOS_TAPOON: equ 0EAh ; last def. pass 3
 ReadInput.frame2_Left: equ 0449Bh ; last def. pass 3
 Load_16x16_SC5_Image_WithTransparency.isTransp_Low: equ 04195h ; last def. pass 3
-MainLoop.waitVBlank: equ 0550Ah ; last def. pass 3
+MainLoop.waitVBlank: equ 0559Ah ; last def. pass 3
 BIOS_MINUPD: equ 0F3EFh ; last def. pass 3
 Gift_Temp_Dx: equ 0C00Eh ; last def. pass 3
 Debug_Temp_Byte: equ 0C0C2h ; last def. pass 3
@@ -290,7 +289,7 @@ BIOS_CALATR: equ 087h ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Right_2_Top: equ 04B1Dh ; last def. pass 3
 BIOS_BIGFIL: equ 016Bh ; last def. pass 3
 BIOS_CAPST: equ 0FCABh ; last def. pass 3
-ConveyorBelt_Frame3: equ 050FDh ; last def. pass 3
+ConveyorBelt_Frame3: equ 0518Dh ; last def. pass 3
 BIOS_GRPPRT: equ 08Dh ; last def. pass 3
 TopRight_ConveyorBelt_Data: equ 04590h ; last def. pass 3
 BIOS_SWPTMP: equ 0F7BCh ; last def. pass 3
@@ -417,13 +416,13 @@ BIOS_STMOTR: equ 0F3h ; last def. pass 3
 BIOS_ASPCT1: equ 0F40Bh ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Right_2_Bottom.size: equ 0C0h ; last def. pass 3
 BIOS_LOHDIR: equ 0F94Ah ; last def. pass 3
-Window_3: equ 053FDh ; last def. pass 3
+Window_3: equ 0548Dh ; last def. pass 3
 BIOS_CALPAT: equ 084h ; last def. pass 3
 SANTA_CLAUS_WALKING_LEFT_1: equ 027h ; last def. pass 3
 BIOS_DATCNT: equ 0FB18h ; last def. pass 3
 Load_SC5_Image: equ 04145h ; last def. pass 3
 BIOS_ENDBUF: equ 0F660h ; last def. pass 3
-Window_4: equ 0547Dh ; last def. pass 3
+Window_4: equ 0550Dh ; last def. pass 3
 BIOS_INIMLT: equ 075h ; last def. pass 3
 BIOS_H_FING: equ 0FF7Ah ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Right_1_Bottom.size: equ 090h ; last def. pass 3
@@ -439,7 +438,7 @@ BIOS_RUNFLG: equ 0F866h ; last def. pass 3
 CheckCollision_16x24_16x16: equ 04120h ; last def. pass 3
 BIOS_TXTTAB: equ 0F676h ; last def. pass 3
 BIOS_CONSAV: equ 0F668h ; last def. pass 3
-TestSpriteAttributes: equ 05530h ; last def. pass 3
+TestSpriteAttributes: equ 055C0h ; last def. pass 3
 BIOS_T32CGP: equ 0F3C1h ; last def. pass 3
 BIOS_H_TIMI: equ 0FD9Fh ; last def. pass 3
 LoadBackground.loop_3: equ 0430Eh ; last def. pass 3
@@ -451,7 +450,7 @@ BIOS_RG2SAV: equ 0F3E1h ; last def. pass 3
 BIOS_CASPRV: equ 0FCB1h ; last def. pass 3
 BIOS_PADX: equ 0FC9Dh ; last def. pass 3
 BIOS_MLTPAT: equ 0F3D9h ; last def. pass 3
-Window_2: equ 0537Dh ; last def. pass 3
+Window_2: equ 0540Dh ; last def. pass 3
 GiftLogic.return: equ 04662h ; last def. pass 3
 BIOS_H_KYEA: equ 0FDD1h ; last def. pass 3
 GIFT_3: equ 0Dh ; last def. pass 3
@@ -499,9 +498,10 @@ BIOS_H_CHRG: equ 0FF48h ; last def. pass 3
 BIOS_RSLREG: equ 0138h ; last def. pass 3
 BIOS_ENDFOR: equ 0F6A1h ; last def. pass 3
 ReadInput.setFrame0: equ 0450Dh ; last def. pass 3
-MainLoop.frameSkip: equ 0552Bh ; last def. pass 3
+MainLoop.frameSkip: equ 055BBh ; last def. pass 3
 LoadSpritePatterns.nextHLAndIX: equ 043F4h ; last def. pass 3
 BIOS_VDPSTA: equ 0131h ; last def. pass 3
+SpritePatternsAndColors_Gift_2: equ 04FFDh ; last def. pass 3
 BIOS_DATPTR: equ 0F6C8h ; last def. pass 3
 BIOS_H_DSKI: equ 0FE17h ; last def. pass 3
 BIOS_LPTOUT: equ 0A5h ; last def. pass 3
@@ -510,7 +510,7 @@ REG8SAV: equ 0FFE7h ; last def. pass 3
 ClearRam: equ 04010h ; last def. pass 3
 BIOS_RG0SAV: equ 0F3DFh ; last def. pass 3
 BIOS_LINL40: equ 0F3AEh ; last def. pass 3
-Bricks: equ 051FDh ; last def. pass 3
+Bricks: equ 0528Dh ; last def. pass 3
 BIOS_CURLIN: equ 0F41Ch ; last def. pass 3
 BIOS_H_NULO: equ 0FE5Dh ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Right_1_Bottom: equ 04A8Dh ; last def. pass 3
@@ -655,7 +655,7 @@ BIOS_RTPROG: equ 0F955h ; last def. pass 3
 BIOS_INIT32: equ 06Fh ; last def. pass 3
 BIOS_MLTCGP: equ 0F3D5h ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Left_2_Top: equ 04DEDh ; last def. pass 3
-Floor: equ 0527Dh ; last def. pass 3
+Floor: equ 0530Dh ; last def. pass 3
 BIOS_MEXBIH: equ 0FB07h ; last def. pass 3
 BIOS_TAPIOF: equ 0E7h ; last def. pass 3
 BIOS_INITIO: equ 03Bh ; last def. pass 3
@@ -690,7 +690,7 @@ BIOS_ACPAGE: equ 0FAF6h ; last def. pass 3
 BIOS_RSFCB: equ 0FB04h ; last def. pass 3
 BIOS_LINTTB: equ 0FBB2h ; last def. pass 3
 BIOS_FRETOP: equ 0F69Bh ; last def. pass 3
-InitGame: equ 05500h ; last def. pass 3
+InitGame: equ 05590h ; last def. pass 3
 BIOS_H_FILO: equ 0FE85h ; last def. pass 3
 BIOS_GRPCOL: equ 0F3C9h ; last def. pass 3
 BIOS_DRWANG: equ 0FCBDh ; last def. pass 3
@@ -708,6 +708,6 @@ EnableRomPage2: equ 0404Bh ; last def. pass 3
 BIOS_ERRFLG: equ 0F414h ; last def. pass 3
 BIOS_H_COPY: equ 0FE08h ; last def. pass 3
 BIOS_RDPSG: equ 096h ; last def. pass 3
-ConveyorBelt_Frame1: equ 04FFDh ; last def. pass 3
+ConveyorBelt_Frame1: equ 0508Dh ; last def. pass 3
 BIOS_HEADER: equ 0F40Ah ; last def. pass 3
 BIOS_H_READ: equ 0FF07h ; last def. pass 3

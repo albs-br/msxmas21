@@ -51,3 +51,7 @@ SpritePatternsAndColors_SantaClaus_Walking_Left_2_Bottom:
 SpritePatternsAndColors_Gift_1:
     INCLUDE "Sprites/Gifts/Gift_1.s"
 .size:  equ $ - SpritePatternsAndColors_Gift_1
+
+; SpritePatternsAndColors_Gift_2:
+;     INCLUDE "Sprites/Gifts/Gift_2.s"
+; .size:  equ $ - SpritePatternsAndColors_Gift_2
