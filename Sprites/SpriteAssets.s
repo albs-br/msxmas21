@@ -55,3 +55,14 @@ SpritePatternsAndColors_Gift_1:
 ; SpritePatternsAndColors_Gift_2:
 ;     INCLUDE "Sprites/Gifts/Gift_2.s"
 ; .size:  equ $ - SpritePatternsAndColors_Gift_2
+
+
+; --------------- Score numbers
+
+SpritePatternsAndColors_Number_0:
+    INCLUDE "Sprites/ScoreNumbers/0.s"
+.size:  equ $ - SpritePatternsAndColors_Number_0
+
+SpritePatternsAndColors_Number_1:
+    INCLUDE "Sprites/ScoreNumbers/1.s"
+.size:  equ $ - SpritePatternsAndColors_Number_1
