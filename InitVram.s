@@ -235,46 +235,109 @@ LoadBackground:
     ld      de, NAMTBL + (((256-32-8) + 16) / 2) + ((192 - 8 - 32 + 16 + 4) * 128)   ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
+    ; ------------------------ Small gifts left
+    ld		hl, Small_Gift_1                        ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((32 + 8) / 2) + ((192 - 8 - 32 + 4 + 24) * 128)   ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ld		hl, Small_Gift_2                        ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((32 + 8 + 12) / 2) + ((192 - 8 - 32 + 4 + 24 - 2) * 128)   ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ld		hl, Small_Gift_3                        ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((32 + 8 + 24) / 2) + ((192 - 8 - 32 + 4 + 24) * 128)   ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ld		hl, Small_Gift_4                        ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((32 + 8 + 36) / 2) + ((192 - 8 - 32 + 4 + 24 - 2) * 128)   ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ; ------------------------ Small gifts right
+    ld		hl, Small_Gift_1                        ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((32 + 8 + 128) / 2) + ((192 - 8 - 32 + 4 + 24) * 128)   ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ld		hl, Small_Gift_4                        ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((32 + 8 + 12 + 128) / 2) + ((192 - 8 - 32 + 4 + 24 - 2) * 128)   ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ld		hl, Small_Gift_2                        ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((32 + 8 + 24 + 128) / 2) + ((192 - 8 - 32 + 4 + 24) * 128)   ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ld		hl, Small_Gift_3                        ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((32 + 8 + 36 + 128) / 2) + ((192 - 8 - 32 + 4 + 24 - 2) * 128)   ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
     ; ----------------------- Window left
     ld		hl, Window_1		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + (48 / 2) + ((128-32) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + (48 / 2) + ((128-32+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_2		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + (64 / 2) + ((128-32) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + (64 / 2) + ((128-32+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_3		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + (48 / 2) + ((128-16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + (48 / 2) + ((128-16+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_4		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + (64 / 2) + ((128-16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + (64 / 2) + ((128-16+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ; ----------------------- Window right
     ld		hl, Window_1		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((256-48-32) / 2) + ((128-32) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((256-48-32) / 2) + ((128-32+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_2		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((256-48-16) / 2) + ((128-32) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((256-48-16) / 2) + ((128-32+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_3		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((256-48-32) / 2) + ((128-16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((256-48-32) / 2) + ((128-16+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_4		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((256-48-16) / 2) + ((128-16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((256-48-16) / 2) + ((128-16+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ; ----------------------- Window top center
+    ld		hl, Window_1		                    ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((128-16) / 2) + ((48) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ld		hl, Window_2		                    ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((128-16+16) / 2) + ((48) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ld		hl, Window_3		                    ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((128-16) / 2) + ((48+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    call    Load_16x16_SC5_Image_WithTransparency
+
+    ld		hl, Window_4		                    ; RAM address (source)
+    ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
+    ld      de, NAMTBL + ((128-16+16) / 2) + ((48+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
 
