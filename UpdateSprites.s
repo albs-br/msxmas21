@@ -385,7 +385,7 @@ UpdateSprites:
     inc     hl
     inc     hl
 
-; --------- Sprite #14
+; --------- Sprite #17
 
     ; Y
     ld      (hl), c
@@ -403,7 +403,7 @@ UpdateSprites:
     inc     hl
     inc     hl
 
-; --------- Sprite #15
+; --------- Sprite #18
 
     ; Y
     ld      (hl), c
@@ -420,6 +420,48 @@ UpdateSprites:
 
     inc     hl
     inc     hl
+
+; --------- Sprite #19
+
+;     ; Y
+;     ld      a, 8
+;     ld      (hl), a
+
+;     ; X
+;     ; ld      de, Gift_4_Struct + 2
+;     inc     hl
+;     ; ld      a, (de)
+;     ld      a, 128-8
+;     ld      (hl), a
+
+;     ; Pattern
+;     inc     hl
+;     ld      a, 0 + (NUMBER_0) * 4
+;     ld      (hl), a
+
+;     inc     hl
+;     inc     hl
+
+; ; --------- Sprite #20
+
+;     ; Y
+;     ld      a, 8
+;     ld      (hl), a
+
+;     ; X
+;     ; ld      de, Gift_4_Struct + 2
+;     inc     hl
+;     ; ld      a, (de)
+;     ld      a, 128-8
+;     ld      (hl), a
+
+;     ; Pattern
+;     inc     hl
+;     ld      a, 0 + (NUMBER_0 + 1) * 4
+;     ld      (hl), a
+
+;     inc     hl
+;     inc     hl
 
 
 

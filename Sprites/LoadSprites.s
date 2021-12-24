@@ -13,6 +13,13 @@ GIFT_4:                         equ 16
 ; GIFT_5:                         equ 19
 ; GIFT_6:                         equ 22
 
+SCORE_CLRTBL_INDEX:             equ 19
+
+NUMBER_0:                       equ 38 + 15
+NUMBER_1:                       equ 40 + 15
+
+
+
 LoadSprites:
 
 ; -------------- Santa Claus standing right
@@ -107,6 +114,23 @@ LoadSprites:
     ld      IX, SPRPAT + ((SANTA_CLAUS_WALKING_LEFT_2 + 4) * 32)
     ld      b, 3
     call    LoadSpritePatterns
+
+; -------------- Numbers 0-9
+
+    ; ld      hl, SpritePatternsAndColors_Number_0
+    ; ld      IY, SPRCOL + (SCORE_CLRTBL_INDEX * 16)
+    ; ld      b, 2
+    ; call    LoadSpriteColors ; ERROR, this function is meant fo 16x16 sprites, this one is 8x16
+
+    ; ld      hl, SpritePatternsAndColors_Number_0
+    ; ld      IX, SPRPAT + (NUMBER_0 * 32)
+    ; ld      b, 2
+    ; call    LoadSpritePatterns
+
+    ; ld      hl, SpritePatternsAndColors_Number_1
+    ; ld      IX, SPRPAT + (NUMBER_1 * 32)
+    ; ld      b, 2
+    ; call    LoadSpritePatterns
 
 
     ret
