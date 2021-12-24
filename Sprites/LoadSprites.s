@@ -9,7 +9,7 @@ SANTA_CLAUS_WALKING_LEFT_2:     equ 31 + 15
 GIFT_1:                         equ 7
 GIFT_2:                         equ 10
 GIFT_3:                         equ 13
- GIFT_4:                         equ 16
+GIFT_4:                         equ 16
 ; GIFT_5:                         equ 19
 ; GIFT_6:                         equ 22
 

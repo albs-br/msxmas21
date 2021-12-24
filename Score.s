@@ -21,7 +21,9 @@ IncrementScore:
 
 ; TODO:
 DrawScore:
-    ld      bc, (Score)
+    ld      hl, (Score)
+
+    
 
 
 

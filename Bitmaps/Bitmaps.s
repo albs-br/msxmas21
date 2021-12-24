@@ -41,3 +41,16 @@ Tree_3:
 
 Tree_4:
     INCBIN "Bitmaps/xmas tree 4 - sc5 - 16x16.bin"
+
+; --------------
+Tree_B_1:
+    INCBIN "Bitmaps/xmas tree B 1 - sc5 - 16x16.bin"
+
+Tree_B_2:
+    INCBIN "Bitmaps/xmas tree B 2 - sc5 - 16x16.bin"
+
+Tree_B_3:
+    INCBIN "Bitmaps/xmas tree B 3 - sc5 - 16x16.bin"
+
+Tree_B_4:
+    INCBIN "Bitmaps/xmas tree B 4 - sc5 - 16x16.bin"
