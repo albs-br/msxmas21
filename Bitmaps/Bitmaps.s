@@ -22,7 +22,8 @@ Floor:
 Wood_Horizontal:
     INCBIN "Bitmaps/wood horizontal - sc5 - 16x16.bin"
 
-
+Wood_Vertical:
+    INCBIN "Bitmaps/wood vertical - sc5 - 16x16.bin"
 
 ; --------------
 Window_1:
