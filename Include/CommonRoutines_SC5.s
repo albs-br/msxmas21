@@ -90,7 +90,6 @@ Load_16x16_SC5_Image_WithTransparency:
 
                     ; get byte from source image (2 pixels)
                     ld      a, (de)
-                    ld      c, a
 
                     ; ckeck if A == 0 (both pixels transparent), then go to next byte
                     ; saving two reads and one write
@@ -113,23 +112,20 @@ Load_16x16_SC5_Image_WithTransparency:
 
                     ; B = high nibble (left pixel)
                     and     1111 0000b
-                    ld      b, a
                     
                     ; IXH = result = bg color
-                    ld      ixh, b
+                    ld      ixh, a
 
             .getLowNibble:
                     ; low nibble (left pixel)
-                    ld      a, c
+                    ld      a, (de)
                     and     0000 1111b
                     or      a
                     jp      z, .isTransp_Low
 
             ; source not transp
-                    ld      b, a
                     ; join with high nibble
-                    ld      a, ixh
-                    or      b
+                    or      ixh
                     jp      .writeResult
 
             .isTransp_Low:
@@ -138,17 +134,12 @@ Load_16x16_SC5_Image_WithTransparency:
 
                     ; B = high nibble (left pixel)
                     and     0000 1111b
-                    ld      b, a
                     
                     ; join with high nibble
-                    ld      a, ixh
-                    or      b
-
-                    ;ld      ixh, a
+                    or      ixh
 
             .writeResult:
                     ; write result to VRAM NAMTBL    
-                    ;ld      a, ixh
                     call    BIOS_NWRVRM
             
             .nextByte:
