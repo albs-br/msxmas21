@@ -13,6 +13,9 @@ ConveyorBelt_Frame4:
 Bricks:
     INCBIN "Bitmaps/bricks - sc5 - 16x16.bin"
 
+Bricks_1:
+    INCBIN "Bitmaps/bricks1 - sc5 - 16x16.bin"
+
 Floor:
     INCBIN "Bitmaps/floor - sc5 - 16x16.bin"
 

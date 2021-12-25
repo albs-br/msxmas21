@@ -142,9 +142,17 @@ LoadBackground:
 .loop_b:
         push    bc
             push    de
-                ld		hl, Bricks		            ; RAM address (source)
+                call    RandomNumber
+                and     0000 0001b
+                or      a
+                jp      nz, .bricks1
+                ld		hl, Bricks		                        ; RAM address (source)
+                jp      .continue_Bricks
+.bricks1:
+                ld		hl, Bricks_1		                    ; RAM address (source)
+.continue_Bricks:
                 ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-                ; ld      de, NAMTBL + (176 / 2) + (25 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+                ; ld      de, NAMTBL + (176 / 2) + (25 * 128)   ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
                 call    Load_16x16_SC5_Image    
             pop     de
             ex      de, hl
