@@ -19,6 +19,11 @@ Bricks_1:
 Floor:
     INCBIN "Bitmaps/floor - sc5 - 16x16.bin"
 
+Wood_Horizontal:
+    INCBIN "Bitmaps/wood horizontal - sc5 - 16x16.bin"
+
+
+
 ; --------------
 Window_1:
     INCBIN "Bitmaps/window 1 - sc5 - 16x16.bin"

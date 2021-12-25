@@ -330,23 +330,43 @@ LoadBackground:
     ; ----------------------- Window top center
     ld		hl, Window_1		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((128-16) / 2) + ((48) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((128-16) / 2) + ((40) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_2		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((128-16+16) / 2) + ((48) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((128-16+16) / 2) + ((40) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_3		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((128-16) / 2) + ((48+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((128-16) / 2) + ((40+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_4		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((128-16+16) / 2) + ((48+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((128-16+16) / 2) + ((40+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
+
+    ; ----------------------- Wood horiziontal
+    ld      de, NAMTBL + (0 / 2) + (88 * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+
+    ld      b, 16                                    ; number of repetitions
+.loop_wh:
+    push    bc
+        push    de
+            ld		hl, Wood_Horizontal		                    ; RAM address (source)
+            ld      a, 0000 0000 b                              ; destiny on VRAM (17 bits)
+            ; ld      de, NAMTBL + (176 / 2) + (25 * 128)       ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+            call    Load_16x8_SC5_Image    
+        pop     de
+        ex      de, hl
+            ld      bc, 8
+            add     hl, bc
+        ex      de, hl
+    pop     bc
+    djnz    .loop_wh
+        
 
 
 
