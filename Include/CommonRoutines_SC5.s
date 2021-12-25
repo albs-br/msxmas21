@@ -92,6 +92,11 @@ Load_16x16_SC5_Image_WithTransparency:
                     ld      a, (de)
                     ld      c, a
 
+                    ; ckeck if A == 0 (both pixels transparent), then go to next byte
+                    ; saving two reads and one write
+                    or      a
+                    jp      z, .nextByte
+
                     ; high nibble (left pixel)
                     and     1111 0000b
                     or      a
@@ -145,7 +150,8 @@ Load_16x16_SC5_Image_WithTransparency:
                     ; write result to VRAM NAMTBL    
                     ;ld      a, ixh
                     call    BIOS_NWRVRM
-
+            
+            .nextByte:
                     ; next bytes from source and destiny
                     inc     hl
                     inc     de
