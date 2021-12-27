@@ -15,8 +15,8 @@ GIFT_4:                         equ 16
 
 SCORE_CLRTBL_INDEX:             equ 19
 
-NUMBER_0:                       equ 38 + 15
-NUMBER_1:                       equ 40 + 15
+SCORE_DIGIT_1:                       equ 38 + 15    ; least significant digit of score (units)
+SCORE_DIGIT_0:                       equ 40 + 15
 
 
 
@@ -127,15 +127,15 @@ LoadSprites:
     ld      b, 2
     call    LoadSpriteColors
 
-    ld      hl, SpritePatternsAndColors_Number_0
-    ld      IX, SPRPAT + (NUMBER_0 * 32)
-    ld      b, 2
-    call    LoadSpritePatterns
+    ; ld      hl, SpritePatternsAndColors_Number_0
+    ; ld      IX, SPRPAT + (NUMBER_0 * 32)
+    ; ld      b, 2
+    ; call    LoadSpritePatterns
 
-    ld      hl, SpritePatternsAndColors_Number_1
-    ld      IX, SPRPAT + (NUMBER_1 * 32)
-    ld      b, 2
-    call    LoadSpritePatterns
+    ; ld      hl, SpritePatternsAndColors_Number_1
+    ; ld      IX, SPRPAT + (NUMBER_1 * 32)
+    ; ld      b, 2
+    ; call    LoadSpritePatterns
 
 
     ret

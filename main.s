@@ -38,6 +38,7 @@ InitGame:
 
     call    InitVariables
 
+    call    DrawScore
 
 
 

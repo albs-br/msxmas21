@@ -436,7 +436,7 @@ UpdateSprites:
 
     ; Pattern
     inc     hl
-    ld      a, 0 + (NUMBER_0) * 4
+    ld      a, 0 + (SCORE_DIGIT_1) * 4
     ld      (hl), a
 
     inc     hl
@@ -457,7 +457,7 @@ UpdateSprites:
 
     ; Pattern
     inc     hl
-    ld      a, 0 + (NUMBER_0 + 1) * 4
+    ld      a, 0 + (SCORE_DIGIT_1 + 1) * 4
     ld      (hl), a
 
     inc     hl
@@ -478,7 +478,7 @@ UpdateSprites:
 
     ; Pattern
     inc     hl
-    ld      a, 0 + (NUMBER_1) * 4
+    ld      a, 0 + (SCORE_DIGIT_0) * 4
     ld      (hl), a
 
     inc     hl
@@ -499,7 +499,7 @@ UpdateSprites:
 
     ; Pattern
     inc     hl
-    ld      a, 0 + (NUMBER_1 + 1) * 4
+    ld      a, 0 + (SCORE_DIGIT_0 + 1) * 4
     ld      (hl), a
 
     inc     hl

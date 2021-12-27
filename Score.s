@@ -19,15 +19,48 @@ IncrementScore:
     ret
 
 
-; TODO:
 DrawScore:
-    ld      hl, (Score)
+    ; get score (BCD encoded)
+    ld      de, (Score)
 
+    ; set pointer to start of jump table of the digit patterns
+    ld      hl, DigitPatternsJumpTable
     
+    ; get least significant digit (units) and multiply it by 2 (because the jump table items are two bytes long)
+    ld      a, e
+    and     0000 1111b          ; mask to get only low nibble
+    add     a, a
+    
+    ; add it to HL to point to the corresponding digit pattern
+    ld      b, 0
+    ld      c, a
+    add     hl, bc
+    
+    ; get the address pointed by HL and put it in HL
+    ld      c, (hl)     ; least significant byte of addr
+    inc     hl
+    ld      b, (hl)     ; most significant byte of addr
+    ld      l, c
+    ld      h, b
 
+    ; draw digit pattern on first position
+    ;ld      hl, SpritePatternsAndColors_Number_0
+    ld      IX, SPRPAT + (SCORE_DIGIT_0 * 32)
+    ld      b, 2
+    call    LoadSpritePatterns
 
+    ; TODO:
+    ld      hl, SpritePatternsAndColors_Number_0
+    ld      IX, SPRPAT + (SCORE_DIGIT_1 * 32)
+    ld      b, 2
+    call    LoadSpritePatterns
 
     ret
+
+
+; Jump table for digit patterns
+DigitPatternsJumpTable:
+    dw  SpritePatternsAndColors_Number_0, SpritePatternsAndColors_Number_1
 
 ; DrawScore:
 ; ld hl, (Score) ; ld de, (Score)?

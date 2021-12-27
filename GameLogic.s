@@ -222,6 +222,8 @@ GiftLogic:
     call    BIOS_BEEP
 
     call    IncrementScore
+    
+    call    DrawScore
 
     ld      hl, Gift_Temp_Struct
     ld      a, (Gift_Temp_ConveyorBelt_Number)
