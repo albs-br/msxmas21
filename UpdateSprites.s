@@ -423,45 +423,90 @@ UpdateSprites:
 
 ; --------- Sprite #19
 
-;     ; Y
-;     ld      a, 8
-;     ld      (hl), a
+    ; Y
+    ld      a, 8
+    ld      (hl), a
 
-;     ; X
-;     ; ld      de, Gift_4_Struct + 2
-;     inc     hl
-;     ; ld      a, (de)
-;     ld      a, 128-8
-;     ld      (hl), a
+    ; X
+    ; ld      de, Gift_4_Struct + 2
+    inc     hl
+    ; ld      a, (de)
+    ld      a, 128-8
+    ld      (hl), a
 
-;     ; Pattern
-;     inc     hl
-;     ld      a, 0 + (NUMBER_0) * 4
-;     ld      (hl), a
+    ; Pattern
+    inc     hl
+    ld      a, 0 + (NUMBER_0) * 4
+    ld      (hl), a
 
-;     inc     hl
-;     inc     hl
+    inc     hl
+    inc     hl
 
-; ; --------- Sprite #20
+; --------- Sprite #20
 
-;     ; Y
-;     ld      a, 8
-;     ld      (hl), a
+    ; Y
+    ld      a, 8
+    ld      (hl), a
 
-;     ; X
-;     ; ld      de, Gift_4_Struct + 2
-;     inc     hl
-;     ; ld      a, (de)
-;     ld      a, 128-8
-;     ld      (hl), a
+    ; X
+    ; ld      de, Gift_4_Struct + 2
+    inc     hl
+    ; ld      a, (de)
+    ld      a, 128-8
+    ld      (hl), a
 
-;     ; Pattern
-;     inc     hl
-;     ld      a, 0 + (NUMBER_0 + 1) * 4
-;     ld      (hl), a
+    ; Pattern
+    inc     hl
+    ld      a, 0 + (NUMBER_0 + 1) * 4
+    ld      (hl), a
 
-;     inc     hl
-;     inc     hl
+    inc     hl
+    inc     hl
+
+; --------- Sprite #21
+
+    ; Y
+    ld      a, 8
+    ld      (hl), a
+
+    ; X
+    ; ld      de, Gift_4_Struct + 2
+    inc     hl
+    ; ld      a, (de)
+    ld      a, 128
+    ld      (hl), a
+
+    ; Pattern
+    inc     hl
+    ld      a, 0 + (NUMBER_1) * 4
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
+
+; --------- Sprite #22
+
+    ; Y
+    ld      a, 8
+    ld      (hl), a
+
+    ; X
+    ; ld      de, Gift_4_Struct + 2
+    inc     hl
+    ; ld      a, (de)
+    ld      a, 128
+    ld      (hl), a
+
+    ; Pattern
+    inc     hl
+    ld      a, 0 + (NUMBER_1 + 1) * 4
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
+
+
+
 
 
 

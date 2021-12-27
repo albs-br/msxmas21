@@ -117,20 +117,25 @@ LoadSprites:
 
 ; -------------- Numbers 0-9
 
-    ; ld      hl, SpritePatternsAndColors_Number_0
-    ; ld      IY, SPRCOL + (SCORE_CLRTBL_INDEX * 16)
-    ; ld      b, 2
-    ; call    LoadSpriteColors ; ERROR, this function is meant fo 16x16 sprites, this one is 8x16
+    ld      hl, SpritePatternsAndColors_Number_0
+    ld      IY, SPRCOL + (SCORE_CLRTBL_INDEX * 16)
+    ld      b, 2
+    call    LoadSpriteColors
 
-    ; ld      hl, SpritePatternsAndColors_Number_0
-    ; ld      IX, SPRPAT + (NUMBER_0 * 32)
-    ; ld      b, 2
-    ; call    LoadSpritePatterns
+    ld      hl, SpritePatternsAndColors_Number_0
+    ld      IY, SPRCOL + ((SCORE_CLRTBL_INDEX + 2) * 16)
+    ld      b, 2
+    call    LoadSpriteColors
 
-    ; ld      hl, SpritePatternsAndColors_Number_1
-    ; ld      IX, SPRPAT + (NUMBER_1 * 32)
-    ; ld      b, 2
-    ; call    LoadSpritePatterns
+    ld      hl, SpritePatternsAndColors_Number_0
+    ld      IX, SPRPAT + (NUMBER_0 * 32)
+    ld      b, 2
+    call    LoadSpritePatterns
+
+    ld      hl, SpritePatternsAndColors_Number_1
+    ld      IX, SPRPAT + (NUMBER_1 * 32)
+    ld      b, 2
+    call    LoadSpritePatterns
 
 
     ret
