@@ -62,6 +62,8 @@ DrawScore:
 DigitPatternsJumpTable:
     dw  SpritePatternsAndColors_Number_0, SpritePatternsAndColors_Number_1, SpritePatternsAndColors_Number_2
     dw  SpritePatternsAndColors_Number_3, SpritePatternsAndColors_Number_4, SpritePatternsAndColors_Number_5
+    dw  SpritePatternsAndColors_Number_6, SpritePatternsAndColors_Number_7, SpritePatternsAndColors_Number_8
+    dw  SpritePatternsAndColors_Number_9
 
 ; DrawScore:
 ; ld hl, (Score) ; ld de, (Score)?
