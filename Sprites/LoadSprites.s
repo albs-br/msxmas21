@@ -15,9 +15,10 @@ GIFT_4:                         equ 16
 
 SCORE_CLRTBL_INDEX:             equ 19
 
-SCORE_DIGIT_1:                       equ 38 + 15    ; least significant digit of score (units)
-SCORE_DIGIT_0:                       equ 40 + 15
-
+SCORE_DIGITS_0_AND_1:            equ 38 + 15    ; least significant digit of score (units)
+;SCORE_DIGIT_0:                       equ 40 + 15
+; SCORE_DIGIT_0:                  equ SCORE_DIGIT_0_AND_1 + 16
+; SCORE_DIGIT_1:                  equ SCORE_DIGIT_0_AND_1
 
 
 LoadSprites:
@@ -122,10 +123,10 @@ LoadSprites:
     ld      b, 2
     call    LoadSpriteColors
 
-    ld      hl, SpritePatternsAndColors_Number_0
-    ld      IY, SPRCOL + ((SCORE_CLRTBL_INDEX + 2) * 16)
-    ld      b, 2
-    call    LoadSpriteColors
+    ; ld      hl, SpritePatternsAndColors_Number_0
+    ; ld      IY, SPRCOL + ((SCORE_CLRTBL_INDEX + 2) * 16)
+    ; ld      b, 2
+    ; call    LoadSpriteColors
 
     ; ld      hl, SpritePatternsAndColors_Number_0
     ; ld      IX, SPRPAT + (NUMBER_0 * 32)
@@ -197,6 +198,51 @@ LoadSpritePatterns:
     pop     hl
     ret
 
+
+
+; HL: source on RAM
+; IX: pattern destiny on VRAM
+; B: number of sprites
+LoadSpritePatterns_2:
+
+    push    hl
+        push    bc
+
+.loop:
+            push    bc
+                push    hl
+                    ld      d, ixh
+                    ld      e, ixl
+                    call    LoadSpritePatterns_8x16
+                pop     hl
+                call    .nextHLAndIX
+            pop     bc
+
+            djnz    .loop
+
+        pop     bc
+    pop     hl
+
+    ret
+
+.nextHLAndIX:
+    ; HL += 48
+    ld      bc, 48
+    add     hl, bc
+    ; IX += 32
+    push    hl
+        ld      d, ixh
+        ld      e, ixl
+        ld      hl, 32
+        add     hl, de
+        ex      de, hl
+        ld      ixh, d
+        ld      ixl, e
+    pop     hl
+    ret
+
+
+
 ; HL: source on RAM
 ; IY: color destiny on VRAM
 ; B: number of sprites
@@ -253,6 +299,23 @@ LoadSpritePatterns_16x16:
     otir
 
     ret
+
+
+; HL: source on RAM
+; DE: destiny on VRAM
+LoadSpritePatterns_8x16:
+    push    hl
+        ld      a, 0000 0000 b
+        ld      h, d
+        ld      l, e
+        call    SetVdp_Write
+
+        ld      bc, 0 + (16 * 256) + PORT_0
+    pop     hl
+    otir
+
+    ret
+
 
 
 ; HL: source on RAM

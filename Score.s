@@ -44,16 +44,16 @@ DrawScore:
     ld      h, b
 
     ; draw digit pattern on first position
-    ;ld      hl, SpritePatternsAndColors_Number_0
-    ld      IX, SPRPAT + (SCORE_DIGIT_0 * 32)
+    ; ld      hl, SpritePatternsAndColors_Number_0
+    ld      IX, SPRPAT + (SCORE_DIGITS_0_AND_1 * 32) + 16
     ld      b, 2
-    call    LoadSpritePatterns
+    call    LoadSpritePatterns_2
 
     ; TODO:
     ld      hl, SpritePatternsAndColors_Number_0
-    ld      IX, SPRPAT + (SCORE_DIGIT_1 * 32)
+    ld      IX, SPRPAT + (SCORE_DIGITS_0_AND_1 * 32)
     ld      b, 2
-    call    LoadSpritePatterns
+    call    LoadSpritePatterns_2
 
     ret
 

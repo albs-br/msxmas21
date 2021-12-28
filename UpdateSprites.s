@@ -421,6 +421,8 @@ UpdateSprites:
     inc     hl
     inc     hl
 
+; ================================== Score digits ==================================
+
 ; --------- Sprite #19
 
     ; Y
@@ -436,7 +438,7 @@ UpdateSprites:
 
     ; Pattern
     inc     hl
-    ld      a, 0 + (SCORE_DIGIT_1) * 4
+    ld      a, 0 + (SCORE_DIGITS_0_AND_1) * 4
     ld      (hl), a
 
     inc     hl
@@ -457,53 +459,53 @@ UpdateSprites:
 
     ; Pattern
     inc     hl
-    ld      a, 0 + (SCORE_DIGIT_1 + 1) * 4
+    ld      a, 0 + (SCORE_DIGITS_0_AND_1 + 1) * 4
     ld      (hl), a
 
     inc     hl
     inc     hl
 
-; --------- Sprite #21
+; ; --------- Sprite #21
 
-    ; Y
-    ld      a, 8
-    ld      (hl), a
+;     ; Y
+;     ld      a, 8
+;     ld      (hl), a
 
-    ; X
-    ; ld      de, Gift_4_Struct + 2
-    inc     hl
-    ; ld      a, (de)
-    ld      a, 128
-    ld      (hl), a
+;     ; X
+;     ; ld      de, Gift_4_Struct + 2
+;     inc     hl
+;     ; ld      a, (de)
+;     ld      a, 128
+;     ld      (hl), a
 
-    ; Pattern
-    inc     hl
-    ld      a, 0 + (SCORE_DIGIT_0) * 4
-    ld      (hl), a
+;     ; Pattern
+;     inc     hl
+;     ld      a, 0 + (SCORE_DIGIT_0) * 4
+;     ld      (hl), a
 
-    inc     hl
-    inc     hl
+;     inc     hl
+;     inc     hl
 
-; --------- Sprite #22
+; ; --------- Sprite #22
 
-    ; Y
-    ld      a, 8
-    ld      (hl), a
+;     ; Y
+;     ld      a, 8
+;     ld      (hl), a
 
-    ; X
-    ; ld      de, Gift_4_Struct + 2
-    inc     hl
-    ; ld      a, (de)
-    ld      a, 128
-    ld      (hl), a
+;     ; X
+;     ; ld      de, Gift_4_Struct + 2
+;     inc     hl
+;     ; ld      a, (de)
+;     ld      a, 128
+;     ld      (hl), a
 
-    ; Pattern
-    inc     hl
-    ld      a, 0 + (SCORE_DIGIT_0 + 1) * 4
-    ld      (hl), a
+;     ; Pattern
+;     inc     hl
+;     ld      a, 0 + (SCORE_DIGIT_0 + 1) * 4
+;     ld      (hl), a
 
-    inc     hl
-    inc     hl
+;     inc     hl
+;     inc     hl
 
 
 
