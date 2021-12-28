@@ -66,3 +66,19 @@ SpritePatternsAndColors_Number_0:
 SpritePatternsAndColors_Number_1:
     INCLUDE "Sprites/ScoreNumbers/1.s"
 .size:  equ $ - SpritePatternsAndColors_Number_1
+
+SpritePatternsAndColors_Number_2:
+    INCLUDE "Sprites/ScoreNumbers/2.s"
+.size:  equ $ - SpritePatternsAndColors_Number_2
+
+SpritePatternsAndColors_Number_3:
+    INCLUDE "Sprites/ScoreNumbers/3.s"
+.size:  equ $ - SpritePatternsAndColors_Number_3
+
+SpritePatternsAndColors_Number_4:
+    INCLUDE "Sprites/ScoreNumbers/4.s"
+.size:  equ $ - SpritePatternsAndColors_Number_4
+
+SpritePatternsAndColors_Number_5:
+    INCLUDE "Sprites/ScoreNumbers/5.s"
+.size:  equ $ - SpritePatternsAndColors_Number_5

@@ -60,7 +60,8 @@ DrawScore:
 
 ; Jump table for digit patterns
 DigitPatternsJumpTable:
-    dw  SpritePatternsAndColors_Number_0, SpritePatternsAndColors_Number_1
+    dw  SpritePatternsAndColors_Number_0, SpritePatternsAndColors_Number_1, SpritePatternsAndColors_Number_2
+    dw  SpritePatternsAndColors_Number_3, SpritePatternsAndColors_Number_4, SpritePatternsAndColors_Number_5
 
 ; DrawScore:
 ; ld hl, (Score) ; ld de, (Score)?
