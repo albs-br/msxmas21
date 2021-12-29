@@ -426,14 +426,14 @@ UpdateSprites:
 ; --------- Sprite #19
 
     ; Y
-    ld      a, 8
+    ld      a, SCORE_Y
     ld      (hl), a
 
     ; X
     ; ld      de, Gift_4_Struct + 2
     inc     hl
     ; ld      a, (de)
-    ld      a, 128-8
+    ld      a, SCORE_X
     ld      (hl), a
 
     ; Pattern
@@ -447,14 +447,14 @@ UpdateSprites:
 ; --------- Sprite #20
 
     ; Y
-    ld      a, 8
+    ld      a, SCORE_Y
     ld      (hl), a
 
     ; X
     ; ld      de, Gift_4_Struct + 2
     inc     hl
     ; ld      a, (de)
-    ld      a, 128-8
+    ld      a, SCORE_X
     ld      (hl), a
 
     ; Pattern

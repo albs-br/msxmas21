@@ -1,3 +1,6 @@
+SCORE_X:        equ  128-8
+SCORE_Y:        equ  8
+
 
 IncrementScore:
     ld      a, 1        ;

@@ -3,7 +3,7 @@
 ; CONVEYOR_BELT_TOP_LEFT_Y:           equ 16
 ; CONVEYOR_BELT_TOP_RIGHT_Y:           equ 16 + 16
 
-GIFT_WAIT_TIME:         equ 60
+; GIFT_WAIT_TIME:         equ 60
 
 GameLogic:
 
@@ -99,7 +99,7 @@ InitGift:
 
 
 
-GIFT_ANIMATION_TOTAL_FRAMES:        equ 32
+GIFT_ANIMATION_TOTAL_FRAMES:        equ 16
 
 GiftLogic:
 
@@ -273,17 +273,52 @@ GiftLogic:
     
     call    DrawScore
 
-    ; ld      hl, Gift_Temp_Struct
-    ; ld      a, (Gift_Temp_ConveyorBelt_Number)
-    ; ld      d, a
-    ; call    InitGift
-    
-    ld      a, 2 ;GIFT_WAIT_TIME
+    ld      a, 2
     ld      (Gift_Temp_Status), a
 
-    ; TODO
-    ld      a, -2
+    ; Dx = (Gift_X - Score_X) / 16
+    
+    ; SCORE_X - Gift_X
+    ld      a, (Gift_Temp_X)
+    ld      b, a
+    ld      a, SCORE_X
+
+    ; check which of Gift_X and SCORE_X is greater
+    cp      b   ; a - b ; SCORE_X - Gift_Temp_X
+    jp      c, .giftX_is_Bigger
+
+    sub     a, b
+    srl     a                   ; shift right 4 times (divide by 16)
+    srl     a
+    srl     a
+    srl     a
+
+    jp      .calc_Dy
+
+.giftX_is_Bigger:
+    ; Gift_X - SCORE_X
+    ld      a, (Gift_Temp_X)
+    sub     a, SCORE_X
+
+    srl     a                   ; shift right 4 times (divide by 16)
+    srl     a
+    srl     a
+    srl     a
+    neg     
     ld      (Gift_Temp_Dx), a
+
+
+.calc_Dy:
+    ; Dy = (Gift_Y - Score_Y) / 16
+    ; Gift_X - SCORE_X
+    ld      a, (Gift_Temp_Y)
+    sub     a, SCORE_Y
+
+    srl     a                   ; shift right 4 times (divide by 16)
+    srl     a
+    srl     a
+    srl     a
+    neg     
     ld      (Gift_Temp_Dy), a
 
     ret
