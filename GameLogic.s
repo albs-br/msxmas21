@@ -99,6 +99,8 @@ InitGift:
 
 
 
+GIFT_ANIMATION_TOTAL_FRAMES:        equ 32
+
 GiftLogic:
 
     ; save hl
@@ -115,31 +117,73 @@ GiftLogic:
 
 
 
-        ; if (Status > 1) Status++
+        ; switch (Status)
         ld      a, (Gift_Temp_Status)
-        cp      2
-        jp      c, .dontIncStatus
-        
+        or      a
+        jp      z, .moveHoriz
+        cp      1
+        jp      z, .falling
+
+        ; if (Status > 1 && <= GIFT_ANIMATION_TOTAL_FRAMES + 2) doAnimation
+        cp      GIFT_ANIMATION_TOTAL_FRAMES + 2
+        jp      c, .animation
+
+        ; else { waiting }
+
         ; Status++
-        inc     a
-        ld      (Gift_Temp_Status), a
+        ld      hl, Gift_Temp_Status
+        inc     (hl)
 
         ; hide sprite
         ld      a, 1
         ld      (Gift_Temp_Hide), a
+        
         jp      .return
 
-.dontIncStatus:
+.animation:
+        ; X += DX
+        ld      a, (Gift_Temp_Dx)
+        ld      b, a
+        ld      a, (Gift_Temp_X)
+        add     a, b
+        ld      (Gift_Temp_X), a
 
+        ; Y += DY
+        ld      a, (Gift_Temp_Dy)
+        ld      b, a
+        ld      a, (Gift_Temp_Y)
+        add     a, b
+        ld      (Gift_Temp_Y), a
+        
+        ; show sprite
         xor     a
         ld      (Gift_Temp_Hide), a
 
+        ; Status++
+        ld      hl, Gift_Temp_Status
+        inc     (hl)
 
-        ; if (Status == 0)
+        ; if (Status >= END_OF_ANIMATION)
         ld      a, (Gift_Temp_Status)
-        or      a
+        cp      GIFT_ANIMATION_TOTAL_FRAMES + 2
+        jp      nc, .endAnimation
 
-        jp      nz, .falling
+
+        jp      .return
+
+.endAnimation:
+        ld      hl, Gift_Temp_Struct
+        ld      a, (Gift_Temp_ConveyorBelt_Number)
+        ld      d, a
+        call    InitGift
+        
+        jp      .return
+
+.moveHoriz:
+
+        ; show sprite
+        xor     a
+        ld      (Gift_Temp_Hide), a
 
         ; move horizontally
         
@@ -171,6 +215,10 @@ GiftLogic:
 
 
 .falling:
+        ; show sprite
+        xor     a
+        ld      (Gift_Temp_Hide), a
+
         ; Y += DY
         ld      a, (Gift_Temp_Dy)
         ld      b, a
@@ -225,13 +273,18 @@ GiftLogic:
     
     call    DrawScore
 
-    ld      hl, Gift_Temp_Struct
-    ld      a, (Gift_Temp_ConveyorBelt_Number)
-    ld      d, a
-    call    InitGift
+    ; ld      hl, Gift_Temp_Struct
+    ; ld      a, (Gift_Temp_ConveyorBelt_Number)
+    ; ld      d, a
+    ; call    InitGift
     
-    ld      a, GIFT_WAIT_TIME
+    ld      a, 2 ;GIFT_WAIT_TIME
     ld      (Gift_Temp_Status), a
+
+    ; TODO
+    ld      a, -2
+    ld      (Gift_Temp_Dx), a
+    ld      (Gift_Temp_Dy), a
 
     ret
 
