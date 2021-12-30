@@ -123,6 +123,8 @@ InitVram:
 
     ; call    BIOS_ENASCR
 
+    ; TODO:
+    ; ld        hl, GamePalette
     call    FadeIn
 
 

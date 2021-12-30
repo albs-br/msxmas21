@@ -370,15 +370,15 @@ FadeIn:
                     ;     pop     bc
                     ; pop     de
 
-                    ; IYH = Red (rrrr 0000)
+                    ; IYH = Red (0rrr 0000)
                     ; get RED component
                     ld      a, b
-                    and     1111 0000b
+                    and     0111 0000b
                     ld      iyh, a
 
                     ; compare with destiny palette
                     ld      a, (hl)
-                    and     1111 0000b
+                    and     0111 0000b
                     cp      iyh                       ; if (a >= n) NC      ; if (a < n) C
                     ;ld      a, 
                     jp      z, .dontIncrementRed
@@ -392,16 +392,16 @@ FadeIn:
 .dontIncrementRed:
 
 
-                    ; IYL = Blue (0000 rrrr)
+                    ; IYL = Blue (0000 0bbb)
                     ; get BLUE component
                     dec     de
                     ld      a, (de)
-                    and     0000 1111b
+                    and     0000 0111b
                     ld      iyl, a
 
                     ; compare with destiny palette
                     ld      a, (hl)
-                    and     0000 1111b
+                    and     0000 0111b
                     cp      iyl                       ; if (a >= n) NC      ; if (a < n) C
                     jp      z, .dontIncrementBlue
 
@@ -427,13 +427,13 @@ FadeIn:
                     ; get GREEN component
                     inc     de
                     ld      a, (de)
-                    ;and     0000 1111b
+                    and     0000 0111b
                     ld      b, a
 
                     ; compare with destiny palette
                     inc     hl
                     ld      a, (hl)
-                    ;and     0000 1111b
+                    and     0000 0111b
                     cp      b                       ; if (a >= n) NC      ; if (a < n) C
                     jp      z, .dontIncrementGreen
 
