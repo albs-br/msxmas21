@@ -120,15 +120,21 @@ InitVram:
 
 
 
+    ; ld      hl, GamePalette
+    ; call    LoadPalette
 
-    ; call    BIOS_ENASCR
+
+    ;call    BIOS_ENASCR
 
     ; TODO:
-    ; ld        hl, GamePalette
+    ld      hl, GamePalette
     call    FadeIn
 
 
     ret
+
+GamePalette: db $00,$00,$00,$00,$11,$06,$33,$07,$17,$01,$27,$03,$51,$01,$27,$06
+             db $71,$01,$73,$03,$61,$06,$64,$06,$11,$04,$65,$02,$55,$05,$77,$07 
 
 
 
