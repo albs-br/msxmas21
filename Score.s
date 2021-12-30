@@ -1,5 +1,5 @@
-SCORE_X:        equ  128-8
-SCORE_Y:        equ  8
+SCORE_X:        equ  32 ;128-8
+SCORE_Y:        equ  4
 
 
 IncrementScore:

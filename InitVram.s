@@ -121,7 +121,9 @@ InitVram:
 
 
 
-    call    BIOS_ENASCR
+    ; call    BIOS_ENASCR
+
+    call    FadeIn
 
 
     ret

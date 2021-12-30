@@ -91,8 +91,8 @@ EnableRomPage2:
     ret
 
 
-Wait:
-	ld		c, 15
+Wait_C_Vblanks:
+	;ld		c, 15
 
 	.loop:
 		ld      a, (BIOS_JIFFY)
@@ -107,7 +107,15 @@ Wait:
 
 	ret
 
+; WaitVblank:
+;     ld      a, (BIOS_JIFFY)
+;     ld      b, a
+; .waitVBlank:
+;     ld      a, (BIOS_JIFFY)
+;     cp      b
+;     jp      z, .waitVBlank
 
+; 	ret
 
 ;
 ; Set VDP address counter to write from address AHL (17-bit)
@@ -316,3 +324,114 @@ CheckCollision_16x24_16x16:
     
         sub     16                          ; compare with size 2
         ret                                 ; return collision or no collision
+
+
+; Fade from black screen to palette pointed by HL
+FadeIn:
+
+
+
+    ; reset temp palette
+    ld      de, FadeInTempPalette
+    ld      b, FadeInTempPalette.size
+    xor     a
+.loop_1:
+    ld      (de), a
+    inc     de
+    djnz    .loop_1
+
+
+    ld      b, 7
+.outerLoop:
+    push    bc
+
+        ; loop through all temp palette incrementing each component (RGB) of each color
+        ld      de, FadeInTempPalette
+        ld      b, 0 + (FadeInTempPalette.size / 2)
+    .loop_2:
+        push    bc
+
+            ld      ixh, b
+
+            push    hl
+                push    de
+                    ; read from temp palette
+                    ld      a, (de)
+                    ld      b, a
+                    inc     de
+                    ld      a, (de)
+                    ld      c, a
+                    
+                    ; set palette
+                    push    bc
+                        ld      a, ixh
+                        call    SetPaletteColor
+                    pop     bc
+
+                    ; get RED component
+                    ld      a, b
+                    and     1111 0000b
+
+                    ; increment it
+                    ld      b, 0x10
+                    add     a, b
+
+                    ; compare with destiny palette
+                    ; ld      a, (hl)
+                    ; cp      b                       ; if (a >= b) NC      ; if (a < b) C
+                    ; jp      nc, .
+
+                pop     de
+            pop     hl
+            
+            ; save updated RED
+            ;ld      a, 0x70 ; b
+            ld      (de), a
+
+
+
+            ; increment pointers by 2
+            inc     hl
+            inc     hl
+            inc     de
+            inc     de
+
+
+
+        pop     bc
+        djnz    .loop_2
+
+
+        call    BIOS_ENASCR
+
+        ld      c, 20
+        call    Wait_C_Vblanks
+
+    pop     bc
+    djnz    .outerLoop
+
+
+
+
+
+
+    ; call    SetPaletteColor
+
+
+    ; ; SetPaletteColor:
+    ; push    bc
+    ;     ; set palette register number in register R#16 (Color palette address pointer)
+    ;     ld      b, a        ; data
+    ;     ld      c, 16       ; register #
+    ;     call    BIOS_WRTVDP
+    ;     ld      c, 0x9a          ; v9938 port #2
+    ; pop     de
+
+    ; ld a, d                 ; data 1 (red 0-7; blue 0-7)
+    ; di
+    ; out (c), a
+    ; ld a, e                 ; data 2 (0000; green 0-7)
+    ; ei
+    ; out (c), a
+
+    ret
