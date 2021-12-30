@@ -371,15 +371,20 @@ FadeIn:
                     ; get RED component
                     ld      a, b
                     and     1111 0000b
+                    ld      b, a
+
+                    ; compare with destiny palette
+                    ld      a, (hl)
+                    and     1111 0000b
+                    cp      b                       ; if (a >= b) NC      ; if (a < b) C
+                    ld      a, b
+                    jp      z, .dontIncrementRed
 
                     ; increment it
                     ld      b, 0x10
                     add     a, b
 
-                    ; compare with destiny palette
-                    ; ld      a, (hl)
-                    ; cp      b                       ; if (a >= b) NC      ; if (a < b) C
-                    ; jp      nc, .
+.dontIncrementRed:
 
                 pop     de
             pop     hl
@@ -404,7 +409,7 @@ FadeIn:
 
         call    BIOS_ENASCR
 
-        ld      c, 20
+        ld      c, 10
         call    Wait_C_Vblanks
 
     pop     bc
