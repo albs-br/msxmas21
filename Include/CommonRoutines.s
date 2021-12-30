@@ -362,13 +362,13 @@ FadeIn:
                     ld      a, (de)
                     ld      c, a
                     
-                    ; set palette
-                    push    de
-                        push    bc
-                            ld      a, ixh
-                            call    SetPaletteColor
-                        pop     bc
-                    pop     de
+                    ; ; set palette
+                    ; push    de
+                    ;     push    bc
+                    ;         ld      a, ixh
+                    ;         call    SetPaletteColor
+                    ;     pop     bc
+                    ; pop     de
 
                     ; IYH = Red (rrrr 0000)
                     ; get RED component
@@ -379,7 +379,7 @@ FadeIn:
                     ; compare with destiny palette
                     ld      a, (hl)
                     and     1111 0000b
-                    cp      iyh                       ; if (a >= b) NC      ; if (a < b) C
+                    cp      iyh                       ; if (a >= n) NC      ; if (a < n) C
                     ;ld      a, 
                     jp      z, .dontIncrementRed
 
@@ -390,11 +390,6 @@ FadeIn:
                     ld      iyh, a
 
 .dontIncrementRed:
-                    ; save updated RED
-                    ; dec     de
-                    ; ld      a, iyh
-                    ; ld      (de), a
-
 
 
                     ; IYL = Blue (0000 rrrr)
@@ -407,7 +402,7 @@ FadeIn:
                     ; compare with destiny palette
                     ld      a, (hl)
                     and     0000 1111b
-                    cp      iyl                       ; if (a >= b) NC      ; if (a < b) C
+                    cp      iyl                       ; if (a >= n) NC      ; if (a < n) C
                     jp      z, .dontIncrementBlue
 
                     ; increment BLUE
@@ -426,10 +421,49 @@ FadeIn:
                     ld      (de), a
 
 
+
+
+                    ; B = Green
+                    ; get GREEN component
+                    inc     de
+                    ld      a, (de)
+                    ;and     0000 1111b
+                    ld      b, a
+
+                    ; compare with destiny palette
+                    inc     hl
+                    ld      a, (hl)
+                    ;and     0000 1111b
+                    cp      b                       ; if (a >= n) NC      ; if (a < n) C
+                    jp      z, .dontIncrementGreen
+
+                    ; increment GREEN
+                    inc     b
+
+.dontIncrementGreen:
+                    ; save updated GREEN
+                    ld      a, b
+                    ld      (de), a
+
+
                 pop     de
             pop     hl
             
 
+            ; read from temp palette
+            ld      a, (de)
+            ld      b, a
+            inc     de
+            ld      a, (de)
+            ld      c, a
+            
+            ; set palette
+            push    de
+                push    bc
+                    ld      a, ixh
+                    call    SetPaletteColor
+                pop     bc
+            pop     de
 
 
             ; increment pointers by 2
