@@ -363,35 +363,72 @@ FadeIn:
                     ld      c, a
                     
                     ; set palette
-                    push    bc
-                        ld      a, ixh
-                        call    SetPaletteColor
-                    pop     bc
+                    push    de
+                        push    bc
+                            ld      a, ixh
+                            call    SetPaletteColor
+                        pop     bc
+                    pop     de
 
+                    ; IYH = Red (rrrr 0000)
                     ; get RED component
                     ld      a, b
                     and     1111 0000b
-                    ld      b, a
+                    ld      iyh, a
 
                     ; compare with destiny palette
                     ld      a, (hl)
                     and     1111 0000b
-                    cp      b                       ; if (a >= b) NC      ; if (a < b) C
-                    ld      a, b
+                    cp      iyh                       ; if (a >= b) NC      ; if (a < b) C
+                    ;ld      a, 
                     jp      z, .dontIncrementRed
 
-                    ; increment it
+                    ; increment RED
+                    ld      a, iyh
                     ld      b, 0x10
                     add     a, b
+                    ld      iyh, a
 
 .dontIncrementRed:
+                    ; save updated RED
+                    ; dec     de
+                    ; ld      a, iyh
+                    ; ld      (de), a
+
+
+
+                    ; IYL = Blue (0000 rrrr)
+                    ; get BLUE component
+                    dec     de
+                    ld      a, (de)
+                    and     0000 1111b
+                    ld      iyl, a
+
+                    ; compare with destiny palette
+                    ld      a, (hl)
+                    and     0000 1111b
+                    cp      iyl                       ; if (a >= b) NC      ; if (a < b) C
+                    jp      z, .dontIncrementBlue
+
+                    ; increment BLUE
+                    ;ld      a, iyl
+                    ; ld      b, 0x01
+                    ; add     a, b
+                    inc     iyl
+                    ;ld      iyh, a
+
+
+.dontIncrementBlue:
+
+                    ; save updated RED (IYH) and BLUE (IYL)
+                    ld      a, iyh
+                    or      iyl
+                    ld      (de), a
+
 
                 pop     de
             pop     hl
             
-            ; save updated RED
-            ;ld      a, 0x70 ; b
-            ld      (de), a
 
 
 
