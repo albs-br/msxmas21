@@ -489,3 +489,79 @@ FadeIn:
 
 
     ret
+
+
+
+CreateFadeInOutPalette:
+
+
+    ; reset 8 temp palettes
+    ld      de, FadeInTemp_8_Palettes
+    ld      b, 0 ; FadeInTemp_8_Palettes.size        ; B=0 for 256 iterations
+    xor     a
+.loop_ResetPalettes:
+    ld      (de), a
+    inc     de
+    djnz    .loop_ResetPalettes
+
+
+
+    ; copy game palette to first position in FadeInTemp_8_Palettes
+    ld      hl, GamePalette
+    ld      de, FadeInTemp_8_Palettes
+    ld      bc, 32
+    ldir
+
+
+    ld      hl, FadeInTemp_8_Palettes
+    ld      de, FadeInTemp_8_Palettes + 32
+
+
+
+    ld      b, 7
+.loop_Palettes:
+    push    bc
+
+
+        ld      b, 32
+    .loop_Colors:
+
+        ; high nibble
+        ld      c, 0
+        ld      a, (hl)
+        and     0111 0000b
+        or      a
+        jp      z, .skipHighNibble
+
+        ; decrement and save it to C
+        ld      c, 0x10
+        sub     a, c
+        ld      c, a
+
+    .skipHighNibble:
+
+        ; low nibble
+        ld      a, (hl)
+        and     0000 0111b
+        or      a
+        jp      z, .skipLowNibble
+
+        ; decrement and keep it in A
+        dec     a
+
+    .skipLowNibble:
+
+        ; join high and low nibbles and save it to destiny
+        or      c
+        ld      (de), a
+
+        ; next byte
+        inc     hl
+        inc     de
+
+        djnz    .loop_Colors
+
+    pop     bc
+    djnz    .loop_Palettes
+
+    ret
