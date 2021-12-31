@@ -40,6 +40,10 @@ InitGame:
 
     call    DrawScore
 
+    
+    
+    call    CreateFadeInOutPalette
+    call    FadeIn2
 
 
 MainLoop:

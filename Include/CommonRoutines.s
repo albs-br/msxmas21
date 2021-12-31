@@ -565,3 +565,29 @@ CreateFadeInOutPalette:
     djnz    .loop_Palettes
 
     ret
+
+
+FadeIn2:
+    ld      hl, FadeInTemp_8_Palettes + (7 * 32)
+
+    ld      b, 7
+.loop:
+    push    bc
+        push    hl
+            call    LoadPalette
+        pop    hl
+        
+        call    BIOS_ENASCR
+
+        ld      de, 32
+        or      a       ;clear carry flag
+        sbc     hl, de
+        
+        ld      c, 5
+        call    Wait_C_Vblanks
+    pop     bc
+
+    djnz    .loop
+
+
+    ret

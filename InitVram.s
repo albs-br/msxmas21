@@ -126,11 +126,15 @@ InitVram:
 
     ;call    BIOS_ENASCR
 
-    ; TODO:
-    ld      hl, GamePalette
-    call    FadeIn
+    ; ld      hl, GamePalette
+    ; call    FadeIn
 
-    call    CreateFadeInOutPalette
+    ; call    CreateFadeInOutPalette
+    ; call    FadeIn2
+
+
+    ; ld      hl, FadeInTemp_8_Palettes + 128
+    ; call    LoadPalette
 
 
     ret
