@@ -47,6 +47,9 @@ BottomRight_ConveyorBelt_Data:
 
 
 
+; Inputs:
+;   HL: Gift_Temp_Struct base address
+;   D: conveyor belt number (1-4)
 InitGift:
 
     ld      a, d
@@ -91,8 +94,12 @@ InitGift:
         ldir                                                    ; Copy BC bytes from HL to DE
     pop     de
 
-    ; is it working?
+    ; make the gift wait a random number of frames
+    ; initial status should be >= (GIFT_ANIMATION_TOTAL_FRAMES + 2)
+.randomStatus:
     call    RandomNumber
+    cp      GIFT_ANIMATION_TOTAL_FRAMES + 2
+    jp      c, .randomStatus                ; if (A < n)
     ld      (de), a
 
     ret    
