@@ -596,9 +596,7 @@ FadeIn:
         ld      b, 5
         call    Wait_B_Vblanks
     pop     bc
-
     djnz    .loop
-
 
     ret
 
@@ -622,8 +620,91 @@ FadeOut:
         ld      b, 5
         call    Wait_B_Vblanks
     pop     bc
-
     djnz    .loop
 
+    ret
 
+
+; code from Grauw:
+
+;
+; Is supposed to run in screen 5, so you should make a small BASIC loader,
+; or call the CHMOD BIOS routine.
+;
+DoExampleCopy:
+    xor a           ; set vram write base address
+    ld hl, 0x0000     ;  to 1st byte of page 1...
+    call SetVDP_Write
+
+    ld a, 0x88        ; use color 8 (red)
+FillL1:
+    ld c,8          ; fill 1st 8 lines of page 1
+FillL2:
+    ld b,128        ;
+    out (0x98),a     ; could also have been done with
+    djnz FillL2     ; a vdp command (probably faster)
+    dec c           ; (and could also use a fast loop)
+    jp nz,FillL1
+
+    ld hl,COPYBLOCK ; execute the copy
+    call DoCopy
+
+    ret
+
+
+COPYBLOCK:
+    db 0,0,0,1
+    db 0,0,0,0
+    db 8,0,8,0
+    db 0,0, 0xD0        ; HMMM
+
+; As an alternate notation, you might actually prefer the following:
+;
+;   dw    #0000,#0100
+;   dw    #0000,#0000
+;   dw    #0008,#0008
+;   db    0,0,#D0
+
+
+;
+; Fast DoCopy, by Grauw
+; In:  HL = pointer to 15-byte VDP command data
+; Out: HL = updated
+;
+DoCopy:
+    ld a,32
+    di
+    out (0x99),a
+    ld a,17 + 128
+    out (0x99),a
+    ld c, 0x9B
+VDPready:
+    ld a,2
+    di
+    out (0x99),a     ; select s#2
+    ld a,15 + 128
+    out (0x99),a
+    in a,(0x99)
+    rra
+    ld a,0          ; back to s#0, enable ints
+    out (0x99),a
+    ld a,15 + 128
+    ei
+    out (0x99),a     ; loop if vdp not ready (CE)
+    jp c,VDPready
+    outi            ; 15x OUTI
+    outi            ; (faster than OTIR)
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
     ret

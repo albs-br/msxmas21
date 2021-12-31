@@ -137,6 +137,8 @@ InitVram:
     ; call    LoadPalette
 
 
+    ;call    DoExampleCopy
+
     ret
 
 GamePalette: 
