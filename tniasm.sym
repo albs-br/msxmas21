@@ -160,6 +160,7 @@ BIOS_SETPLT: equ 014Dh ; last def. pass 3
 BIOS_H_DSKF: equ 0FE12h ; last def. pass 3
 Load_16x16_SC5_Image_WithTransparency.writeResult: equ 0426Eh ; last def. pass 3
 BIOS_CONLO: equ 0F66Ah ; last def. pass 3
+Wait_B_Vblanks: equ 0406Ch ; last def. pass 3
 SpritePatternsAndColors_Gift_1: equ 05372h ; last def. pass 3
 Small_Gift_1: equ 06244h ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Left_2_Bottom.size: equ 0C0h ; last def. pass 3
@@ -214,7 +215,6 @@ BIOS_LDIRMV: equ 059h ; last def. pass 3
 BIOS_OLDLIN: equ 0F6BEh ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Left_1_Top: equ 050A2h ; last def. pass 3
 BIOS_GXPOS: equ 0FCB3h ; last def. pass 3
-Wait_C_Vblanks.loop: equ 0406Ch ; last def. pass 3
 MSXID4: equ 02Eh ; last def. pass 3
 _X: equ 027h ; last def. pass 3
 BIOS_H_POSD: equ 0FEBCh ; last def. pass 3
@@ -396,7 +396,6 @@ BIOS_TEMP: equ 0F6A7h ; last def. pass 3
 BIOS_EOL: equ 0168h ; last def. pass 3
 BIOS_PHYDIO: equ 0144h ; last def. pass 3
 BIOS_H_FINI: equ 0FF16h ; last def. pass 3
-Wait_C_Vblanks: equ 0406Ch ; last def. pass 3
 BIOS_HOLD2: equ 0F836h ; last def. pass 3
 BIOS_CLRSPR: equ 069h ; last def. pass 3
 BIOS_LFPROG: equ 0F954h ; last def. pass 3
@@ -464,7 +463,6 @@ BIOS_STMOTR: equ 0F3h ; last def. pass 3
 BIOS_ASPCT1: equ 0F40Bh ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Right_2_Bottom.size: equ 0C0h ; last def. pass 3
 Small_Gift_4: equ 063C4h ; last def. pass 3
-Wait_C_Vblanks.waitVBlank: equ 04070h ; last def. pass 3
 BIOS_LOHDIR: equ 0F94Ah ; last def. pass 3
 Window_3: equ 05D44h ; last def. pass 3
 BIOS_CALPAT: equ 084h ; last def. pass 3
@@ -584,6 +582,7 @@ RandomNumber: equ 0410Fh ; last def. pass 3
 BIOS_FNKSTR: equ 0F87Fh ; last def. pass 3
 BIOS_SAVSP: equ 0FB36h ; last def. pass 3
 SetSprites16x16: equ 040DAh ; last def. pass 3
+Wait_B_Vblanks.waitVBlank: equ 04071h ; last def. pass 3
 BIOS_DRWSCL: equ 0FCBCh ; last def. pass 3
 BIOS_H_DSPC: equ 0FDA9h ; last def. pass 3
 BIOS_WRTVDP: equ 047h ; last def. pass 3
@@ -593,6 +592,7 @@ BIOS_CLMLST: equ 0F3B2h ; last def. pass 3
 CheckCollision_16x24_16x16.y1IsLarger: equ 04134h ; last def. pass 3
 BIOS_FLAGS: equ 0FB1Ch ; last def. pass 3
 CreateFadeInOutPalette: equ 041B1h ; last def. pass 3
+Wait_B_Vblanks.loop: equ 0406Dh ; last def. pass 3
 BIOS_H_PRTF: equ 0FF52h ; last def. pass 3
 BIOS_SETRD: equ 050h ; last def. pass 3
 BIOS_MAXDEL: equ 0F92Fh ; last def. pass 3

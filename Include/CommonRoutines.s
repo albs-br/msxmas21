@@ -91,19 +91,26 @@ EnableRomPage2:
     ret
 
 
-Wait_C_Vblanks:
-	;ld		c, 15
+; Input:
+;   B: number of VBlanks to wait
+; Destroys:
+;   A
+Wait_B_Vblanks:
+	
+    push    bc
+    
+    .loop:
 
-	.loop:
-		ld      a, (BIOS_JIFFY)
-		ld      b, a
-	.waitVBlank:
-		ld      a, (BIOS_JIFFY)
-		cp      b
-		jp      z, .waitVBlank
+        ld      a, (BIOS_JIFFY)
+        ld      c, a
+    .waitVBlank:
+        ld      a, (BIOS_JIFFY)
+        cp      c
+        jp      z, .waitVBlank
 
-	dec		c
-	jp		nz, .loop
+        djnz    .loop
+    
+    pop     bc
 
 	ret
 
@@ -360,8 +367,8 @@ FadeIn:
                     
                     call    BIOS_ENASCR
 
-                    ld      c, 5
-                    call    Wait_C_Vblanks
+                    ld      b, 5
+                    call    Wait_B_Vblanks
                 pop     bc
             pop     de
         pop     hl
@@ -583,8 +590,8 @@ FadeIn2:
         or      a       ;clear carry flag
         sbc     hl, de
         
-        ld      c, 5
-        call    Wait_C_Vblanks
+        ld      b, 5
+        call    Wait_B_Vblanks
     pop     bc
 
     djnz    .loop
