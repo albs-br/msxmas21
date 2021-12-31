@@ -120,8 +120,8 @@ InitVram:
 
 
 
-    ; ld      hl, GamePalette
-    ; call    LoadPalette
+    ld      hl, GamePalette
+    call    LoadPalette
 
 
     ;call    BIOS_ENASCR
@@ -139,10 +139,55 @@ InitVram:
 
     ret
 
-GamePalette: db 0x00,$00,$00,$00,$11,$06,$33,$07,$17,$01,$27,$03,$51,$01,$27,$06
-             db $71,$01,$73,$03,$61,$06,$64,$06,$11,$04,$65,$02,$55,$05,$77,$07 
+GamePalette: 
+; format: 0rrr 0bbb,     0000 0ggg
+    db 0x00, 0x00   ; color 0
+    db 0x00, 0x00
+    db 0x11, 0x06
+    db 0x33, 0x07
+    db 0x17, 0x01
+    db 0x27, 0x03
+
+    ;db 0x51, 0x01
+    db CONVEYOR_BELT_COLOR_1_RB, CONVEYOR_BELT_COLOR_1_G      ; color 6
+
+    db 0x27, 0x06   ; color 7
+
+    db 0x71, 0x01   ; color 8
+    db 0x73, 0x03
+    
+    ;db 0x61, 0x06
+    db CONVEYOR_BELT_COLOR_1_RB, CONVEYOR_BELT_COLOR_1_G      ; color 10
+
+    db 0x64, 0x06
+    db 0x11, 0x04
+    
+    ;db 0x65, 0x02
+    db CONVEYOR_BELT_COLOR_2_RB, CONVEYOR_BELT_COLOR_2_G      ; color 13
+    
+    db 0x55, 0x05
+    db 0x77, 0x07   ; color 15
 
 
+; DefaultMSX2Palette: 
+; ; format: 0rrr 0bbb,     0000 0ggg
+;     db 0x00, 0x00   ; color 0
+;     db 0x00, 0x00
+;     db 0x11, 0x06
+;     db 0x33, 0x07
+;     db 0x17, 0x01
+;     db 0x27, 0x03
+;     db 0x51, 0x01
+;     db 0x27, 0x06   ; color 7
+
+;     db 0x71, 0x01   ; color 8
+;     db 0x73, 0x03
+;     db 0x61, 0x06
+;     db 0x64, 0x06
+;     db 0x11, 0x04
+;     db 0x65, 0x02
+;     db 0x55, 0x05
+;     db 0x77, 0x07   ; color 15
 
 
 LoadBackground:

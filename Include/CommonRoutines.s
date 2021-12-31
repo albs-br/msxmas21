@@ -23,16 +23,16 @@ SetPaletteColor:
         ; set palette register number in register R#16 (Color palette address pointer)
         ld      b, a        ; data
         ld      c, 16       ; register #
-        call BIOS_WRTVDP
-        ld c, 0x9a          ; v9938 port #2
+        call    BIOS_WRTVDP
+        ld      c, 0x9a          ; v9938 port #2
     pop     de
 
-    ld a, d                 ; data 1 (red 0-7; blue 0-7)
+    ld      a, d                 ; data 1 (red 0-7; blue 0-7)
     di
-    out (c), a
-    ld a, e                 ; data 2 (0000; green 0-7)
+    out     (c), a
+    ld      a, e                 ; data 2 (0000; green 0-7)
     ei
-    out (c), a
+    out     (c), a
 
     ret
 
@@ -40,25 +40,25 @@ SetPaletteColor:
 
 ; Load palette data pointed by HL
 LoadPalette:
-			; set palette register number in register R#16 (Color palette address pointer)
-			ld      b, 0    ; data
-            ld      c, 16   ; register #
-            call    BIOS_WRTVDP
-            ld      c, 0x9a ; V9938 port #2
+    ; set palette register number in register R#16 (Color palette address pointer)
+    ld      b, 0    ; data
+    ld      c, 16   ; register #
+    call    BIOS_WRTVDP
+    ld      c, PORT_2 ; V9938 port #2
 
-			ld      b, 16
+    ld      b, 16
 .loop:
-			di
-                ld    a, (hl)
-                out   (c), a
-                inc   hl
-                ld    a, (hl)
-                out   (c), a
-            ei
-            inc     hl
-            djnz    .loop
-            
-			ret
+    di
+        ld    a, (hl)
+        out   (c), a
+        inc   hl
+        ld    a, (hl)
+        out   (c), a
+    ei
+    inc     hl
+    djnz    .loop
+    
+    ret
 
 
 
@@ -333,8 +333,11 @@ CheckCollision_16x24_16x16:
         ret                                 ; return collision or no collision
 
 
+
 ; Fade from black screen to palette pointed by HL
-FadeIn:
+; PS: early try, it's a bit strange, but I prefer to keep
+; Official FadeIn routine is below
+FadeIn_Strange:
 
     ; save destiny palette
     ld      (FadeInDestinyPaletteAddr), hl
@@ -574,7 +577,7 @@ CreateFadeInOutPalette:
     ret
 
 
-FadeIn2:
+FadeIn:
     ld      hl, FadeInTemp_8_Palettes + (7 * 32)
 
     ld      b, 7

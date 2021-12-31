@@ -43,7 +43,7 @@ InitGame:
     
     
     call    CreateFadeInOutPalette
-    call    FadeIn2
+    call    FadeIn
 
 
 MainLoop:

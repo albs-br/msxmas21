@@ -1,6 +1,13 @@
-                        ;0xrb          0x0g
-COLOR_1:            equ (0x74 * 256) + 0x06
-COLOR_2:            equ (0x63 * 256) + 0x05
+                        ; format:   0xrb          0x0g
+CONVEYOR_BELT_COLOR_1_RB:         equ 0x74
+CONVEYOR_BELT_COLOR_1_G:          equ 0x06
+CONVEYOR_BELT_COLOR_2_RB:         equ 0x63
+CONVEYOR_BELT_COLOR_2_G:          equ 0x05
+
+
+CONVEYOR_BELT_COLOR_1:            equ (CONVEYOR_BELT_COLOR_1_RB * 256) + CONVEYOR_BELT_COLOR_1_G
+CONVEYOR_BELT_COLOR_2:            equ (CONVEYOR_BELT_COLOR_2_RB * 256) + CONVEYOR_BELT_COLOR_2_G
+
 
 UpdatePalette:
 
@@ -28,45 +35,45 @@ UpdatePalette:
 
 .frame_0:
     ld      a, 10
-    ld      bc, COLOR_1
+    ld      bc, CONVEYOR_BELT_COLOR_1
     call    SetPaletteColor
 
     ld      a, 6
-    ld      bc, COLOR_1
+    ld      bc, CONVEYOR_BELT_COLOR_1
     call    SetPaletteColor
 
     ld      a, 13
-    ld      bc, COLOR_2
+    ld      bc, CONVEYOR_BELT_COLOR_2
     call    SetPaletteColor
 
     ret
 
 .frame_1:
     ld      a, 10
-    ld      bc, COLOR_1
+    ld      bc, CONVEYOR_BELT_COLOR_1
     call    SetPaletteColor
 
     ld      a, 6
-    ld      bc, COLOR_2
+    ld      bc, CONVEYOR_BELT_COLOR_2
     call    SetPaletteColor
 
     ld      a, 13
-    ld      bc, COLOR_1
+    ld      bc, CONVEYOR_BELT_COLOR_1
     call    SetPaletteColor
 
     ret
 
 .frame_2:
     ld      a, 10
-    ld      bc, COLOR_2
+    ld      bc, CONVEYOR_BELT_COLOR_2
     call    SetPaletteColor
 
     ld      a, 6
-    ld      bc, COLOR_1
+    ld      bc, CONVEYOR_BELT_COLOR_1
     call    SetPaletteColor
 
     ld      a, 13
-    ld      bc, COLOR_1
+    ld      bc, CONVEYOR_BELT_COLOR_1
     call    SetPaletteColor
 
     ret
