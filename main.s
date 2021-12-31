@@ -44,6 +44,7 @@ InitGame:
     
     call    CreateFadeInOutPalette
     call    FadeIn
+    ;call    FadeOut
 
 
 MainLoop:

@@ -580,18 +580,44 @@ CreateFadeInOutPalette:
 FadeIn:
     ld      hl, FadeInTemp_8_Palettes + (7 * 32)
 
-    ld      b, 7
+    ld      b, 8
 .loop:
     push    bc
         push    hl
             call    LoadPalette
-        pop    hl
         
-        call    BIOS_ENASCR
+            call    BIOS_ENASCR
+        pop    hl
 
         ld      de, 32
         or      a       ;clear carry flag
         sbc     hl, de
+        
+        ld      b, 5
+        call    Wait_B_Vblanks
+    pop     bc
+
+    djnz    .loop
+
+
+    ret
+
+
+
+FadeOut:
+    ld      hl, FadeInTemp_8_Palettes
+
+    ld      b, 8
+.loop:
+    push    bc
+        push    hl
+            call    LoadPalette
+        
+            call    BIOS_ENASCR
+        pop    hl
+
+        ld      de, 32
+        add     hl, de
         
         ld      b, 5
         call    Wait_B_Vblanks
