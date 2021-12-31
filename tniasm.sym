@@ -21,10 +21,11 @@ BIOS_T32PAT: equ 0F3C5h ; last def. pass 3
 Load_16x16_SC5_Image: equ 041B6h ; last def. pass 3
 ClearVram_MSX2: equ 040B2h ; last def. pass 3
 BIOS_INSFLG: equ 0FCA8h ; last def. pass 3
+FadeInDestinyPaletteAddr: equ 0C0E3h ; last def. pass 3
 HTIMI: equ 0FD9Fh ; last def. pass 3
 BIOS_WINWID: equ 0FCA5h ; last def. pass 3
 BIOS_H_ERRP: equ 0FEFDh ; last def. pass 3
-RamEnd: equ 0C0E6h ; last def. pass 3
+RamEnd: equ 0C0E8h ; last def. pass 3
 BIOS_POSIT: equ 0C6h ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Right_1_Top.size: equ 0C0h ; last def. pass 3
 BIOS_MLTNAM: equ 0F3D1h ; last def. pass 3
@@ -80,7 +81,7 @@ UpdateSprites.continueGift_2: equ 04A9Fh ; last def. pass 3
 ReadInput.playerJump: equ 046C5h ; last def. pass 3
 BIOS_CSAVEA: equ 0F942h ; last def. pass 3
 BIOS_EXTROM: equ 015Fh ; last def. pass 3
-FadeIn.dontIncrementBlue: equ 04179h ; last def. pass 3
+FadeIn.dontIncrementBlue: equ 0418Fh ; last def. pass 3
 BIOS_BREAKX: equ 0B7h ; last def. pass 3
 BIOS_SETTXT: equ 078h ; last def. pass 3
 BIOS_FRCNEW: equ 0F3F5h ; last def. pass 3
@@ -181,7 +182,7 @@ BIOS_CHGMOD: equ 05Fh ; last def. pass 3
 LDIRVM_MSX2: equ 040FEh ; last def. pass 3
 LoadSpriteColors.loop: equ 04659h ; last def. pass 3
 BIOS_H_LPTS: equ 0FFBBh ; last def. pass 3
-Debug_Temp_Word: equ 0C0E4h ; last def. pass 3
+Debug_Temp_Word: equ 0C0E6h ; last def. pass 3
 BIOS_ESCCNT: equ 0FCA7h ; last def. pass 3
 BIOS_RTYCNT: equ 0FC9Ah ; last def. pass 3
 BIOS_MEMSIZ: equ 0F672h ; last def. pass 3
@@ -195,6 +196,7 @@ BIOS_H_FORM: equ 0FFACh ; last def. pass 3
 BIOS_EXPTBL: equ 0FCC1h ; last def. pass 3
 BIOS_CRTCNT: equ 0F3B1h ; last def. pass 3
 BIOS_LOHMSK: equ 0F949h ; last def. pass 3
+FadeIn.loop_ResetPalette: equ 04142h ; last def. pass 3
 InitGift.return: equ 0484Fh ; last def. pass 3
 BIOS_RDSLT: equ 0Ch ; last def. pass 3
 LoadBackground: equ 04293h ; last def. pass 3
@@ -232,7 +234,7 @@ BIOS_BEEP: equ 0C0h ; last def. pass 3
 Load_16x16_SC5_Image_WithTransparency: equ 041DFh ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Right_1_Top: equ 04D7Ch ; last def. pass 3
 ReadInput.playerLeft: equ 046CFh ; last def. pass 3
-FadeIn.dontIncrementGreen: equ 0418Ch ; last def. pass 3
+FadeIn.dontIncrementGreen: equ 041A2h ; last def. pass 3
 BIOS_MAXFIL: equ 0F85Fh ; last def. pass 3
 BIOS_H_DSPF: equ 0FDB3h ; last def. pass 3
 BIOS_GETPLT: equ 0149h ; last def. pass 3
@@ -255,7 +257,7 @@ SANTA_CLAUS_WALKING_RIGHT_2: equ 020h ; last def. pass 3
 BIOS_ASPCT2: equ 0F40Dh ; last def. pass 3
 BIOS_INTVAL: equ 0FCA0h ; last def. pass 3
 BIOS_CALBAS: equ 0159h ; last def. pass 3
-FadeIn.dontIncrementRed: equ 04169h ; last def. pass 3
+FadeIn.dontIncrementRed: equ 0417Fh ; last def. pass 3
 IncrementScore.continue: equ 04BE1h ; last def. pass 3
 GiftLogic.endAnimation: equ 048ABh ; last def. pass 3
 ClearVram_MSX2.loop_2: equ 040BCh ; last def. pass 3
@@ -271,6 +273,7 @@ BIOS_PRMFLG: equ 0F7B4h ; last def. pass 3
 IncrementScore: equ 04BCEh ; last def. pass 3
 BIOS_WRPRIM: equ 0F385h ; last def. pass 3
 BIOS_FNKFLG: equ 0FBCEh ; last def. pass 3
+FadeIn.loopColors: equ 04163h ; last def. pass 3
 BIOS_H_SAVE: equ 0FE6Ch ; last def. pass 3
 PORT_0: equ 098h ; last def. pass 3
 BIOS_CLOC: equ 0F92Ah ; last def. pass 3
@@ -293,7 +296,7 @@ Load_16x16_SC5_Image_WithTransparency.isTransp_Low: equ 0420Bh ; last def. pass 
 MainLoop.waitVBlank: equ 063FEh ; last def. pass 3
 BIOS_MINUPD: equ 0F3EFh ; last def. pass 3
 Gift_Temp_Dx: equ 0C00Fh ; last def. pass 3
-Debug_Temp_Byte: equ 0C0E3h ; last def. pass 3
+Debug_Temp_Byte: equ 0C0E5h ; last def. pass 3
 BIOS_ATRBAS: equ 0F928h ; last def. pass 3
 IsJumping.endJump: equ 0498Ch ; last def. pass 3
 InitVariables: equ 04797h ; last def. pass 3
@@ -325,7 +328,6 @@ BIOS_GRPPRT: equ 08Dh ; last def. pass 3
 TopRight_ConveyorBelt_Data: equ 0480Ah ; last def. pass 3
 DrawDigitPattern: equ 04C1Ah ; last def. pass 3
 BIOS_SWPTMP: equ 0F7BCh ; last def. pass 3
-FadeIn.loop_2: equ 0414Bh ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Standing_Right_Bottom.size: equ 090h ; last def. pass 3
 BIOS_OLDSCR: equ 0FCB0h ; last def. pass 3
 BIOS_REPCNT: equ 0F3F7h ; last def. pass 3
@@ -347,6 +349,7 @@ Gift_Temp_ConveyorBelt_Number: equ 0C011h ; last def. pass 3
 BIOS_GRPCGP: equ 0F3CBh ; last def. pass 3
 GIFT_ANIMATION_TOTAL_FRAMES: equ 010h ; last def. pass 3
 BIOS_VOICAQ: equ 0F975h ; last def. pass 3
+FadeIn.loopPalette: equ 04148h ; last def. pass 3
 BIOS_BOTTOM: equ 0FC48h ; last def. pass 3
 PlayerAnimationFrame: equ 0C004h ; last def. pass 3
 LoadPalette: equ 04033h ; last def. pass 3
@@ -670,7 +673,6 @@ BIOS_H_OKNO: equ 0FF75h ; last def. pass 3
 InitGift: equ 04822h ; last def. pass 3
 BIOS_TEMP2: equ 0F6BCh ; last def. pass 3
 BIOS_RG4SAV: equ 0F3E3h ; last def. pass 3
-FadeIn.outerLoop: equ 04145h ; last def. pass 3
 Score: equ 0C006h ; last def. pass 3
 BIOS_RG7SAV: equ 0F3E6h ; last def. pass 3
 BIOS_GICINI: equ 090h ; last def. pass 3
@@ -709,7 +711,6 @@ BIOS_H_PLAY: equ 0FFC5h ; last def. pass 3
 BIOS_CHGSND: equ 0135h ; last def. pass 3
 BIOS_INIFNK: equ 03Eh ; last def. pass 3
 BIOS_MCLFLG: equ 0F958h ; last def. pass 3
-FadeIn.loop_1: equ 0413Fh ; last def. pass 3
 BIOS_ENASCR: equ 044h ; last def. pass 3
 BIOS_H_ERAF: equ 0FDB8h ; last def. pass 3
 BIOS_COMMSK: equ 0FB1Eh ; last def. pass 3

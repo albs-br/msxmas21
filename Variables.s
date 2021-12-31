@@ -54,6 +54,7 @@ SpriteAttributes:               rb 32 * 4
 FadeInTempPalette:              rb 16 * 2
 .size:                          equ $ - FadeInTempPalette
 
+FadeInDestinyPaletteAddr:       rw 1
 
 
 

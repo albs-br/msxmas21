@@ -329,29 +329,49 @@ CheckCollision_16x24_16x16:
 ; Fade from black screen to palette pointed by HL
 FadeIn:
 
-
+    ; save destiny palette
+    ld      (FadeInDestinyPaletteAddr), hl
 
     ; reset temp palette
     ld      de, FadeInTempPalette
     ld      b, FadeInTempPalette.size
     xor     a
-.loop_1:
+.loop_ResetPalette:
     ld      (de), a
     inc     de
-    djnz    .loop_1
+    djnz    .loop_ResetPalette
 
 
     ld      b, 7
-.outerLoop:
+.loopPalette:
     push    bc
 
-        ; loop through all temp palette incrementing each component (RGB) of each color
         ld      de, FadeInTempPalette
         ld      b, 0 + (FadeInTempPalette.size / 2)
-    .loop_2:
+
+        ; restore destiny palette
+        ld      hl, (FadeInDestinyPaletteAddr)
+
+        push    hl
+            push    de
+                push    bc
+                    ex      de, hl
+                    call    LoadPalette
+                    
+                    call    BIOS_ENASCR
+
+                    ld      c, 5
+                    call    Wait_C_Vblanks
+                pop     bc
+            pop     de
+        pop     hl
+
+
+    ; loop through all temp palette incrementing each component (RGB) of each color
+    .loopColors:
         push    bc
 
-            ld      ixh, b
+            ;ld      ixh, b
 
             push    hl
                 push    de
@@ -450,22 +470,6 @@ FadeIn:
             pop     hl
             
 
-            ; read from temp palette
-            ld      a, (de)
-            ld      b, a
-            inc     de
-            ld      a, (de)
-            ld      c, a
-            
-            ; set palette
-            push    de
-                push    bc
-                    ld      a, ixh
-                    call    SetPaletteColor
-                pop     bc
-            pop     de
-
-
             ; increment pointers by 2
             inc     hl
             inc     hl
@@ -475,39 +479,13 @@ FadeIn:
 
 
         pop     bc
-        djnz    .loop_2
+        djnz    .loopColors
 
 
-        call    BIOS_ENASCR
-
-        ld      c, 10
-        call    Wait_C_Vblanks
 
     pop     bc
-    djnz    .outerLoop
+    djnz    .loopPalette
 
 
-
-
-
-
-    ; call    SetPaletteColor
-
-
-    ; ; SetPaletteColor:
-    ; push    bc
-    ;     ; set palette register number in register R#16 (Color palette address pointer)
-    ;     ld      b, a        ; data
-    ;     ld      c, 16       ; register #
-    ;     call    BIOS_WRTVDP
-    ;     ld      c, 0x9a          ; v9938 port #2
-    ; pop     de
-
-    ; ld a, d                 ; data 1 (red 0-7; blue 0-7)
-    ; di
-    ; out (c), a
-    ; ld a, e                 ; data 2 (0000; green 0-7)
-    ; ei
-    ; out (c), a
 
     ret
