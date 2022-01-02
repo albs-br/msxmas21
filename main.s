@@ -24,6 +24,7 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "GameLogic.s"
     INCLUDE "UpdateSprites.s"
     INCLUDE "UpdatePalette.s"
+    INCLUDE "UpdateAnimations.s"
     INCLUDE "Score.s"
 
     INCLUDE "Sprites/SpriteAssets.s"
@@ -78,11 +79,18 @@ MainLoop:
     call    UpdatePalette
 
 
-    ; ld 		a, 8       	            ; Border color
-    ; ld 		(BIOS_BDRCLR), a    
-    ; call 	BIOS_CHGCLR        		; Change Screen Color
 
-    ; call    LoadBackground
+
+    IFDEF DEBUG
+        ld 		a, 8       	            ; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF
+
+    call    UpdateAnimations
+
+
+
 
 
 

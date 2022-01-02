@@ -10,7 +10,8 @@ SPRATR:     equ 0x7600
 WINDOW_LEFT_X:      equ 48+2
 WINDOW_LEFT_Y:      equ 128-32+16+8
 
-
+WINDOW_LEFT_TOP_LEFT_GLASS_X:       equ WINDOW_LEFT_X + 9
+WINDOW_LEFT_TOP_LEFT_GLASS_Y:       equ WINDOW_LEFT_Y + 7
 
 InitVram:
 
@@ -169,29 +170,41 @@ InitVram:
     ;call    LDIRVM_MSX2
     call    Load_16x16_SC5_Image
 
-    ld      hl, COPYBLOCK
-    ld      de, VdpCommand
-    ld      bc, 15
-    ldir
 
 
+    ; ; test loading frame 0 of snow animation to top left glass of left window
+    ; ld      hl, COPYBLOCK
+    ; ld      de, VdpCommand
+    ; ld      bc, 15
+    ; ldir
 
-
-
-
-    ; ld      hl, 0
-    ; ld      (VdpCommand_SourceX), hl
+    ; ld      hl, WINDOW_LEFT_X + 9
+    ; ld      (VdpCommand_DestinyX), hl     ; dest x
+    ; ld      hl, WINDOW_LEFT_Y + 7
+    ; ld      (VdpCommand_DestinyY), hl     ; dest y
     ; ld      hl, VdpCommand 	; execute the copy
-    ld      hl, WINDOW_LEFT_X + 9
-    ld      (VdpCommand_DestinyX), hl     ; dest x
-    ld      hl, WINDOW_LEFT_Y + 7
-    ld      (VdpCommand_DestinyY), hl     ; dest y
-    ld      hl, VdpCommand 	; execute the copy
-    call    DoCopy
+    ; call    DoCopy
 
 
 
-;((48+2) / 2) + ((128-32+16+8) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ; ; test loading frame 1 of snow animation to top left glass of left window
+    ; ld      hl, COPYBLOCK
+    ; ld      de, VdpCommand
+    ; ld      bc, 15
+    ; ldir
+
+    ; ld      hl, 9
+    ; ld      (VdpCommand_SourceX), hl     ; source x
+    ; ld      hl, 256
+    ; ld      (VdpCommand_SourceY), hl     ; source y
+    ; ld      hl, WINDOW_LEFT_X + 9
+    ; ld      (VdpCommand_DestinyX), hl     ; dest x
+    ; ld      hl, WINDOW_LEFT_Y + 7
+    ; ld      (VdpCommand_DestinyY), hl     ; dest y
+    ; ld      hl, VdpCommand 	; execute the copy
+    ; call    DoCopy
+
+
 
 
     ret

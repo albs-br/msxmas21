@@ -80,5 +80,13 @@ Small_Gift_4:
 ; --------------
 Window_Snow_1:
     INCBIN "Bitmaps/window snow frame 1 - sc5 - 16x16.bin"
-;.size:  equ $ - Window_Snow_1
+
+Window_Snow_2:
+    INCBIN "Bitmaps/window snow frame 2 - sc5 - 16x16.bin"
+
+Window_Snow_3:
+    INCBIN "Bitmaps/window snow frame 3 - sc5 - 16x16.bin"
+
+Window_Snow_4:
+    INCBIN "Bitmaps/window snow frame 4 - sc5 - 16x16.bin"
 
