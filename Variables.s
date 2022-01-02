@@ -62,7 +62,29 @@ FadeInDestinyPaletteAddr:       rw 1
 
 
 
+
+;    dw    0, 256 ; Source X (9 bits), Source Y (10 bits)
+;    dw    128, 96 ; Destiny X (9 bits), Destiny Y (10 bits)
+;    dw    7, 9	; number of cols/lines
+;    db    0, 0, VDP_COMMAND_HMMM
+
+VdpCommand:
+VdpCommand_SourceX:             rw 1 ; Source X (9 bits)
+VdpCommand_SourceY:             rw 1
+VdpCommand_DestinyX:            rw 1
+VdpCommand_DestinyY:            rw 1
+VdpCommand_Cols:                rw 1
+VdpCommand_Lines:               rw 1
+VdpCommand_ColorRegister:       rb 1
+VdpCommand_DestMemAndDirection: rb 1
+VdpCommand_CommandSelection:    rb 1
+
+
+
 Debug_Temp_Byte:                 rb 1
 Debug_Temp_Word:                 rw 1
+
+
+
 
 

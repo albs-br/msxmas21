@@ -139,7 +139,64 @@ InitVram:
 
     ;call    DoExampleCopy
 
+; ----- TEST HMMM
+;     xor     a           	; set vram write base address
+;     ld      hl, 0x8000     	;  to 1st byte of page 1...
+;     call    SetVDP_Write
+
+;     ld      a, 0x88        	; use color 8 (red)
+
+; 	ld      c, 16          	; fill 1st N lines of page 1
+; .fillL1:
+;     ld      b, 128        	; one line in SC5 = 128 bytes
+; .fillL2:
+;     out     (0x98), a     	; could also have been done with
+;     djnz    .fillL2     	; a vdp command (probably faster)
+;     dec     c           	; (and could also use a fast loop)
+;     jp      nz, .fillL1
+
+    ld      hl, Window_Snow_1
+    ld      a, 0
+    ld      de, 0x8000     	;  to 1st byte of page 1...
+    ;ld      c, 1 ;Window_Snow_1.size * 256
+    ;call    LDIRVM_MSX2
+    call    Load_16x16_SC5_Image
+
+    ld      hl, COPYBLOCK
+    ld      de, VdpCommand
+    ld      bc, 15
+    ldir
+
+
+
+
+    ; ld      hl, 0
+    ; ld      (VdpCommand_SourceX), hl
+    ; ld      hl, VdpCommand 	; execute the copy
+    ld      hl, 100
+    ld      (VdpCommand + 4), hl     ; dest x
+    ld      hl, 10
+    ld      (VdpCommand + 6), hl     ; dest y
+    ld      hl, VdpCommand 	; execute the copy
+    call    DoCopy
+
+
+
     ret
+
+
+
+; ----- TEST HMMM
+COPYBLOCK:
+   dw    0, 256 ; Source X (9 bits), Source Y (10 bits)
+   dw    128, 96 ; Destiny X (9 bits), Destiny Y (10 bits)
+   dw    7, 9	; number of cols/lines
+   db    0, 0, VDP_COMMAND_HMMM
+
+VDP_COMMAND_HMMM:       equ 1101 0000b
+
+
+
 
 GamePalette: 
 ; format: 0rrr 0bbb,     0000 0ggg

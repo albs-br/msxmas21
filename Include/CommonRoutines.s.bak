@@ -1,6 +1,3 @@
-; Common routines for MSX 2 (some work on MSX 1)
-; v.0.1.0 (when changed remember to update file on other projects)
-
 ; Fill all RAM with 0x00
 ClearRam:
     ld      hl, RamStart        ; RAM start address
@@ -136,23 +133,23 @@ Wait:
 ; Enables the interrupts
 ;
 SetVdp_Write:
-    rlc     h
+    rlc h
     rla
-    rlc     h
+    rlc h
     rla
-    srl     h
-    srl     h
+    srl h
+    srl h
     di
-    out     (PORT_1), a
-    ld      a, 14 + 128
-    out     (PORT_1), a
-    ld      a, l
+    out (PORT_1),a
+    ld a,14 + 128
+    out (PORT_1),a
+    ld a,l
     nop
-    out     (PORT_1), a
-    ld      a, h
-    or      64
+    out (PORT_1),a
+    ld a,h
+    or 64
     ei
-    out     (PORT_1), a
+    out (PORT_1),a
     ret
 
 ;
