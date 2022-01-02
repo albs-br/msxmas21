@@ -5,6 +5,13 @@ SPRATR:     equ 0x7600
 
 
 
+; ------------------
+
+WINDOW_LEFT_X:      equ 48+2
+WINDOW_LEFT_Y:      equ 128-32+16+8
+
+
+
 InitVram:
 
     ; disable keyboard click
@@ -170,16 +177,21 @@ InitVram:
 
 
 
+
+
     ; ld      hl, 0
     ; ld      (VdpCommand_SourceX), hl
     ; ld      hl, VdpCommand 	; execute the copy
-    ld      hl, 100
-    ld      (VdpCommand + 4), hl     ; dest x
-    ld      hl, 10
-    ld      (VdpCommand + 6), hl     ; dest y
+    ld      hl, WINDOW_LEFT_X + 9
+    ld      (VdpCommand_DestinyX), hl     ; dest x
+    ld      hl, WINDOW_LEFT_Y + 7
+    ld      (VdpCommand_DestinyY), hl     ; dest y
     ld      hl, VdpCommand 	; execute the copy
     call    DoCopy
 
+
+
+;((48+2) / 2) + ((128-32+16+8) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
 
 
     ret
@@ -408,22 +420,22 @@ LoadBackground:
     ; ----------------------- Window left
     ld		hl, Window_1		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((48+2) / 2) + ((128-32+16+8) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((WINDOW_LEFT_X) / 2) + ((WINDOW_LEFT_Y) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_2		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((64+2) / 2) + ((128-32+16+8) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((WINDOW_LEFT_X + 16) / 2) + ((WINDOW_LEFT_Y) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_3		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((48+2) / 2) + ((128-16+16+8) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((WINDOW_LEFT_X) / 2) + ((WINDOW_LEFT_Y + 16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_4		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((64+2) / 2) + ((128-16+16+8) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((WINDOW_LEFT_X + 16) / 2) + ((WINDOW_LEFT_Y + 16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ; ----------------------- Window right

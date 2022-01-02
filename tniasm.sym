@@ -27,6 +27,7 @@ BIOS_WINWID: equ 0FCA5h ; last def. pass 3
 BIOS_H_ERRP: equ 0FEFDh ; last def. pass 3
 RamEnd: equ 0C1F7h ; last def. pass 3
 BIOS_POSIT: equ 0C6h ; last def. pass 3
+WINDOW_LEFT_X: equ 032h ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Right_1_Top.size: equ 0C0h ; last def. pass 3
 BIOS_MLTNAM: equ 0F3D1h ; last def. pass 3
 FadeIn_Strange.dontIncrementBlue: equ 041A0h ; last def. pass 3
@@ -51,6 +52,7 @@ GameLogic: equ 048E3h ; last def. pass 3
 BIOS_H_LPTO: equ 0FFB6h ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Left_1_Top.size: equ 0C0h ; last def. pass 3
 BIOS_AVCSAV: equ 0FAF7h ; last def. pass 3
+WINDOW_LEFT_Y: equ 078h ; last def. pass 3
 BIOS_SAVENT: equ 0FCBFh ; last def. pass 3
 Load_16x16_SC5_Image_WithTransparency.loopCols: equ 042B1h ; last def. pass 3
 BIOS_RSIQLN: equ 0FB06h ; last def. pass 3
