@@ -163,13 +163,30 @@ InitVram:
 ;     dec     c           	; (and could also use a fast loop)
 ;     jp      nz, .fillL1
 
+WINDOW_SNOW_1_VRAM_ADDR:        equ 0x8000
+WINDOW_SNOW_2_VRAM_ADDR:        equ 0x8000 + 8 ; (16 bytes to right of previous image)
+WINDOW_SNOW_3_VRAM_ADDR:        equ 0x8000 + 16
+WINDOW_SNOW_4_VRAM_ADDR:        equ 0x8000 + 24
+
     ld      hl, Window_Snow_1
-    ld      a, 0
-    ld      de, 0x8000     	;  to 1st byte of page 1...
-    ;ld      c, 1 ;Window_Snow_1.size * 256
-    ;call    LDIRVM_MSX2
+    xor     a
+    ld      de, WINDOW_SNOW_1_VRAM_ADDR     	;  to 1st byte of page 1...
     call    Load_16x16_SC5_Image
 
+    ld      hl, Window_Snow_2
+    xor     a
+    ld      de, WINDOW_SNOW_2_VRAM_ADDR
+    call    Load_16x16_SC5_Image
+
+    ld      hl, Window_Snow_3
+    xor     a
+    ld      de, WINDOW_SNOW_3_VRAM_ADDR
+    call    Load_16x16_SC5_Image
+
+    ld      hl, Window_Snow_4
+    xor     a
+    ld      de, WINDOW_SNOW_4_VRAM_ADDR
+    call    Load_16x16_SC5_Image
 
 
     ; ; test loading frame 0 of snow animation to top left glass of left window
