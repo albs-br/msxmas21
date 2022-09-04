@@ -179,7 +179,7 @@ COPYBLOCK: equ 04365h ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Left_2_Bottom.size: equ 0C0h ; last def. pass 3
 BIOS_SLTTBL: equ 0FCC5h ; last def. pass 3
 BIOS_DSCTMP: equ 0F698h ; last def. pass 3
-End: equ 068CDh ; last def. pass 3
+End: equ 068A5h ; last def. pass 3
 DigitPatternsJumpTable: equ 04E7Eh ; last def. pass 3
 BIOS_H_LOC: equ 0FE99h ; last def. pass 3
 BIOS_H_CVS: equ 0FE44h ; last def. pass 3
@@ -515,13 +515,12 @@ BIOS_RUNFLG: equ 0F866h ; last def. pass 3
 CheckCollision_16x24_16x16: equ 0412Fh ; last def. pass 3
 BIOS_TXTTAB: equ 0F676h ; last def. pass 3
 BIOS_CONSAV: equ 0F668h ; last def. pass 3
-TestSpriteAttributes: equ 068CDh ; last def. pass 3
+TestSpriteAttributes: equ 068A5h ; last def. pass 3
 BIOS_T32CGP: equ 0F3C1h ; last def. pass 3
 BIOS_H_TIMI: equ 0FD9Fh ; last def. pass 3
 LoadBackground.loop_3: equ 04627h ; last def. pass 3
 BIOS_TRCFLG: equ 0F7C4h ; last def. pass 3
 FadeIn: equ 04201h ; last def. pass 3
-DEBUG: equ 0FFh ; last def. pass 3
 BIOS_LOHADR: equ 0F94Bh ; last def. pass 3
 ReadInput: equ 047ACh ; last def. pass 3
 InitVram: equ 042F4h ; last def. pass 3
@@ -590,7 +589,7 @@ BIOS_RSLREG: equ 0138h ; last def. pass 3
 CONVEYOR_BELT_COLOR_1: equ 07406h ; last def. pass 3
 BIOS_ENDFOR: equ 0F6A1h ; last def. pass 3
 ReadInput.setFrame0: equ 0487Bh ; last def. pass 3
-MainLoop.frameSkip: equ 068C8h ; last def. pass 3
+MainLoop.frameSkip: equ 068A0h ; last def. pass 3
 LoadSpritePatterns.nextHLAndIX: equ 04719h ; last def. pass 3
 SpritePatternsAndColors_Number_7.size: equ 060h ; last def. pass 3
 BIOS_VDPSTA: equ 0131h ; last def. pass 3

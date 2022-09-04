@@ -27,6 +27,7 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "UpdateAnimations.s"
     INCLUDE "Score.s"
 
+    ; Assets
     INCLUDE "Sprites/SpriteAssets.s"
     INCLUDE "Bitmaps/Bitmaps.s"
 

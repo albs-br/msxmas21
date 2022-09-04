@@ -1,3 +1,4 @@
+; Default VRAM tables for Screen 5
 NAMTBL:     equ 0x0000
 SPRPAT:     equ 0x7800
 SPRCOL:     equ 0x7400
