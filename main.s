@@ -1,5 +1,7 @@
 FNAME "msxmas21.rom"      ; output file
 
+CPU Z80
+
 PageSize:	    equ	0x4000	        ; 16kB
 
 
@@ -154,7 +156,7 @@ End:
 
 
 
-TestSpriteAttributes:
+InitialSpriteAttributes:
     ;   Y, X, Pattern, Reserved
 
     ; ; Santa Claus Top
@@ -181,22 +183,22 @@ TestSpriteAttributes:
     ; db  192 - 16 - 8, 120, 5 * 4, 0
     ; db  192 - 16 - 8, 120, 6 * 4, 0
 
-    db  0, 0, 0, 0
-    db  0, 0, 0, 0
-    db  0, 0, 0, 0
-    db  0, 0, 0, 0
-    db  0, 0, 0, 0
-    db  0, 0, 0, 0
-    db  0, 0, 0, 0
+    db  216, 0, 0, 0    ; y=216 disable current sprite and all following
+    ; db  0, 0, 0, 0
+    ; db  0, 0, 0, 0
+    ; db  0, 0, 0, 0
+    ; db  0, 0, 0, 0
+    ; db  0, 0, 0, 0
+    ; db  0, 0, 0, 0
 
 
 
-    ; Gift 1
-    db  0, 0, 7 * 4, 0
-    db  0, 0, 8 * 4, 0
-    db  0, 0, 9 * 4, 0
+    ; ; Gift 1
+    ; db  0, 0, 7 * 4, 0
+    ; db  0, 0, 8 * 4, 0
+    ; db  0, 0, 9 * 4, 0
 
-.size:  equ $ - TestSpriteAttributes
+.size:  equ $ - InitialSpriteAttributes
 
 
     db      "End ROM started at 0x4000"

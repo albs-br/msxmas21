@@ -8,20 +8,31 @@ SPRATR:     equ 0x7600
 
 ; ------------------
 
-WINDOW_LEFT_X:      equ 48+2
-WINDOW_LEFT_Y:      equ 128-32+16+8
+WINDOW_LEFT:
+.X:      equ 48+2
+.Y:      equ 128-32+16+8
+.TOP_LEFT_GLASS_X:        equ WINDOW_LEFT.X + 9
+.TOP_LEFT_GLASS_Y:        equ WINDOW_LEFT.Y + 7
+.TOP_RIGHT_GLASS_X:       equ WINDOW_LEFT.TOP_LEFT_GLASS_X + 8
+.TOP_RIGHT_GLASS_Y:       equ WINDOW_LEFT.TOP_LEFT_GLASS_Y
+.BOTTOM_LEFT_GLASS_X:     equ WINDOW_LEFT.TOP_LEFT_GLASS_X
+.BOTTOM_LEFT_GLASS_Y:     equ WINDOW_LEFT.TOP_LEFT_GLASS_Y + 10
+.BOTTOM_RIGHT_GLASS_X:    equ WINDOW_LEFT.BOTTOM_LEFT_GLASS_X + 8
+.BOTTOM_RIGHT_GLASS_Y:    equ WINDOW_LEFT.BOTTOM_LEFT_GLASS_Y
 
-WINDOW_LEFT_TOP_LEFT_GLASS_X:       equ WINDOW_LEFT_X + 9
-WINDOW_LEFT_TOP_LEFT_GLASS_Y:       equ WINDOW_LEFT_Y + 7
+;--------------------
 
-WINDOW_LEFT_TOP_RIGHT_GLASS_X:      equ WINDOW_LEFT_TOP_LEFT_GLASS_X + 8
-WINDOW_LEFT_TOP_RIGHT_GLASS_Y:      equ WINDOW_LEFT_TOP_LEFT_GLASS_Y
-
-WINDOW_LEFT_BOTTOM_LEFT_GLASS_X:    equ WINDOW_LEFT_TOP_LEFT_GLASS_X
-WINDOW_LEFT_BOTTOM_LEFT_GLASS_Y:    equ WINDOW_LEFT_TOP_LEFT_GLASS_Y + 10
-
-WINDOW_LEFT_BOTTOM_RIGHT_GLASS_X:    equ WINDOW_LEFT_BOTTOM_LEFT_GLASS_X + 8
-WINDOW_LEFT_BOTTOM_RIGHT_GLASS_Y:    equ WINDOW_LEFT_BOTTOM_LEFT_GLASS_Y
+WINDOW_RIGHT:
+.X:      equ 256-48-32+2
+.Y:      equ 128-32+16+8
+.TOP_LEFT_GLASS_X:        equ WINDOW_RIGHT.X + 9
+.TOP_LEFT_GLASS_Y:        equ WINDOW_RIGHT.Y + 7
+.TOP_RIGHT_GLASS_X:       equ WINDOW_RIGHT.TOP_LEFT_GLASS_X + 8
+.TOP_RIGHT_GLASS_Y:       equ WINDOW_RIGHT.TOP_LEFT_GLASS_Y
+.BOTTOM_LEFT_GLASS_X:     equ WINDOW_RIGHT.TOP_LEFT_GLASS_X
+.BOTTOM_LEFT_GLASS_Y:     equ WINDOW_RIGHT.TOP_LEFT_GLASS_Y + 10
+.BOTTOM_RIGHT_GLASS_X:    equ WINDOW_RIGHT.BOTTOM_LEFT_GLASS_X + 8
+.BOTTOM_RIGHT_GLASS_Y:    equ WINDOW_RIGHT.BOTTOM_LEFT_GLASS_Y
 
 ; ------------------------
 
@@ -118,9 +129,9 @@ InitVram:
     ld      a, 0000 0000 b
     ld      hl, SPRATR
     call    SetVdp_Write
-    ld      b, TestSpriteAttributes.size
+    ld      b, InitialSpriteAttributes.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, TestSpriteAttributes
+    ld      hl, InitialSpriteAttributes
     otir
 
 ; -----------
@@ -471,43 +482,43 @@ LoadBackground:
     ; ----------------------- Window left
     ld		hl, Window_1		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((WINDOW_LEFT_X) / 2) + ((WINDOW_LEFT_Y) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((WINDOW_LEFT.X) / 2) + ((WINDOW_LEFT.Y) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_2		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((WINDOW_LEFT_X + 16) / 2) + ((WINDOW_LEFT_Y) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((WINDOW_LEFT.X + 16) / 2) + ((WINDOW_LEFT.Y) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_3		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((WINDOW_LEFT_X) / 2) + ((WINDOW_LEFT_Y + 16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((WINDOW_LEFT.X) / 2) + ((WINDOW_LEFT.Y + 16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_4		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((WINDOW_LEFT_X + 16) / 2) + ((WINDOW_LEFT_Y + 16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((WINDOW_LEFT.X + 16) / 2) + ((WINDOW_LEFT.Y + 16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ; ----------------------- Window right
     ld		hl, Window_1		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((256-48-32+2) / 2) + ((128-32+16+8) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((WINDOW_RIGHT.X) / 2) + ((WINDOW_RIGHT.Y) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_2		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((256-48-16+2) / 2) + ((128-32+16+8) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((WINDOW_RIGHT.X + 16) / 2) + ((WINDOW_RIGHT.Y) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_3		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((256-48-32+2) / 2) + ((128-16+16+8) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((WINDOW_RIGHT.X) / 2) + ((WINDOW_RIGHT.Y + 16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_4		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((256-48-16+2) / 2) + ((128-16+16+8) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((WINDOW_RIGHT.X + 16) / 2) + ((WINDOW_RIGHT.Y + 16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ; ----------------------- Window top center

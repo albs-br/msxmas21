@@ -40,9 +40,9 @@ InitVariables:
 
 
     ; init sprite attributes table
-    ld      hl, TestSpriteAttributes
+    ld      hl, InitialSpriteAttributes
     ld      de, SpriteAttributes
-    ld      bc, TestSpriteAttributes.size
+    ld      bc, InitialSpriteAttributes.size
     ldir
 
 

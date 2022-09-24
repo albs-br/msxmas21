@@ -201,29 +201,57 @@ LoadAnimationFrameToWindow:
 
     ret
 
+; Inputs:
+;   HL: VdpCommand_SourceX
 LoadAnimationFrameToAll4Windows:
+    
+    ; ------------------------
     push    hl
-        ;ld      hl, SNOW_ANIMATION_FRAME_0
-        ld      b,WINDOW_LEFT_TOP_LEFT_GLASS_X
-        ld      c,WINDOW_LEFT_TOP_LEFT_GLASS_Y
+        ld      b,WINDOW_LEFT.TOP_LEFT_GLASS_X
+        ld      c,WINDOW_LEFT.TOP_LEFT_GLASS_Y
         call    LoadAnimationFrameToWindow
     pop     hl
 
     push    hl
-        ld      b,WINDOW_LEFT_TOP_RIGHT_GLASS_X
-        ld      c,WINDOW_LEFT_TOP_RIGHT_GLASS_Y
+        ld      b,WINDOW_LEFT.TOP_RIGHT_GLASS_X
+        ld      c,WINDOW_LEFT.TOP_RIGHT_GLASS_Y
         call    LoadAnimationFrameToWindow
     pop     hl
 
     push    hl
-        ld      b,WINDOW_LEFT_BOTTOM_LEFT_GLASS_X
-        ld      c,WINDOW_LEFT_BOTTOM_LEFT_GLASS_Y
+        ld      b,WINDOW_LEFT.BOTTOM_LEFT_GLASS_X
+        ld      c,WINDOW_LEFT.BOTTOM_LEFT_GLASS_Y
         call    LoadAnimationFrameToWindow
     pop     hl
 
     push    hl
-        ld      b,WINDOW_LEFT_BOTTOM_RIGHT_GLASS_X
-        ld      c,WINDOW_LEFT_BOTTOM_RIGHT_GLASS_Y
+        ld      b,WINDOW_LEFT.BOTTOM_RIGHT_GLASS_X
+        ld      c,WINDOW_LEFT.BOTTOM_RIGHT_GLASS_Y
+        call    LoadAnimationFrameToWindow
+    pop     hl
+
+    ; ------------------------
+    push    hl
+        ld      b,WINDOW_RIGHT.TOP_LEFT_GLASS_X
+        ld      c,WINDOW_RIGHT.TOP_LEFT_GLASS_Y
+        call    LoadAnimationFrameToWindow
+    pop     hl
+
+    push    hl
+        ld      b,WINDOW_RIGHT.TOP_RIGHT_GLASS_X
+        ld      c,WINDOW_RIGHT.TOP_RIGHT_GLASS_Y
+        call    LoadAnimationFrameToWindow
+    pop     hl
+
+    push    hl
+        ld      b,WINDOW_RIGHT.BOTTOM_LEFT_GLASS_X
+        ld      c,WINDOW_RIGHT.BOTTOM_LEFT_GLASS_Y
+        call    LoadAnimationFrameToWindow
+    pop     hl
+
+    push    hl
+        ld      b,WINDOW_RIGHT.BOTTOM_RIGHT_GLASS_X
+        ld      c,WINDOW_RIGHT.BOTTOM_RIGHT_GLASS_Y
         call    LoadAnimationFrameToWindow
     pop     hl
 
