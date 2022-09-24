@@ -255,4 +255,29 @@ LoadAnimationFrameToAll4Windows:
         call    LoadAnimationFrameToWindow
     pop     hl
 
+    ; ------------------------
+    push    hl
+        ld      b,WINDOW_CENTER.TOP_LEFT_GLASS_X
+        ld      c,WINDOW_CENTER.TOP_LEFT_GLASS_Y
+        call    LoadAnimationFrameToWindow
+    pop     hl
+
+    push    hl
+        ld      b,WINDOW_CENTER.TOP_RIGHT_GLASS_X
+        ld      c,WINDOW_CENTER.TOP_RIGHT_GLASS_Y
+        call    LoadAnimationFrameToWindow
+    pop     hl
+
+    push    hl
+        ld      b,WINDOW_CENTER.BOTTOM_LEFT_GLASS_X
+        ld      c,WINDOW_CENTER.BOTTOM_LEFT_GLASS_Y
+        call    LoadAnimationFrameToWindow
+    pop     hl
+
+    push    hl
+        ld      b,WINDOW_CENTER.BOTTOM_RIGHT_GLASS_X
+        ld      c,WINDOW_CENTER.BOTTOM_RIGHT_GLASS_Y
+        call    LoadAnimationFrameToWindow
+    pop     hl
+
     ret

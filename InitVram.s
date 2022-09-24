@@ -34,6 +34,21 @@ WINDOW_RIGHT:
 .BOTTOM_RIGHT_GLASS_X:    equ WINDOW_RIGHT.BOTTOM_LEFT_GLASS_X + 8
 .BOTTOM_RIGHT_GLASS_Y:    equ WINDOW_RIGHT.BOTTOM_LEFT_GLASS_Y
 
+;--------------------
+
+WINDOW_CENTER:
+.X:      equ 128-16
+.Y:      equ 40-16
+.TOP_LEFT_GLASS_X:        equ WINDOW_CENTER.X + 9
+.TOP_LEFT_GLASS_Y:        equ WINDOW_CENTER.Y + 7
+.TOP_RIGHT_GLASS_X:       equ WINDOW_CENTER.TOP_LEFT_GLASS_X + 8
+.TOP_RIGHT_GLASS_Y:       equ WINDOW_CENTER.TOP_LEFT_GLASS_Y
+.BOTTOM_LEFT_GLASS_X:     equ WINDOW_CENTER.TOP_LEFT_GLASS_X
+.BOTTOM_LEFT_GLASS_Y:     equ WINDOW_CENTER.TOP_LEFT_GLASS_Y + 10
+.BOTTOM_RIGHT_GLASS_X:    equ WINDOW_CENTER.BOTTOM_LEFT_GLASS_X + 8
+.BOTTOM_RIGHT_GLASS_Y:    equ WINDOW_CENTER.BOTTOM_LEFT_GLASS_Y
+
+
 ; ------------------------
 
 SNOW_ANIMATION_FRAME_0:     equ 0
@@ -524,22 +539,22 @@ LoadBackground:
     ; ----------------------- Window top center
     ld		hl, Window_1		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((128-16) / 2) + ((40-16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((WINDOW_CENTER.X) / 2) + ((WINDOW_CENTER.Y) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_2		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((128-16+16) / 2) + ((40-16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((WINDOW_CENTER.X+16) / 2) + ((WINDOW_CENTER.Y) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_3		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((128-16) / 2) + ((40+16-16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((WINDOW_CENTER.X) / 2) + ((WINDOW_CENTER.Y+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ld		hl, Window_4		                    ; RAM address (source)
     ld      a, 0000 0000 b                          ; destiny on VRAM (17 bits)
-    ld      de, NAMTBL + ((128-16+16) / 2) + ((40+16-16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
+    ld      de, NAMTBL + ((WINDOW_CENTER.X+16) / 2) + ((WINDOW_CENTER.Y+16) * 128)     ; destiny on VRAM (17 bits) - (x / 2) + (y * 128)
     call    Load_16x16_SC5_Image_WithTransparency
 
     ; ----------------------- Wood horizontal
