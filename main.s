@@ -36,9 +36,12 @@ PageSize:	    equ	0x4000	        ; 16kB
 
 Execute:
 
-    call    InitVram
+    ; call    TitleScreen
 
 InitGame:
+
+    call    InitVram
+
     call    ClearRam
 
     call    InitVariables

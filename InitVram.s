@@ -60,6 +60,7 @@ SNOW_ANIMATION_FRAME_5:     equ 32 + 9
 SNOW_ANIMATION_FRAME_6:     equ 48
 SNOW_ANIMATION_FRAME_7:     equ 48 + 9
 
+
 InitVram:
 
     ; disable keyboard click
