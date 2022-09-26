@@ -86,5 +86,8 @@ Debug_Temp_Word:                 rw 1
 
 
 
+; ------------- Title screen
 
-
+; vars for line interrupt routine:
+Flag_LineInterrupt:	    rb 1        ; these two vars MUST be on sequential addresses 
+Counter_LineInterrupt:	rb 1        ; this var MUST be imediately after Flag_LineInterrupt
