@@ -8,7 +8,8 @@ SPRCOL_3: equ 0x07c00   ; to 0x0x07dff (512 bytes)      17-bit VRAM addr
 SPRATR_3: equ 0x07e00	; to 0x07e80 (128 bytes)        17-bit VRAM addr
 
 
-LINE_INTERRUPT_NUMBER: equ 64
+LINE_INTERRUPT_NUMBER_1: equ 64
+LINE_INTERRUPT_NUMBER_2: equ 128
 
 
 TitleScreen:
@@ -40,7 +41,7 @@ TitleScreen:
 
 
 
-    ; call    .Load_SPRATR_1
+    ;call    .Load_SPRATR_1
     ; call    .Load_SPRATR_2
 
     call    .Set_SPRATR_1
@@ -48,28 +49,60 @@ TitleScreen:
 
 
 
-    ; ; Load sprite pattern #0
-    ; ld      a, 0000 0000 b
-    ; ld      hl, SPRPAT
-    ; call    SetVdp_Write
-    ; ld      b, SpritePattern_SnowFlake_0.size
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ; ld      hl, SpritePattern_SnowFlake_0
-    ; otir
+    ; -------------------------------------------------------
+    ; Load sprite pattern #0
+    ld      a, 0000 0000 b
+    ld      hl, SPRPAT
+    call    SetVdp_Write
+    ld      b, 32 ; SpritePattern_SnowFlake_0.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpritePattern_SnowFlake_0
+    otir
+
+    ; -------------------------------------------------------
+    ; Load sprite colors table 1
+
+    ld      a, 0000 0000 b ; TODO get only the high bit (bit 16)
+    ld      hl, SPRCOL_1 AND 0 1111 1111 1111 1111 b    ; get 16 lower bits (bits 0-15)
+
+    ld      d, 32       ; number of entries on SPRCOL table
+.loadSPRCOL_loop:
+    push    af, hl
+        call    SetVdp_Write
+        ld      b, 16
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_SnowFlake_0 + 32
+        otir
+    pop     hl, af
+    ld      bc, 16      ; size of each entry on SPRCOL table
+    add     hl, bc      ; next entry on SPRCOL table
+    
+    dec     d
+    jp      nz, .loadSPRCOL_loop
+
+    ; ----------------------------
+    ld      a, 0000 0000 b ; TODO get only the high bit (bit 16)
+    ld      hl, SPRATR_1 AND 0 1111 1111 1111 1111 b    ; get 16 lower bits (bits 0-15)
+    call    SetVdp_Write
+    ld      b, SpriteAttributes_test.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpriteAttributes_test
+    otir
+
 
 
     ; ------------------------ Draw screen -----------------------------
 
-;     ; test drawing on screen 5
-;     ld      a, 0000 0000 b
-;     ld      hl, NAMTBL
-;     call    SetVdp_Write
+    ; test drawing on screen 5
+    ld      a, 0000 0000 b
+    ld      hl, NAMTBL
+    call    SetVdp_Write
 
-;     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-;     ld      b, 0
-; .testLoop:
-;     out     (c), b
-;     djnz    .testLoop
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      b, 0
+.testLoop:
+    out     (c), b
+    djnz    .testLoop
 
 
 
@@ -86,44 +119,44 @@ TitleScreen:
 
 
 
-; ----------------- set sprite split
+; ; ----------------- set sprite split
 
-    ; ------------------------ setup line interrupt -----------------------------
+;     ; ------------------------ setup line interrupt -----------------------------
 
-    di
-
-    
-    ; override HKEYI hook
-    ld 		a, 0xc3    ; 0xc3 is the opcode for "jp", so this sets "jp LineInterruptHook" as the interrupt code
-    ld 		(HKEYI), a
-    ld 		hl, .LineInterruptHook
-    ld 		(HKEYI + 1), hl
+;     di
 
     
-    ; enable line interrupts
-    ld  	a, (REG0SAV)
-    or  	16
-    ld  	b, a		; data to write
-    ld  	c, 0		; register number
-    call  	WRTVDP_without_DI_EI		; Write B value to C register
+;     ; override HKEYI hook
+;     ld 		a, 0xc3    ; 0xc3 is the opcode for "jp", so this sets "jp LineInterruptHook" as the interrupt code
+;     ld 		(HKEYI), a
+;     ld 		hl, .LineInterruptHook
+;     ld 		(HKEYI + 1), hl
+
+    
+;     ; enable line interrupts
+;     ld  	a, (REG0SAV)
+;     or  	16
+;     ld  	b, a		; data to write
+;     ld  	c, 0		; register number
+;     call  	WRTVDP_without_DI_EI		; Write B value to C register
 
 
 
-    ; set the interrupt to happen on line n
-    ld  	b, LINE_INTERRUPT_NUMBER - 1 - 3		; data to write
-    ld  	c, 19		; register number
-    call  	WRTVDP_without_DI_EI		; Write B value to C register
+;     ; set the interrupt to happen on line n
+;     ld  	b, LINE_INTERRUPT_NUMBER_1 - 1 - 3		; data to write
+;     ld  	c, 19		; register number
+;     call  	WRTVDP_without_DI_EI		; Write B value to C register
 
 
-    ei
+;     ei
 
 
     call    BIOS_ENASCR
 
-    ; ld      b, 255
-    ; call    Wait_B_Vblanks
+    ld      b, 255
+    call    Wait_B_Vblanks
 
-    ;jp      $ ; eternal loop
+    ; jp      $ ; eternal loop
 
 
 .exit:
@@ -274,3 +307,38 @@ TitleScreen:
 
 ; ------------
 
+
+SpriteAttributes_test:
+    db  -1 + 0, 0, 0, 0 ; -1 to compensate the Y+1 bug/feature of VDP
+    db  -1 + 0, 16, 0, 0
+    db  -1 + 0, 32, 0, 0
+    db  -1 + 0, 48, 0, 0
+    db  -1 + 0, 64, 0, 0
+    db  -1 + 0, 80, 0, 0
+    db  -1 + 0, 96, 0, 0
+    db  -1 + 0, 112, 0, 0
+    db  -1 + 16, 0, 0, 0
+    db  -1 + 16, 16, 0, 0
+    db  -1 + 16, 32, 0, 0
+    db  -1 + 16, 48, 0, 0
+    db  -1 + 16, 64, 0, 0
+    db  -1 + 16, 80, 0, 0
+    db  -1 + 16, 96, 0, 0
+    db  -1 + 16, 112, 0, 0
+    db  -1 + 32, 0, 0, 0
+    db  -1 + 32, 16, 0, 0
+    db  -1 + 32, 32, 0, 0
+    db  -1 + 32, 48, 0, 0
+    db  -1 + 32, 64, 0, 0
+    db  -1 + 32, 80, 0, 0
+    db  -1 + 32, 96, 0, 0
+    db  -1 + 32, 112, 0, 0
+    db  -1 + 48, 0, 0, 0
+    db  -1 + 48, 16, 0, 0
+    db  -1 + 48, 32, 0, 0
+    db  -1 + 48, 48, 0, 0
+    db  -1 + 48, 64, 0, 0
+    db  -1 + 48, 80, 0, 0
+    db  -1 + 48, 96, 0, 0
+    db  -1 + 48, 112, 0, 0
+.size:  equ $ - SpriteAttributes_test

@@ -98,3 +98,9 @@ SpritePatternsAndColors_Number_8:
 SpritePatternsAndColors_Number_9:
     INCLUDE "Sprites/ScoreNumbers/9.s"
 .size:  equ $ - SpritePatternsAndColors_Number_9
+
+; ------------------  Title Screen
+
+SpritePattern_SnowFlake_0:
+    INCLUDE "Sprites/TitleScreen/SnowFlake.s"
+.size:  equ $ - SpritePattern_SnowFlake_0

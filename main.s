@@ -36,7 +36,7 @@ PageSize:	    equ	0x4000	        ; 16kB
 
 Execute:
 
-    ; call    TitleScreen
+    call    TitleScreen
 
 InitGame:
 
