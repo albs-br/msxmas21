@@ -1,3 +1,13 @@
+SPRCOL_1: equ 0x07400   ; to 0x0x075ff (512 bytes)      17-bit VRAM addr
+SPRATR_1: equ 0x07600	; to 0x07680 (128 bytes)        17-bit VRAM addr
+
+SPRCOL_2: equ 0x07800   ; to 0x0x079ff (512 bytes)      17-bit VRAM addr
+SPRATR_2: equ 0x07a00	; to 0x07a80 (128 bytes)        17-bit VRAM addr
+
+SPRCOL_3: equ 0x07c00   ; to 0x0x07dff (512 bytes)      17-bit VRAM addr
+SPRATR_3: equ 0x07e00	; to 0x07e80 (128 bytes)        17-bit VRAM addr
+
+
 LINE_INTERRUPT_NUMBER: equ 64
 
 
@@ -120,30 +130,77 @@ TitleScreen:
     ret
 
 .Set_SPRATR_1:
-; ---- set SPRATR to 0x07600 (SPRCOL is automatically set 512 bytes before SPRATR, so 0x07400)
-    ; bits:    16 14   10   7
-    ;           |  |    |   |
-    ; 0x07600 = 0 0111 0110 0000 0000
-    ; low bits (aaaaa111: bits 14 to 10)
-    ld      b, 1110 1111 b  ; data          ; In sprite mode 2 the least significant three bits in register 5 should be 1 otherwise mirroring will occur. ; https://www.msx.org/forum/msx-talk/development/strange-behaviour-bug-on-spratr-base-addr-register-on-v993858
+; ; ---- set SPRATR to 0x07600 (SPRCOL is automatically set 512 bytes before SPRATR, so 0x07400)
+;     ; bits:    16 14   10   7
+;     ;           |  |    |   |
+;     ; 0x07600 = 0 0111 0110 0000 0000
+;     ; low bits (aaaaa111: bits 14 to 10)
+;     ld      b, 1110 1111 b  ; data          ; In sprite mode 2 the least significant three bits in register 5 should be 1 otherwise mirroring will occur. ; https://www.msx.org/forum/msx-talk/development/strange-behaviour-bug-on-spratr-base-addr-register-on-v993858
+;     ld      c, 5            ; register #
+;     ;call    BIOS_WRTVDP
+;     call  	WRTVDP_without_DI_EI		; Write B value to C register
+
+;     ; high bits (000000aa: bits 16 to 15)
+;     ld      b, 0000 0000 b  ; data
+;     ld      c, 11           ; register #
+;     ;call    BIOS_WRTVDP
+;     call  	WRTVDP_without_DI_EI		; Write B value to C register
+;     ret
+
+    ; R#5
+    ;   step 1: AND with mask to get only bits 14 to 10
+    ;   step 2: shift right 7 bits to align properly
+    ;   step 3: OR with mask to set lower 3 bits
+    ld      b, 0 + ((SPRATR_1 AND 0 0111 1100 0000 0000 b) >> 7) OR 0000 0111 b
     ld      c, 5            ; register #
-    ;call    BIOS_WRTVDP
     call  	WRTVDP_without_DI_EI		; Write B value to C register
 
-    ; high bits (000000aa: bits 16 to 15)
-    ld      b, 0000 0000 b  ; data
+    ; R#11
+    ;   step 1: AND with mask to get only bits 16 and 15
+    ;   step 2: shift right 15 bits to align properly
+    ld      b, 0 + (SPRATR_1 AND 1 1000 0000 0000 0000 b) >> 17
     ld      c, 11           ; register #
-    ;call    BIOS_WRTVDP
     call  	WRTVDP_without_DI_EI		; Write B value to C register
-    ret
 
+    ret
 
 ; ---- set SPRATR to 0x07a00 (SPRCOL is automatically set 512 bytes before SPRATR, so 0x07800)
 .Set_SPRATR_2:
+    ; R#5
+    ;   step 1: AND with mask to get only bits 14 to 10
+    ;   step 2: shift right 7 bits to align properly
+    ;   step 3: OR with mask to set lower 3 bits
+    ld      b, 0 + ((SPRATR_2 AND 0 0111 1100 0000 0000 b) >> 7) OR 0000 0111 b
+    ld      c, 5            ; register #
+    call  	WRTVDP_without_DI_EI		; Write B value to C register
+
+    ; R#11
+    ;   step 1: AND with mask to get only bits 16 and 15
+    ;   step 2: shift right 15 bits to align properly
+    ld      b, 0 + (SPRATR_2 AND 1 1000 0000 0000 0000 b) >> 17
+    ld      c, 11           ; register #
+    call  	WRTVDP_without_DI_EI		; Write B value to C register
+
+    ret
 
 ; ---- set SPRATR to 0x07e00 (SPRCOL is automatically set 512 bytes before SPRATR, so 0x07c00)
 .Set_SPRATR_3:
+    ; R#5
+    ;   step 1: AND with mask to get only bits 14 to 10
+    ;   step 2: shift right 7 bits to align properly
+    ;   step 3: OR with mask to set lower 3 bits
+    ld      b, 0 + ((SPRATR_3 AND 0 0111 1100 0000 0000 b) >> 7) OR 0000 0111 b
+    ld      c, 5            ; register #
+    call  	WRTVDP_without_DI_EI		; Write B value to C register
 
+    ; R#11
+    ;   step 1: AND with mask to get only bits 16 and 15
+    ;   step 2: shift right 15 bits to align properly
+    ld      b, 0 + (SPRATR_3 AND 1 1000 0000 0000 0000 b) >> 17
+    ld      c, 11           ; register #
+    call  	WRTVDP_without_DI_EI		; Write B value to C register
+
+    ret
 
 
 ;-------------------
@@ -216,3 +273,4 @@ TitleScreen:
     jp   	.Set_SPRATR_2
 
 ; ------------
+
