@@ -1,3 +1,4 @@
+; VRAM tables only for Title Screen:
 SPRCOL_1: equ 0x07400   ; to 0x0x075ff (512 bytes)      17-bit VRAM addr
 SPRATR_1: equ 0x07600	; to 0x07680 (128 bytes)        17-bit VRAM addr
 
@@ -81,28 +82,43 @@ TitleScreen:
     jp      nz, .loadSPRCOL_loop
 
     ; ----------------------------
-    ld      a, 0000 0000 b ; TODO get only the high bit (bit 16)
-    ld      hl, SPRATR_1 AND 0 1111 1111 1111 1111 b    ; get 16 lower bits (bits 0-15)
-    call    SetVdp_Write
-    ld      b, SpriteAttributes_test.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteAttributes_test
-    otir
+
+    ; ld      a, 0000 0000 b ; TODO get only the high bit (bit 16)
+    ; ld      hl, SPRATR_1 AND 0 1111 1111 1111 1111 b    ; get 16 lower bits (bits 0-15)
+    ; call    SetVdp_Write
+    ; ld      b, SpriteAttributes_test.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, SpriteAttributes_test
+    ; otir
 
 
+    ld      a, 0        ; Sprite position on SPRATR table
+    ld      d, 100      ; Y coord
+    ld      e, 0        ; pattern number
+    call    .InitSprite
+
+    ld      a, 1        ; Sprite position on SPRATR table
+    ld      d, 102      ; Y coord
+    ld      e, 0        ; pattern number
+    call    .InitSprite
+
+    ld      a, 2        ; Sprite position on SPRATR table
+    ld      d, 104      ; Y coord
+    ld      e, 0        ; pattern number
+    call    .InitSprite
 
     ; ------------------------ Draw screen -----------------------------
 
-    ; test drawing on screen 5
-    ld      a, 0000 0000 b
-    ld      hl, NAMTBL
-    call    SetVdp_Write
+;     ; test drawing on screen 5
+;     ld      a, 0000 0000 b
+;     ld      hl, NAMTBL
+;     call    SetVdp_Write
 
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      b, 0
-.testLoop:
-    out     (c), b
-    djnz    .testLoop
+;     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+;     ld      b, 0
+; .testLoop:
+;     out     (c), b
+;     djnz    .testLoop
 
 
 
@@ -117,6 +133,10 @@ TitleScreen:
     ; ld      a, 1
     ; ld      (Sprite_Direction), a
 
+    ; Init random number generator
+    ld      a, (BIOS_JIFFY)                  ; MSX BIOS time variable
+    or      0x80                             ; A value different of zero is granted
+    ld      (Seed), a
 
 
 ; ; ----------------- set sprite split
@@ -307,6 +327,50 @@ TitleScreen:
 
 ; ------------
 
+
+
+; Inputs:
+;   A: Sprite position on SPRATR table
+;   D: Y coord
+;   E: pattern number
+.InitSprite:
+
+    ; adjust initial address to correct sprite position
+
+    ; a = a * 4
+    sla     a   ; shift left A
+    sla     a
+    sla     a
+    sla     a
+
+    ld      hl, SPRATR_1 AND 0 1111 1111 1111 1111 b    ; get 16 lower bits (bits 0-15)
+    
+    ; bc = a
+    ld      b, 0
+    ld      c, a
+
+    add     hl, bc
+
+    ld      a, 0000 0000 b ; TODO get only the high bit (bit 16)
+    call    SetVdp_Write
+
+    ld      c, PORT_0
+
+    ; Y coord
+    out     (c), d
+
+    ; X coord
+    call    RandomNumber
+    out     (c), a
+
+    ; pattern
+    out     (c), e
+
+
+    ret
+
+
+;-----------
 
 SpriteAttributes_test:
     db  -1 + 0, 0, 0, 0 ; -1 to compensate the Y+1 bug/feature of VDP

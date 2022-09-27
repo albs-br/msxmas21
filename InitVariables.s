@@ -1,6 +1,7 @@
 PLAYER_Y_ON_GROUND:     equ 192 - 24 - 8 + 4
 
 InitVariables:
+    ; Init random number generator
     ld      a, (BIOS_JIFFY)                  ; MSX BIOS time variable
     or      0x80                             ; A value different of zero is granted
     ld      (Seed), a
