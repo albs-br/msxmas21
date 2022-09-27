@@ -92,20 +92,22 @@ TitleScreen:
     ; otir
 
 
-    ld      a, 0        ; Sprite position on SPRATR table
-    ld      d, 100      ; Y coord
-    ld      e, 0        ; pattern number
-    call    .InitSprite
+    ld      c, 192-16
+    ld      b, 32
+.initSprites_loop:
+    push    bc
+        dec     b
+        ld      a, b        ; Sprite position on SPRATR table
+        ld      d, c        ; Y coord
+        ld      e, 0        ; pattern number
+        call    .InitSprite
+    pop     bc
 
-    ld      a, 1        ; Sprite position on SPRATR table
-    ld      d, 102      ; Y coord
-    ld      e, 0        ; pattern number
-    call    .InitSprite
+    ld      a, c
+    sub     6
+    ld      c, a
 
-    ld      a, 2        ; Sprite position on SPRATR table
-    ld      d, 104      ; Y coord
-    ld      e, 0        ; pattern number
-    call    .InitSprite
+    djnz    .initSprites_loop
 
     ; ------------------------ Draw screen -----------------------------
 
@@ -173,10 +175,29 @@ TitleScreen:
 
     call    BIOS_ENASCR
 
-    ld      b, 255
-    call    Wait_B_Vblanks
+    ; ld      b, 255
+    ; call    Wait_B_Vblanks
 
     ; jp      $ ; eternal loop
+
+; ------------------------- Title screen loop --------------------
+
+.titleScreen_Loop:
+    call    Wait_Vblank
+
+
+    ld      b, 32
+.moveSprites_loop:
+    push    bc
+        dec     b
+        ld      a, b        ; Sprite position on SPRATR table
+        call    .MoveSprite
+    pop     bc
+
+    djnz    .moveSprites_loop
+
+
+    jp      .titleScreen_Loop
 
 
 .exit:
@@ -335,12 +356,75 @@ TitleScreen:
 ;   E: pattern number
 .InitSprite:
 
+    call    .SetVDP_SPRATR_ToCurrentSprite
+
+    ; Y coord
+    out     (c), d
+
+    ; X coord
+    call    RandomNumber
+    out     (c), a
+
+    ; pattern
+    out     (c), e
+
+    ret
+
+; Inputs:
+;   A: Sprite position on SPRATR table
+.MoveSprite:
+
+    push    af
+        ; ---------------- get current Y
+        ; a = a * 4
+        sla     a   ; shift left A
+        sla     a
+
+        ld      hl, SPRATR_1 AND 0 1111 1111 1111 1111 b    ; get 16 lower bits (bits 0-15)
+        
+        ; bc = a
+        ld      b, 0
+        ld      c, a
+
+        add     hl, bc
+
+        ld      a, 0000 0000 b ; TODO get only the high bit (bit 16)
+        call    SetVdp_Read
+
+        ld      c, PORT_0
+
+        in      a, (c)
+
+        inc     a
+        cp      192
+        ld      d, a
+        jp      z, .reInitSprite
+        
+        ; -------------------
+    pop     af
+
+    call    .SetVDP_SPRATR_ToCurrentSprite
+
+    ; Y coord
+    out     (c), d
+
+    ret
+
+.reInitSprite:
+    pop     af
+    ;ld      a, b        ; Sprite position on SPRATR table
+    ld      d, -16       ; Y coord
+    ld      e, 0        ; pattern number
+    call    .InitSprite
+    ret
+
+; Inputs:
+;   A: Sprite position on SPRATR table
+.SetVDP_SPRATR_ToCurrentSprite:
     ; adjust initial address to correct sprite position
 
     ; a = a * 4
     sla     a   ; shift left A
-    sla     a
-    sla     a
     sla     a
 
     ld      hl, SPRATR_1 AND 0 1111 1111 1111 1111 b    ; get 16 lower bits (bits 0-15)
@@ -356,20 +440,7 @@ TitleScreen:
 
     ld      c, PORT_0
 
-    ; Y coord
-    out     (c), d
-
-    ; X coord
-    call    RandomNumber
-    out     (c), a
-
-    ; pattern
-    out     (c), e
-
-
     ret
-
-
 ;-----------
 
 SpriteAttributes_test:

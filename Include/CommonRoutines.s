@@ -117,6 +117,17 @@ Wait_B_Vblanks:
 
 	ret
 
+Wait_Vblank:
+.loop:
+    ld      a, (BIOS_JIFFY)
+    ld      b, a
+.waitVBlank:
+    ld      a, (BIOS_JIFFY)
+    cp      b
+    jp      z, .waitVBlank
+
+    ret
+
 Wait:
 	ld		c, 15
 
