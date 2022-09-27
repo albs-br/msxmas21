@@ -399,14 +399,30 @@ TitleScreen:
         cp      192
         ld      d, a
         jp      z, .reInitSprite
-        
+
+        in      e, (c)
+
         ; -------------------
     pop     af
 
-    call    .SetVDP_SPRATR_ToCurrentSprite
+    push    de
+        call    .SetVDP_SPRATR_ToCurrentSprite
+    pop     de
 
     ; Y coord
     out     (c), d
+
+;     ; X coord
+;     ; call    RandomNumber
+;     ; and     0000 0011 b
+;     ; jp      nz, .dontIncX
+;     ld      a, (BIOS_JIFFY)
+;     and     0000 0011 b
+;     jp      nz, .dontIncX
+
+;     inc     e
+; .dontIncX:
+;     out     (c), e
 
     ret
 
