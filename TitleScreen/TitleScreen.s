@@ -122,6 +122,18 @@ TitleScreen:
 ;     out     (c), b
 ;     djnz    .testLoop
 
+    ; fill area above the image
+    ld      hl, NAMTBL
+    ld      bc, 128 * 32
+    ld      a, 0x00
+    call    BIOS_BIGFIL
+
+    ; fill area below the image
+    ld      hl, NAMTBL + (128 * (128 + 32))
+    ld      bc, 128 * 32
+    ld      a, 0x11
+    call    BIOS_BIGFIL
+
 
     ld      hl, TitleScreen_Palette
     call    LoadPalette
