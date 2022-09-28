@@ -36,6 +36,11 @@ PageSize:	    equ	0x4000	        ; 16kB
 
 Execute:
 
+    ; init interrupt mode and stack pointer (in case the ROM isn't the first thing to be loaded)
+    di                          ; disable interrupts
+    im      1                   ; interrupt mode 1
+    ld      sp, (BIOS_HIMEM)    ; init SP
+    
     call    TitleScreen
 
 InitGame:
