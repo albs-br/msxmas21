@@ -1,16 +1,20 @@
 ; VRAM tables only for Title Screen:
-SPRCOL_1: equ 0x07400   ; to 0x0x075ff (512 bytes)      17-bit VRAM addr
-SPRATR_1: equ 0x07600	; to 0x07680 (128 bytes)        17-bit VRAM addr
+SPRCOL_1: equ 0x17400   ; to 0x175ff (512 bytes)        17-bit VRAM addr
+SPRATR_1: equ 0x17600	; to 0x1767f (128 bytes)        17-bit VRAM addr
 
-SPRCOL_2: equ 0x07800   ; to 0x0x079ff (512 bytes)      17-bit VRAM addr
-SPRATR_2: equ 0x07a00	; to 0x07a80 (128 bytes)        17-bit VRAM addr
+SPRCOL_2: equ 0x17800   ; to 0x179ff (512 bytes)        17-bit VRAM addr
+SPRATR_2: equ 0x17a00	; to 0x17a7f (128 bytes)        17-bit VRAM addr
 
-SPRCOL_3: equ 0x07c00   ; to 0x0x07dff (512 bytes)      17-bit VRAM addr
-SPRATR_3: equ 0x07e00	; to 0x07e80 (128 bytes)        17-bit VRAM addr
+SPRCOL_3: equ 0x17c00   ; to 0x17dff (512 bytes)        17-bit VRAM addr
+SPRATR_3: equ 0x17e00	; to 0x17e7f (128 bytes)        17-bit VRAM addr
+
+; .debug_SPRCOL: equ SPRCOL_1 >> 16
+; .debug_SPRATR_R5:  equ ((SPRATR_1 AND 0 0111 1100 0000 0000 b) >> 7) OR 0000 0111 b
+; .debug_SPRATR_R11: equ (SPRATR_1 AND 1 1000 0000 0000 0000 b) >> 15
 
 
-LINE_INTERRUPT_NUMBER_1: equ 64
-LINE_INTERRUPT_NUMBER_2: equ 128
+;LINE_INTERRUPT_NUMBER_1: equ 64
+;LINE_INTERRUPT_NUMBER_2: equ 128
 
 
 TitleScreen:
@@ -63,7 +67,7 @@ TitleScreen:
     ; -------------------------------------------------------
     ; Load sprite colors table 1
 
-    ld      a, 0000 0000 b ; TODO get only the high bit (bit 16)
+    ld      a, SPRCOL_1 >> 16 ; get only the high bit (bit 16)
     ld      hl, SPRCOL_1 AND 0 1111 1111 1111 1111 b    ; get 16 lower bits (bits 0-15)
 
     ld      d, 32       ; number of entries on SPRCOL table
@@ -249,18 +253,19 @@ TitleScreen:
 ;     call  	WRTVDP_without_DI_EI		; Write B value to C register
 ;     ret
 
+
     ; R#5
     ;   step 1: AND with mask to get only bits 14 to 10
     ;   step 2: shift right 7 bits to align properly
     ;   step 3: OR with mask to set lower 3 bits
-    ld      b, 0 + ((SPRATR_1 AND 0 0111 1100 0000 0000 b) >> 7) OR 0000 0111 b
+    ld      b, 0 + (((SPRATR_1 AND 0 0111 1100 0000 0000 b) >> 7) OR 0000 0111 b)
     ld      c, 5            ; register #
     call  	WRTVDP_without_DI_EI		; Write B value to C register
 
     ; R#11
     ;   step 1: AND with mask to get only bits 16 and 15
     ;   step 2: shift right 15 bits to align properly
-    ld      b, 0 + (SPRATR_1 AND 1 1000 0000 0000 0000 b) >> 17
+    ld      b, 0 + ((SPRATR_1 AND 1 1000 0000 0000 0000 b) >> 15)
     ld      c, 11           ; register #
     call  	WRTVDP_without_DI_EI		; Write B value to C register
 
@@ -416,7 +421,7 @@ TitleScreen:
 
         add     hl, bc
 
-        ld      a, 0000 0000 b ; TODO get only the high bit (bit 16)
+        ld      a, SPRATR_1 >> 16 ; get only the high bit (bit 16)
         call    SetVdp_Read
 
         ld      c, PORT_0
@@ -479,7 +484,7 @@ TitleScreen:
 
     add     hl, bc
 
-    ld      a, 0000 0000 b ; TODO get only the high bit (bit 16)
+    ld      a, SPRATR_1 >> 16 ; get only the high bit (bit 16)
     call    SetVdp_Write
 
     ld      c, PORT_0

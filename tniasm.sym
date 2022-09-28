@@ -421,7 +421,7 @@ BIOS_FNKSB: equ 0C9h ; last def. pass 3
 BIOS_ARYTAB: equ 0F6C4h ; last def. pass 3
 PageSize: equ 04000h ; last def. pass 3
 BIOS_CHRGTR: equ 010h ; last def. pass 3
-SPRATR_1: equ 07600h ; last def. pass 3
+SPRATR_1: equ 017600h ; last def. pass 3
 BIOS_ONELIN: equ 0F6B9h ; last def. pass 3
 IsJumping: equ 04AB8h ; last def. pass 3
 BIOS_QUEBAK: equ 0F971h ; last def. pass 3
@@ -495,7 +495,7 @@ PLAYER_Y_ON_GROUND: equ 0A4h ; last def. pass 3
 BIOS_H_FINE: equ 0FF1Bh ; last def. pass 3
 BIOS_DAC: equ 0F7F6h ; last def. pass 3
 BIOS_H_MKD: equ 0FE3Ah ; last def. pass 3
-SPRCOL_2: equ 07800h ; last def. pass 3
+SPRCOL_2: equ 017800h ; last def. pass 3
 UpdateSprites.continueGift_3: equ 04C25h ; last def. pass 3
 _D: equ 01Eh ; last def. pass 3
 SpriteAttributes: equ 0C043h ; last def. pass 3
@@ -537,7 +537,6 @@ SpritePatternsAndColors_SantaClaus_Walking_Right_2_Bottom.size: equ 0C0h ; last 
 Small_Gift_4: equ 0688Bh ; last def. pass 3
 WINDOW_LEFT.TOP_RIGHT_GLASS_Y: equ 07Fh ; last def. pass 3
 BIOS_LOHDIR: equ 0F94Ah ; last def. pass 3
-LINE_INTERRUPT_NUMBER_2: equ 080h ; last def. pass 3
 Window_3: equ 0620Bh ; last def. pass 3
 BIOS_CALPAT: equ 084h ; last def. pass 3
 SANTA_CLAUS_WALKING_LEFT_1: equ 027h ; last def. pass 3
@@ -669,7 +668,7 @@ BIOS_CURLIN: equ 0F41Ch ; last def. pass 3
 BIOS_H_NULO: equ 0FE5Dh ; last def. pass 3
 SpritePatternsAndColors_SantaClaus_Walking_Right_1_Bottom: equ 05299h ; last def. pass 3
 UpdateSprites.hideGift_1: equ 04BB1h ; last def. pass 3
-SPRCOL_1: equ 07400h ; last def. pass 3
+SPRCOL_1: equ 017400h ; last def. pass 3
 LoadSpritePatternsWithColors: equ 04744h ; last def. pass 3
 BIOS_CGPNT: equ 0F91Fh ; last def. pass 3
 RandomNumber: equ 04139h ; last def. pass 3
@@ -760,7 +759,7 @@ GamePalette: equ 043BBh ; last def. pass 3
 BIOS_CPCSUM: equ 0F93Dh ; last def. pass 3
 InitGift.randomStatus: equ 0499Fh ; last def. pass 3
 HKEYI: equ 0FD9Ah ; last def. pass 3
-SPRCOL_3: equ 07C00h ; last def. pass 3
+SPRCOL_3: equ 017C00h ; last def. pass 3
 SpriteAttributes.size: equ 080h ; last def. pass 3
 BIOS_H_SCRE: equ 0FFC0h ; last def. pass 3
 BIOS_GRPHED: equ 0FCA6h ; last def. pass 3
@@ -795,7 +794,7 @@ InitGift: equ 0496Ah ; last def. pass 3
 BIOS_TEMP2: equ 0F6BCh ; last def. pass 3
 BIOS_RG4SAV: equ 0F3E3h ; last def. pass 3
 Score: equ 0C006h ; last def. pass 3
-SPRATR_2: equ 07A00h ; last def. pass 3
+SPRATR_2: equ 017A00h ; last def. pass 3
 BIOS_RG7SAV: equ 0F3E6h ; last def. pass 3
 BIOS_GICINI: equ 090h ; last def. pass 3
 JUMP_DELTA_Y_TABLE: equ 04AE3h ; last def. pass 3
@@ -832,7 +831,7 @@ PORT_3: equ 09Bh ; last def. pass 3
 Tree_B_1: equ 0650Bh ; last def. pass 3
 BIOS_CSAVEM: equ 0F944h ; last def. pass 3
 BIOS_CODSAV: equ 0FBCCh ; last def. pass 3
-SPRATR_3: equ 07E00h ; last def. pass 3
+SPRATR_3: equ 017E00h ; last def. pass 3
 BIOS_FUNACT: equ 0F7BAh ; last def. pass 3
 LoadSpritePatterns_2.nextHLAndIX: equ 04789h ; last def. pass 3
 BIOS_H_PLAY: equ 0FFC5h ; last def. pass 3
@@ -923,7 +922,6 @@ BIOS_TAPION: equ 0E1h ; last def. pass 3
 SCORE_X: equ 020h ; last def. pass 3
 BIOS_CSTYLE: equ 0FCAAh ; last def. pass 3
 BIOS_BUFMIN: equ 0F55Dh ; last def. pass 3
-LINE_INTERRUPT_NUMBER_1: equ 040h ; last def. pass 3
 BIOS_H_LSET: equ 0FE21h ; last def. pass 3
 SpritePatternsAndColors_Number_2.size: equ 061h ; last def. pass 3
 BIOS_CSRY: equ 0F3DCh ; last def. pass 3
