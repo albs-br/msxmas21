@@ -68,6 +68,11 @@ Execute:
     ld 		a, 0
     ld 		(BIOS_CLIKSW), a     ; Key Press Click Switch 0:Off 1:On (1B/RW)
 
+    ; init interrupt mode and stack pointer (in case the ROM isn't the first thing to be loaded)
+    di                          ; disable interrupts
+    im      1                   ; interrupt mode 1
+    ld      sp, (BIOS_HIMEM)    ; init SP
+    
     call    TitleScreen
 
 InitGame:
