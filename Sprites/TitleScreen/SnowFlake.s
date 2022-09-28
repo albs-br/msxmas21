@@ -41,14 +41,14 @@
     DB 00001111b
     DB 00001111b
     DB 00001111b
-    DB 00001111b
-    DB 00001111b
-    DB 00001111b
-    DB 00001111b
-    DB 00001111b
-    DB 00001111b
-    DB 00001111b
-    DB 00000000b
+    DB 0x0b
+    DB 0x0b
+    DB 0x0b
+    DB 0x0b
+    DB 0x0b
+    DB 0x0b
+    DB 0x0b
+    DB 0x0b
     ; 
     ; --- Slot 1
     ; mask 0

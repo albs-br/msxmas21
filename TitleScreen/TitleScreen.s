@@ -38,7 +38,7 @@ TitleScreen:
 
     call    Set192Lines
 
-    call    SetColor0ToTransparent
+    call    SetColor0ToNonTransparent
 
 
 
@@ -123,6 +123,16 @@ TitleScreen:
 ;     djnz    .testLoop
 
 
+    ld      hl, TitleScreen_Palette
+    call    LoadPalette
+
+    ld		hl, TitleScreen_SC5    				    ; RAM address (source)
+    ld		de, NAMTBL + (128 * ((192-128)/2))      ; VRAM address (destiny)
+    ld		bc, TitleScreen_SC5.size			    ; Block length
+    call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
+
+
+
 
     ; Init variables
     xor  	a
@@ -196,6 +206,12 @@ TitleScreen:
 
     djnz    .moveSprites_loop
 
+    ; check if space bar is pressed
+    ld      a, 8                    ; 8th line
+    ;call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
+    call    BIOS_SNSMAT        ; Read Data Of Specified Line From Keyboard Matrix
+    bit     0, a                ; 0th bit (space bar)
+    jp      z, .exit
 
     jp      .titleScreen_Loop
 
@@ -493,3 +509,6 @@ SpriteAttributes_test:
     db  -1 + 48, 96, 0, 0
     db  -1 + 48, 112, 0, 0
 .size:  equ $ - SpriteAttributes_test
+
+TitleScreen_Palette:
+    INCBIN "Bitmaps/title-screen.pal"

@@ -63,10 +63,6 @@ SNOW_ANIMATION_FRAME_7:     equ 48 + 9
 
 InitVram:
 
-    ; disable keyboard click
-    ld 		a, 0
-    ld 		(BIOS_CLIKSW), a     ; Key Press Click Switch 0:Off 1:On (1B/RW)
-
     ; define screen colors
     ld 		a, 1      	            ; Foregoung color
     ld 		(BIOS_FORCLR), a    

@@ -9,7 +9,10 @@ PageSize:	    equ	0x4000	        ; 16kB
 
 
 ; Compilation address
-    org 0x4000, 0xbeff	                    ; 0x8000 can be also used here if Rom size is 16kB or less.
+    ;org 0x4000, 0xbeff	                    ; 0x8000 can be also used here if Rom size is 16kB or less.
+    org 0x4000
+
+StartROM:
 
     ; Common
     INCLUDE "Include/RomHeader.s"
@@ -35,6 +38,35 @@ PageSize:	    equ	0x4000	        ; 16kB
     INCLUDE "Bitmaps/Bitmaps.s"
 
 Execute:
+
+; Typical routine to select the ROM on page 8000h-BFFFh from page 4000h-7BFFFh
+
+	call	BIOS_RSLREG
+	rrca
+	rrca
+	and	3	;Keep bits corresponding to the page 4000h-7FFFh
+	ld	c,a
+	ld	b,0
+	ld	hl,BIOS_EXPTBL
+	add	hl,bc
+	ld	a,(hl)
+	and	80h
+	or	c
+	ld	c,a
+	inc	hl
+	inc	hl
+	inc	hl
+	inc	hl
+	ld	a,(hl)
+	and	0Ch
+	or	c
+	ld	h,080h
+	call	BIOS_ENASLT		; Select the ROM on page 8000h-BFFFh
+
+
+    ; disable keyboard click
+    ld 		a, 0
+    ld 		(BIOS_CLIKSW), a     ; Key Press Click Switch 0:Off 1:On (1B/RW)
 
     call    TitleScreen
 
@@ -206,11 +238,21 @@ InitialSpriteAttributes:
 
     db      "End ROM started at 0x4000"
 
-	ds PageSize - ($ - 0x4000), 255	; Fill the unused area with 0xFF
+Page0x4000_size: equ $ - StartROM
+
+	ds      PageSize - ($ - 0x4000), 255	; Fill the unused area with 0xFF
 
 
+; --------------------- 0x8000
+    org     0x8000
 
-; RAM
+TitleScreen_SC5:
+    INCBIN "Bitmaps/msxmas title scr.SC5"
+.size:  equ $ - TitleScreen_SC5
+
+	ds      PageSize - ($ - 0x8000), 255	; Fill the unused area with 0xFF
+
+; --------------------- RAM
 	org     0xc000, 0xe5ff                   ; for machines with 16kb of RAM (use it if you need 16kb RAM, will crash on 8kb machines, such as the Casio PV-7)
 
 
