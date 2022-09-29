@@ -2,7 +2,7 @@
 NAMTBL:     equ 0x0000
 SPRPAT:     equ 0x7800
 SPRCOL:     equ 0x7400
-SPRATR:     equ 0x7600
+SPRATR:     equ 0x07600
 
 
 
@@ -93,6 +93,24 @@ InitVram:
 
 
 
+; ; ---- set SPRATR to 0x07600 (SPRCOL is automatically set 512 bytes before SPRATR, so 0x07400)
+;     ; R#5
+;     ;   step 1: AND with mask to get only bits 14 to 10
+;     ;   step 2: shift right 7 bits to align properly
+;     ;   step 3: OR with mask to set lower 3 bits
+;     ld      b, 0 + (((SPRATR AND 0 0111 1100 0000 0000 b) >> 7) OR 0000 0111 b)
+;     ld      c, 5            ; register #
+;     ;call  	WRTVDP_without_DI_EI		; Write B value to C register
+;     call    BIOS_WRTVDP
+
+;     ; R#11
+;     ;   step 1: AND with mask to get only bits 16 and 15
+;     ;   step 2: shift right 15 bits to align properly
+;     ld      b, 0 + ((SPRATR AND 1 1000 0000 0000 0000 b) >> 15)
+;     ld      c, 11           ; register #
+;     ;call  	WRTVDP_without_DI_EI		; Write B value to C register
+;     call    BIOS_WRTVDP
+
 ; ; ---- set SPRATR to 0x1fa00 (SPRCOL is automatically set 512 bytes before SPRATR, so 0x1f800)
 ;     ; bits:    16 14        7
 ;     ;           |  |        |
@@ -105,17 +123,6 @@ InitVram:
 ;     ld      b, 0000 0011 b  ; data
 ;     ld      c, 11           ; register #
 ;     call    BIOS_WRTVDP
-
-; ; ---- set SPRPAT to 0x1f000
-;     ; bits:    16     11
-;     ;           |      |
-;     ; 0x1fa00 = 1 1111 0000 0000 0000
-;     ; high bits (00aaaaaa: bits 16 to 11)
-;     ld      b, 0011 1110 b  ; data
-;     ld      c, 6            ; register #
-;     call    BIOS_WRTVDP
-
-
 
 
     ; ld      hl, PaletteData

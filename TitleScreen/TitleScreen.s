@@ -1,19 +1,19 @@
 ; VRAM tables only for Title Screen:
-SPRCOL_1: equ 0x17400   ; to 0x175ff (512 bytes)        17-bit VRAM addr
-SPRATR_1: equ 0x17600	; to 0x1767f (128 bytes)        17-bit VRAM addr
+SPRCOL_1: equ 0x07400   ; to 0x075ff (512 bytes)        17-bit VRAM addr
+SPRATR_1: equ 0x07600	; to 0x0767f (128 bytes)        17-bit VRAM addr
 
-SPRCOL_2: equ 0x17800   ; to 0x179ff (512 bytes)        17-bit VRAM addr
-SPRATR_2: equ 0x17a00	; to 0x17a7f (128 bytes)        17-bit VRAM addr
+; SPRCOL_2: equ 0x17800   ; to 0x179ff (512 bytes)        17-bit VRAM addr
+; SPRATR_2: equ 0x17a00	; to 0x17a7f (128 bytes)        17-bit VRAM addr
 
-SPRCOL_3: equ 0x17c00   ; to 0x17dff (512 bytes)        17-bit VRAM addr
-SPRATR_3: equ 0x17e00	; to 0x17e7f (128 bytes)        17-bit VRAM addr
+; SPRCOL_3: equ 0x17c00   ; to 0x17dff (512 bytes)        17-bit VRAM addr
+; SPRATR_3: equ 0x17e00	; to 0x17e7f (128 bytes)        17-bit VRAM addr
 
 ; .debug_SPRCOL: equ SPRCOL_1 >> 16
 ; .debug_SPRATR_R5:  equ ((SPRATR_1 AND 0 0111 1100 0000 0000 b) >> 7) OR 0000 0111 b
 ; .debug_SPRATR_R11: equ (SPRATR_1 AND 1 1000 0000 0000 0000 b) >> 15
 
 
-;LINE_INTERRUPT_NUMBER_1: equ 64
+;LINE_INTERRUPT_NUMBER_1: equ 96
 ;LINE_INTERRUPT_NUMBER_2: equ 128
 
 
@@ -85,6 +85,27 @@ TitleScreen:
     dec     d
     jp      nz, .loadSPRCOL_loop
 
+;     ; -------------------------------------------------------
+;     ; Load sprite colors table 2
+
+;     ld      a, SPRCOL_2 >> 16 ; get only the high bit (bit 16)
+;     ld      hl, SPRCOL_2 AND 0 1111 1111 1111 1111 b    ; get 16 lower bits (bits 0-15)
+
+;     ld      d, 32       ; number of entries on SPRCOL table
+; .loadSPRCOL_loop_1:
+;     push    af, hl
+;         call    SetVdp_Write
+;         ld      b, 16
+;         ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+;         ld      hl, SpritePattern_SnowFlake_0 + 32
+;         otir
+;     pop     hl, af
+;     ld      bc, 16      ; size of each entry on SPRCOL table
+;     add     hl, bc      ; next entry on SPRCOL table
+    
+;     dec     d
+;     jp      nz, .loadSPRCOL_loop_1
+
     ; ----------------------------
 
     ; ld      a, 0000 0000 b ; TODO get only the high bit (bit 16)
@@ -149,24 +170,6 @@ TitleScreen:
 
 
 
-
-    ; Init variables
-    xor  	a
-    ld  	(Flag_LineInterrupt), a
-    ld  	(Counter_LineInterrupt), a
-
-    ; ld      a, LINE_INTERRUPT_NUMBER - 8
-    ; ld      (Sprite_Y), a
-
-    ; ld      a, 1
-    ; ld      (Sprite_Direction), a
-
-    ; Init random number generator
-    ld      a, (BIOS_JIFFY)                  ; MSX BIOS time variable
-    or      0x80                             ; A value different of zero is granted
-    ld      (Seed), a
-
-
 ; ; ----------------- set sprite split
 
 ;     ; ------------------------ setup line interrupt -----------------------------
@@ -198,6 +201,7 @@ TitleScreen:
 
 ;     ei
 
+;     ; ---------------------------------------------------------------
 
     call    BIOS_ENASCR
 
@@ -205,6 +209,26 @@ TitleScreen:
     ; call    Wait_B_Vblanks
 
     ; jp      $ ; eternal loop
+
+
+
+    ; ; Init variables
+    ; xor  	a
+    ; ld  	(Flag_LineInterrupt), a
+    ; ld  	(Counter_LineInterrupt), a
+    
+    ; ld      (CurrentScreenSplit), a
+
+    ; ld      a, LINE_INTERRUPT_NUMBER - 8
+    ; ld      (Sprite_Y), a
+
+    ; ld      a, 1
+    ; ld      (Sprite_Direction), a
+
+    ; Init random number generator
+    ld      a, (BIOS_JIFFY)                  ; MSX BIOS time variable
+    or      0x80                             ; A value different of zero is granted
+    ld      (Seed), a
 
 ; ------------------------- Title screen loop --------------------
 
@@ -223,9 +247,9 @@ TitleScreen:
     djnz    .moveSprites_loop
 
     ; check if space bar is pressed
-    ld      a, 8                    ; 8th line
+    ld      a, 8                ; 8th line
     ;call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
-    call    BIOS_SNSMAT        ; Read Data Of Specified Line From Keyboard Matrix
+    call    BIOS_SNSMAT         ; Read Data Of Specified Line From Keyboard Matrix
     bit     0, a                ; 0th bit (space bar)
     jp      z, .exit
 
@@ -233,10 +257,18 @@ TitleScreen:
 
 
 .exit:
+
+    ; ; disable line interrupts
+    ; ld  	a, (REG0SAV)
+    ; and  	1110 1111 b
+    ; ld  	b, a		; data to write
+    ; ld  	c, 0		; register number
+    ; call  	WRTVDP_without_DI_EI		; Write B value to C register
+
     ret
 
 .Set_SPRATR_1:
-; ; ---- set SPRATR to 0x07600 (SPRCOL is automatically set 512 bytes before SPRATR, so 0x07400)
+; ; ---- set SPRATR to 0x17600 (SPRCOL is automatically set 512 bytes before SPRATR, so 0x17400)
 ;     ; bits:    16 14   10   7
 ;     ;           |  |    |   |
 ;     ; 0x07600 = 0 0111 0110 0000 0000
@@ -269,117 +301,123 @@ TitleScreen:
     ld      c, 11           ; register #
     call  	WRTVDP_without_DI_EI		; Write B value to C register
 
-    ret
-
-; ---- set SPRATR to 0x07a00 (SPRCOL is automatically set 512 bytes before SPRATR, so 0x07800)
-.Set_SPRATR_2:
-    ; R#5
-    ;   step 1: AND with mask to get only bits 14 to 10
-    ;   step 2: shift right 7 bits to align properly
-    ;   step 3: OR with mask to set lower 3 bits
-    ld      b, 0 + ((SPRATR_2 AND 0 0111 1100 0000 0000 b) >> 7) OR 0000 0111 b
-    ld      c, 5            ; register #
-    call  	WRTVDP_without_DI_EI		; Write B value to C register
-
-    ; R#11
-    ;   step 1: AND with mask to get only bits 16 and 15
-    ;   step 2: shift right 15 bits to align properly
-    ld      b, 0 + (SPRATR_2 AND 1 1000 0000 0000 0000 b) >> 17
-    ld      c, 11           ; register #
-    call  	WRTVDP_without_DI_EI		; Write B value to C register
+    ; xor     a
+    ; ld      (CurrentScreenSplit), a
 
     ret
 
-; ---- set SPRATR to 0x07e00 (SPRCOL is automatically set 512 bytes before SPRATR, so 0x07c00)
-.Set_SPRATR_3:
-    ; R#5
-    ;   step 1: AND with mask to get only bits 14 to 10
-    ;   step 2: shift right 7 bits to align properly
-    ;   step 3: OR with mask to set lower 3 bits
-    ld      b, 0 + ((SPRATR_3 AND 0 0111 1100 0000 0000 b) >> 7) OR 0000 0111 b
-    ld      c, 5            ; register #
-    call  	WRTVDP_without_DI_EI		; Write B value to C register
+; ; ---- set SPRATR to 0x17a00 (SPRCOL is automatically set 512 bytes before SPRATR, so 0x17800)
+; .Set_SPRATR_2:
+;     ; R#5
+;     ;   step 1: AND with mask to get only bits 14 to 10
+;     ;   step 2: shift right 7 bits to align properly
+;     ;   step 3: OR with mask to set lower 3 bits
+;     ld      b, 0 + (((SPRATR_2 AND 0 0111 1100 0000 0000 b) >> 7) OR 0000 0111 b)
+;     ld      c, 5            ; register #
+;     call  	WRTVDP_without_DI_EI		; Write B value to C register
 
-    ; R#11
-    ;   step 1: AND with mask to get only bits 16 and 15
-    ;   step 2: shift right 15 bits to align properly
-    ld      b, 0 + (SPRATR_3 AND 1 1000 0000 0000 0000 b) >> 17
-    ld      c, 11           ; register #
-    call  	WRTVDP_without_DI_EI		; Write B value to C register
+;     ; R#11
+;     ;   step 1: AND with mask to get only bits 16 and 15
+;     ;   step 2: shift right 15 bits to align properly
+;     ld      b, 0 + ((SPRATR_2 AND 1 1000 0000 0000 0000 b) >> 15)
+;     ld      c, 11           ; register #
+;     call  	WRTVDP_without_DI_EI		; Write B value to C register
 
-    ret
+;     ; ld      a, 2
+;     ; ld      (CurrentScreenSplit), a
+
+;     ret
+
+; ; ---- set SPRATR to 0x17e00 (SPRCOL is automatically set 512 bytes before SPRATR, so 0x17c00)
+; .Set_SPRATR_3:
+;     ; R#5
+;     ;   step 1: AND with mask to get only bits 14 to 10
+;     ;   step 2: shift right 7 bits to align properly
+;     ;   step 3: OR with mask to set lower 3 bits
+;     ld      b, 0 + (((SPRATR_3 AND 0 0111 1100 0000 0000 b) >> 7) OR 0000 0111 b)
+;     ld      c, 5            ; register #
+;     call  	WRTVDP_without_DI_EI		; Write B value to C register
+
+;     ; R#11
+;     ;   step 1: AND with mask to get only bits 16 and 15
+;     ;   step 2: shift right 15 bits to align properly
+;     ld      b, 0 + ((SPRATR_3 AND 1 1000 0000 0000 0000 b) >> 15)
+;     ld      c, 11           ; register #
+;     call  	WRTVDP_without_DI_EI		; Write B value to C register
+
+;     ret
 
 
-;-------------------
-.LineInterruptHook:
+; ;-------------------
+; .LineInterruptHook:
 
-            ; Interrupt routine (adapted from https://www.msx.org/forum/development/msx-development/how-line-interrupts-basic#comment-431760)
-            ; Make sure that the example interrupt handler does not end up
-            ; to infinite loop in case of nested interrupts
-            ; if (Flag_LineInterrupt == 0) { 
-            ;     Flag_LineInterrupt = 1; 
-            ;     execute();
-            ;     Flag_LineInterrupt = 0;
-            ;     Counter_LineInterrupt = 0;
-            ; }
-            ; else {
-            ;     Counter_LineInterrupt++;
-            ;     if (Counter_LineInterrupt == 100) {
-            ;         Flag_LineInterrupt = 0;
-            ;         Counter_LineInterrupt = 0;
-            ;     }
-            ; }
-            ld  	a, (Flag_LineInterrupt)
-            or  	a
-            jp  	nz, .else
-; .then:
-            inc     a ; ld a, 1 ; as A is always 0 here, inc a is the same as ld a, 1
-            ld  	(Flag_LineInterrupt), a
-            call  	.execute
+;             ; Interrupt routine (adapted from https://www.msx.org/forum/development/msx-development/how-line-interrupts-basic#comment-431760)
+;             ; Make sure that the example interrupt handler does not end up
+;             ; to infinite loop in case of nested interrupts
+;             ; if (Flag_LineInterrupt == 0) { 
+;             ;     Flag_LineInterrupt = 1; 
+;             ;     execute();
+;             ;     Flag_LineInterrupt = 0;
+;             ;     Counter_LineInterrupt = 0;
+;             ; }
+;             ; else {
+;             ;     Counter_LineInterrupt++;
+;             ;     if (Counter_LineInterrupt == 100) {
+;             ;         Flag_LineInterrupt = 0;
+;             ;         Counter_LineInterrupt = 0;
+;             ;     }
+;             ; }
+;             ld  	a, (Flag_LineInterrupt)
+;             or  	a
+;             jp  	nz, .else
+; ; .then:
+;             inc     a ; ld a, 1 ; as A is always 0 here, inc a is the same as ld a, 1
+;             ld  	(Flag_LineInterrupt), a
+;             call  	.execute
 
-            ; xor  	a
-            ; ld  	(Flag_LineInterrupt), a
-            ; ld  	(Counter_LineInterrupt), a
-            ld      hl, 0
-            ld      (Flag_LineInterrupt), hl ; as these two vars are on sequential addresses, this clear both
+;             ; xor  	a
+;             ; ld  	(Flag_LineInterrupt), a
+;             ; ld  	(Counter_LineInterrupt), a
+;             ld      hl, 0
+;             ld      (Flag_LineInterrupt), hl ; as these two vars are on sequential addresses, this clear both
 
-            ret     ;jp      .return
-.else:
-            ; Counter++
-            ld  	hl, Counter_LineInterrupt
-            inc		(hl)
+;             ret     ;jp      .return
+; .else:
+;             ; Counter++
+;             ld  	hl, Counter_LineInterrupt
+;             inc		(hl)
             
-			; if (Counter == 100) { Counter = 0; Flag = 0 }
-            ld  	a, (hl)
-            cp  	100
-            ret  	nz
-            ; jp      nz, .return
+; 			; if (Counter == 100) { Counter = 0; Flag = 0 }
+;             ld  	a, (hl)
+;             cp  	100
+;             ret  	nz
+;             ; jp      nz, .return
 
-			; xor  	a
-            ; ld  	(Counter_LineInterrupt), a
-            ; ld  	(Flag_LineInterrupt), a
-            ld      hl, 0
-            ld      (Flag_LineInterrupt), hl ; as these two vars are on sequential addresses, this clear both
+; 			; xor  	a
+;             ; ld  	(Counter_LineInterrupt), a
+;             ; ld  	(Flag_LineInterrupt), a
+;             ld      hl, 0
+;             ld      (Flag_LineInterrupt), hl ; as these two vars are on sequential addresses, this clear both
 
-            ret     ;jp      .return
+;             ret     ;jp      .return
 
-.execute:
-    ; if (VDP(-1) and 1) == 1) ; check if is this a line interrupt
-    ld  	b, 1
-    call 	ReadStatusReg
+; .execute:
+;     ; if (VDP(-1) and 1) == 1) ; check if is this a line interrupt
+;     ld  	b, 1
+;     call 	ReadStatusReg
     
-    ld  	a, 0000 0001 b
-    and  	b
+;     ld  	a, 0000 0001 b
+;     and  	b
     
-    ;or      a ; this isn't necessary
+;     ;or      a ; this isn't necessary
 
-    ; Code to run on Vblank:
-    jp      z, .Set_SPRATR_1
+;     ; Code to run on Vblank:
+;     jp      z, .Set_SPRATR_1
 
-    ; Code to run on line interrupt:
-    jp   	.Set_SPRATR_2
+;     ; Code to run on line interrupt:
+;     jp   	.Set_SPRATR_2
 
-; ------------
+; ; ------------
 
 
 
@@ -414,6 +452,17 @@ TitleScreen:
         sla     a
 
         ld      hl, SPRATR_1 AND 0 1111 1111 1111 1111 b    ; get 16 lower bits (bits 0-15)
+        ; push    af
+        ;     ld      a, (CurrentScreenSplit)
+        ;     or      a
+        ;     jp      z, .screenTop_1
+        ; ;else
+        ;     ld      hl, SPRATR_2 AND 0 1111 1111 1111 1111 b    ; get 16 lower bits (bits 0-15)
+        ;     jp      .continue_1
+        ; .screenTop_1:
+        ;     ld      hl, SPRATR_1 AND 0 1111 1111 1111 1111 b    ; get 16 lower bits (bits 0-15)
+        ; .continue_1:
+        ; pop     af
         
         ; bc = a
         ld      b, 0
@@ -477,6 +526,17 @@ TitleScreen:
     sla     a
 
     ld      hl, SPRATR_1 AND 0 1111 1111 1111 1111 b    ; get 16 lower bits (bits 0-15)
+    ; push    af
+    ;     ld      a, (CurrentScreenSplit)
+    ;     or      a
+    ;     jp      z, .screenTop
+    ; ;else
+    ;     ld      hl, SPRATR_2 AND 0 1111 1111 1111 1111 b    ; get 16 lower bits (bits 0-15)
+    ;     jp      .continue
+    ; .screenTop:
+    ;     ld      hl, SPRATR_1 AND 0 1111 1111 1111 1111 b    ; get 16 lower bits (bits 0-15)
+    ; .continue:
+    ; pop     af
     
     ; bc = a
     ld      b, 0
