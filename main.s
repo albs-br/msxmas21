@@ -20,8 +20,10 @@ StartROM:
     INCLUDE "Include/MsxConstants.s"
     INCLUDE "Include/CommonRoutines.s"
     INCLUDE "Include/CommonRoutines_SC5.s"
+    INCLUDE "Include/ayFXReplayer.s"
 
     ; Game
+    INCLUDE "HTIMI_Hook.s"
     INCLUDE "InitVram.s"
     INCLUDE "Sprites/LoadSprites.s"
     INCLUDE "ReadInput.s"
@@ -32,10 +34,12 @@ StartROM:
     INCLUDE "UpdateAnimations.s"
     INCLUDE "Score.s"
     INCLUDE "TitleScreen/TitleScreen.s"
+    INCLUDE "SoundFx/PlaySfx.s"
 
     ; Assets
     INCLUDE "Sprites/SpriteAssets.s"
     INCLUDE "Bitmaps/Bitmaps.s"
+    INCLUDE "SoundFx/Sfx_Bank.s"
 
 Execute:
 
@@ -77,11 +81,25 @@ Execute:
 
 InitGame:
 
+    ; install the interrupt routine
+	di
+	ld	    a, 0xc3 ; opcode for "JP nn"
+	ld	    (HTIMI), a
+	ld	    hl, HOOK
+	ld	    (HTIMI + 1), hl
+	ei
+
     call    InitVram
 
     call    ClearRam
 
     call    InitVariables
+
+    ; Setup ayFXreplayer
+    ld      hl, Sfx_Bank
+    ld      a, 200
+    ld      (ayFX_VOLUME), a
+    call    ayFX_SETUP
 
     call    DrawScore
 
