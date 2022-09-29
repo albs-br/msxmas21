@@ -73,6 +73,24 @@ TitleScreen:
     ld      hl, SpritePattern_SnowFlake_1
     otir
 
+    ; Load sprite pattern #2
+    ld      a, 0000 0000 b
+    ld      hl, SPRPAT + (32 * 2)
+    call    SetVdp_Write
+    ld      b, 32
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpritePattern_SnowFlake_2
+    otir
+
+    ; Load sprite pattern #3
+    ld      a, 0000 0000 b
+    ld      hl, SPRPAT + (32 * 3)
+    call    SetVdp_Write
+    ld      b, 32
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpritePattern_SnowFlake_3
+    otir
+
     ; -------------------------------------------------------
     ; Load sprite colors table 1
 
@@ -445,7 +463,7 @@ TitleScreen:
 
     ; pattern
     call    RandomNumber
-    and     0000 1100 b  ; mask to get a number multiple of 4
+    and     0000 1100 b  ; mask to get a number multiple of 4 between 0 and 12 (0, 4, 8 or 12)
     out     (c), a
 
     ret

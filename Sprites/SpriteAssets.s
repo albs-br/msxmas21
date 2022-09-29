@@ -105,3 +105,5 @@ SpritePattern_SnowFlake_0:
     INCLUDE "Sprites/TitleScreen/SnowFlake.s"
 ;.size:  equ $ - SpritePattern_SnowFlake_0
 SpritePattern_SnowFlake_1: equ SpritePattern_SnowFlake_0 + (1 * 48)
+SpritePattern_SnowFlake_2: equ SpritePattern_SnowFlake_0 + (2 * 48)
+SpritePattern_SnowFlake_3: equ SpritePattern_SnowFlake_0 + (3 * 48)
