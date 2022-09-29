@@ -203,6 +203,10 @@ TitleScreen:
     ld      iy, NAMTBL + (128 * 170) + 4    ; VRAM destiny addr
     call    DrawChar
 
+    ld      hl, Test_String       ; addr of string
+    ld      iy, NAMTBL + (128 * 170) + 16    ; VRAM destiny addr
+    call    DrawString    
+
 ; ; ----------------- set sprite split
 
 ;     ; ------------------------ setup line interrupt -----------------------------

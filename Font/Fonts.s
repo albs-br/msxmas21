@@ -103,4 +103,45 @@ DrawChar:
 ;   HL: Addr of string (0 terminated)
 ;   IY: VRAM dest addr
 DrawString:
-    ret
+
+    ld      a, (hl)
+    or      a
+    ret     z       ; if (char == 0) ret
+
+    sub     65      ; convert from ASCII code
+
+    ;a = a * 8
+    sla     a   ; shift left A
+    sla     a
+    sla     a
+
+    ld      b, 0
+    ld      c, a
+
+    push    hl
+        ld      hl, Fonts
+        add     hl, bc
+
+        call    DrawChar
+    pop     hl
+
+    inc     hl      ; next char on string
+
+    ; position of next char on screen
+    ; iy += n
+    push    hl, de
+        push    iy  ; hl = iy
+        pop     hl
+        
+        ld      de, -(128 * 8) + 4
+        add     hl, de
+        
+        push     hl  ; iy = hl
+        pop     iy
+    pop     de, hl
+
+    jp      DrawString
+
+
+Test_String:
+    db      'BAB', 0
