@@ -57,11 +57,20 @@ TitleScreen:
     ; -------------------------------------------------------
     ; Load sprite pattern #0
     ld      a, 0000 0000 b
-    ld      hl, SPRPAT
+    ld      hl, SPRPAT + (32 * 0)
     call    SetVdp_Write
     ld      b, 32 ; SpritePattern_SnowFlake_0.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     ld      hl, SpritePattern_SnowFlake_0
+    otir
+
+    ; Load sprite pattern #1
+    ld      a, 0000 0000 b
+    ld      hl, SPRPAT + (32 * 1)
+    call    SetVdp_Write
+    ld      b, 32
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpritePattern_SnowFlake_1
     otir
 
     ; -------------------------------------------------------
@@ -124,7 +133,6 @@ TitleScreen:
         dec     b
         ld      a, b        ; Sprite position on SPRATR table
         ld      d, c        ; Y coord
-        ld      e, 0        ; pattern number
         call    .InitSprite
     pop     bc
 
@@ -424,7 +432,6 @@ TitleScreen:
 ; Inputs:
 ;   A: Sprite position on SPRATR table
 ;   D: Y coord
-;   E: pattern number
 .InitSprite:
 
     call    .SetVDP_SPRATR_ToCurrentSprite
@@ -437,7 +444,9 @@ TitleScreen:
     out     (c), a
 
     ; pattern
-    out     (c), e
+    call    RandomNumber
+    and     0000 1100 b  ; mask to get a number multiple of 4
+    out     (c), a
 
     ret
 
