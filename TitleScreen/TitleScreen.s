@@ -195,6 +195,13 @@ TitleScreen:
     call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
 
 
+    ld      hl, Fonts       ; addr of char to be print
+    ld      iy, NAMTBL + (128 * 170) + 0    ; VRAM destiny addr
+    call    DrawChar
+
+    ld      hl, Fonts + 8       ; addr of char to be print
+    ld      iy, NAMTBL + (128 * 170) + 4    ; VRAM destiny addr
+    call    DrawChar
 
 ; ; ----------------- set sprite split
 

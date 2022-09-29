@@ -40,6 +40,7 @@ StartROM:
     INCLUDE "Sprites/SpriteAssets.s"
     INCLUDE "Bitmaps/Bitmaps.s"
     INCLUDE "SoundFx/Sfx_Bank.s"
+    INCLUDE "Font/Fonts.s"
 
 Execute:
 
