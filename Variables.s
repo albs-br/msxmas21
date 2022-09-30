@@ -5,7 +5,8 @@ PlayerX:                    rb 1
 PlayerY:                    rb 1
 PlayerAnimationFrame:       rb 1
 PlayerJumpingCounter:       rb 1
-Score:                      rw 1
+Score:                      rw 1            ; value stored as BCD
+HighScore:                  rw 1            ; value stored as BCD
 
 UpdatePaletteCounter:       rb 1
 

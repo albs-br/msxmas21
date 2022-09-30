@@ -244,9 +244,9 @@ GiftLogic:
         ld      d, a
         call    z, InitGift
         call    c, InitGift
-; .gameOver:
-;         jp      z, .gameOver
-;         jp      c, .gameOver
+.gameOver:
+        jp      z, .gameOver
+        jp      c, .gameOver
 
 
         ld      a, (PlayerX)
@@ -272,6 +272,23 @@ GiftLogic:
 
     ret
 
+.gameOver:
+    ; show score and high score
+
+    ; draw a rectangular black box
+
+    ; draw 'GAME OVER' string
+    ld      hl, GameOver_String                   ; Addr of string
+    ld      iy, NAMTBL + (128 * ((192/2) - 8)) + ((256/2)-((9*8)/2))    ; VRAM destiny addr
+    call    DrawString    
+
+    ; play a 'game over' sound
+
+    ; wait 4 seconds
+    ld      b, 4 * 60
+    call    Wait_B_Vblanks
+
+    jp      InitGame
 
 .collision:
     ;call    BIOS_BEEP
@@ -285,6 +302,15 @@ GiftLogic:
 
     call    IncrementScore
     
+    ; if (Score >= HighScore) HighScore = Score;
+    ld      hl, (Score)
+    ld      de, (HighScore)
+    call    BIOS_DCOMPR         ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
+    jp      c, .dontUpdateHighScore
+;.updateHighScore:
+    ld      (HighScore), hl
+.dontUpdateHighScore:
+
     call    DrawScore
 
     ld      a, 2
@@ -308,7 +334,7 @@ GiftLogic:
     srl     a
 
     jp      .calc_Dy
-
+    
 .giftX_is_Bigger:
     ; Gift_X - SCORE_X
     ld      a, (Gift_Temp_X)
@@ -392,3 +418,7 @@ JUMP_DELTA_Y_TABLE:        			                                    ; jump height:
 	db	 4,  4,  4,  4
 .end:
 .size:  equ $ - JUMP_DELTA_Y_TABLE
+
+
+GameOver_String:
+    db  'GAME OVER', 0

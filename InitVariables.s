@@ -15,10 +15,13 @@ InitVariables:
 
 
     xor     a
-    ld      (Score), a
     ld      (PlayerAnimationFrame), a
     ld      (PlayerJumpingCounter), a
     ld      (UpdatePaletteCounter), a
+
+    ld      hl, 0
+    ld      (Score), hl
+    ; ld      (HighScore), hl
 
 
 

@@ -536,11 +536,11 @@ DrawString:
         ld      de, -(128 * 8) + 4
         add     hl, de
         
-        push     hl  ; iy = hl
+        push    hl  ; iy = hl
         pop     iy
     pop     de, hl
 
-    jp      DrawString
+    jp      DrawString	; loop until find byte 0
 
 .alpha:
     sub     65      ; convert from ASCII code
