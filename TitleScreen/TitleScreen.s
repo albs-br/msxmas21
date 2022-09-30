@@ -294,6 +294,11 @@ TitleScreen:
     bit     0, a                ; 0th bit (space bar)
     jp      z, .exit
 
+    ; check if joystick 1 button A is pressed
+    ld      a, 1                ; 1=JOY 1, TRIGGER A
+    call    BIOS_GTTRIG         ; Output: A=255 button pressed, A=0 button released
+    jp      nz, .exit
+
     jp      .titleScreen_Loop
 
 

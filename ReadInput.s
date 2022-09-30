@@ -2,6 +2,13 @@
 PLAYER_SPEED:       equ 3
 
 ReadInput:
+
+    ; read joystick
+    ld      a, 1                 ; 1: joystick 1
+    call    BIOS_GTSTCK
+    cp      0
+    jp      nz, .readJoystick    ; if joystick status is <> 0 (no direction), skip to check joystick
+
     ; read keyboard
     ld      a, 8                    ; 8th line
     call    BIOS_SNSMAT             ; Read Data Of Specified Line From Keyboard Matrix
@@ -25,6 +32,25 @@ ReadInput:
 
     ; ------------ no key pressed
 
+
+    jp      .setFrame0
+
+    ret
+
+.readJoystick:
+    push    af
+        ld      a, 1                ; 1=JOY 1, TRIGGER A
+        call    BIOS_GTTRIG         ; Output: A=255 button pressed, A=0 button released
+        call    nz, .playerJump
+    pop     af
+
+    cp      7                    ; joystick to left
+    jp      z, .playerLeft
+
+    cp      3                    ; joystick to right
+    jp      z, .playerRight
+
+    ; ------------ no joystick direction pressed
 
     jp      .setFrame0
 
