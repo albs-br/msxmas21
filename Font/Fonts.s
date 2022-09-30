@@ -504,17 +504,30 @@ DrawChar:
 ;   A: BCD encoded number
 ;   IY: VRAM dest addr
 DrawNumber:
-    push    af
+    push    iy, af
         and     1111 0000 b     ; get high nibble
         srl     a               ; shift right 4 times
         srl     a
         srl     a
         srl     a
 
+		add		Tile_Char_0_Number
+		call	DrawChar_ByCode
 
-    pop     af
+    pop     af, iy
+
+	; iy += 4
+	push	iy
+	pop		hl
+	ld		bc, 4
+	add		hl, bc
+	push	hl
+	pop		iy
 
     and     0000 1111 b     ; get low nibble
+
+	add		Tile_Char_0_Number
+	call	DrawChar_ByCode
 
     ret
 
@@ -602,8 +615,33 @@ DrawString:
     jp      .print
 
 
+; Input
+; 	A: char code (not ASCII, code on this game)
+;   IY: VRAM dest addr
+DrawChar_ByCode:
+	; hl = a
+	ld      h, 0
+	ld      l, a
+
+	; multiply by 8 to get the correct address offset (each tile is 8 bytes long)
+	; hl = hl * 8
+	add     hl, hl   ; shift left A
+	add     hl, hl
+	add     hl, hl
+
+	; bc = Fonts
+	ld      bc, Fonts
+
+	; hl = hl + Fonts
+	add     hl, bc
+
+	call    DrawChar
+
+	ret
+
 Site_String:
     db      'ANDREBAPTISTA.COM.BR', 0
 
 Version_String:
     db      'V.1.0.0', 0
+

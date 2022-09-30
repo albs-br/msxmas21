@@ -273,46 +273,54 @@ GiftLogic:
     ret
 
 .gameOver:
-    ; show score and high score
-
-    ; draw a rectangular black box
+    ; -------------- Show score and high score
 
     ; draw space string
     ld      hl, Space_String                   ; Addr of string
-    ld      iy, NAMTBL + (128 * ((192/2) - 40)) + ((128/2)-((9*4)/2)-6)    ; VRAM destiny addr
+    ld      iy, NAMTBL + (128 * ((192/2) - 40)) + ((128/2)-((9*4)/2)-8)    ; VRAM destiny addr
     call    DrawString    
 
     ; draw 'GAME OVER' string
     ld      hl, GameOver_String                   ; Addr of string
-    ld      iy, NAMTBL + (128 * ((192/2) - 32)) + ((128/2)-((9*4)/2)-6)    ; VRAM destiny addr
+    ld      iy, NAMTBL + (128 * ((192/2) - 32)) + ((128/2)-((9*4)/2)-8)    ; VRAM destiny addr
     call    DrawString    
 
     ; draw space string
     ld      hl, Space_String                   ; Addr of string
-    ld      iy, NAMTBL + (128 * ((192/2) - 24)) + ((128/2)-((9*4)/2)-6)    ; VRAM destiny addr
+    ld      iy, NAMTBL + (128 * ((192/2) - 24)) + ((128/2)-((9*4)/2)-8)    ; VRAM destiny addr
     call    DrawString    
 
     ; draw 'SCORE' string
     ld      hl, Score_String                   ; Addr of string
-    ld      iy, NAMTBL + (128 * ((192/2) - 16)) + ((128/2)-((9*4)/2)-6)    ; VRAM destiny addr
+    ld      iy, NAMTBL + (128 * ((192/2) - 16)) + ((128/2)-((9*4)/2)-8)    ; VRAM destiny addr
     call    DrawString    
 
     ; draw space string
     ld      hl, Space_String                   ; Addr of string
-    ld      iy, NAMTBL + (128 * ((192/2) - 8)) + ((128/2)-((9*4)/2)-6)    ; VRAM destiny addr
+    ld      iy, NAMTBL + (128 * ((192/2) - 8)) + ((128/2)-((9*4)/2)-8)    ; VRAM destiny addr
     call    DrawString    
 
     ; draw 'HI SCORE' string
     ld      hl, HighScore_String                   ; Addr of string
-    ld      iy, NAMTBL + (128 * ((192/2))) + ((128/2)-((9*4)/2)-6)    ; VRAM destiny addr
+    ld      iy, NAMTBL + (128 * ((192/2))) + ((128/2)-((9*4)/2)-8)    ; VRAM destiny addr
     call    DrawString
 
     ; draw space string
     ld      hl, Space_String                   ; Addr of string
-    ld      iy, NAMTBL + (128 * ((192/2) + 8)) + ((128/2)-((9*4)/2)-6)    ; VRAM destiny addr
+    ld      iy, NAMTBL + (128 * ((192/2) + 8)) + ((128/2)-((9*4)/2)-8)    ; VRAM destiny addr
     call    DrawString    
 
-    ; play a 'game over' sound
+    ; draw score
+    ld      a, (Score)
+    ld      iy, NAMTBL + (128 * ((192/2) - 16)) + ((128/2)-((9*4)/2)-8) + (10*4)    ; VRAM destiny addr
+    call    DrawNumber
+
+    ; draw hi score
+    ld      a, (HighScore)
+    ld      iy, NAMTBL + (128 * ((192/2))) + ((128/2)-((9*4)/2)-8) + (10*4)    ; VRAM destiny addr
+    call    DrawNumber
+
+    ; TODO: play a 'game over' sound
 
     ; wait 4 seconds
     ld      b, 4 * 60
@@ -450,7 +458,7 @@ JUMP_DELTA_Y_TABLE:        			                                    ; jump height:
 .size:  equ $ - JUMP_DELTA_Y_TABLE
 
 
-Space_String:       db  '            ', 0
-GameOver_String:    db  ' GAME OVER  ', 0
-Score_String:       db  ' SCORE      ', 0
-HighScore_String:   db  ' HI SCORE   ', 0
+Space_String:       db  '             ', 0
+GameOver_String:    db  ' GAME OVER   ', 0
+Score_String:       db  ' SCORE       ', 0
+HighScore_String:   db  ' HI SCORE    ', 0
