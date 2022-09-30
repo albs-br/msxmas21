@@ -78,7 +78,10 @@ Execute:
     im      1                   ; interrupt mode 1
     ld      sp, (BIOS_HIMEM)    ; init SP
     
+
     call    TitleScreen
+
+    call    ClearRam
 
 InitGame:
 
@@ -91,8 +94,6 @@ InitGame:
 	ei
 
     call    InitVram
-
-    call    ClearRam
 
     call    InitVariables
 

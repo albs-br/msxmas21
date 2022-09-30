@@ -242,9 +242,9 @@ GiftLogic:
         ld      hl, Gift_Temp_Struct
         ld      a, (Gift_Temp_ConveyorBelt_Number)
         ld      d, a
-        call    z, InitGift
-        call    c, InitGift
-.gameOver:
+        ; call    z, InitGift
+        ; call    c, InitGift
+
         jp      z, .gameOver
         jp      c, .gameOver
 
@@ -277,9 +277,39 @@ GiftLogic:
 
     ; draw a rectangular black box
 
+    ; draw space string
+    ld      hl, Space_String                   ; Addr of string
+    ld      iy, NAMTBL + (128 * ((192/2) - 40)) + ((128/2)-((9*4)/2)-6)    ; VRAM destiny addr
+    call    DrawString    
+
     ; draw 'GAME OVER' string
     ld      hl, GameOver_String                   ; Addr of string
-    ld      iy, NAMTBL + (128 * ((192/2) - 8)) + ((256/2)-((9*8)/2))    ; VRAM destiny addr
+    ld      iy, NAMTBL + (128 * ((192/2) - 32)) + ((128/2)-((9*4)/2)-6)    ; VRAM destiny addr
+    call    DrawString    
+
+    ; draw space string
+    ld      hl, Space_String                   ; Addr of string
+    ld      iy, NAMTBL + (128 * ((192/2) - 24)) + ((128/2)-((9*4)/2)-6)    ; VRAM destiny addr
+    call    DrawString    
+
+    ; draw 'SCORE' string
+    ld      hl, Score_String                   ; Addr of string
+    ld      iy, NAMTBL + (128 * ((192/2) - 16)) + ((128/2)-((9*4)/2)-6)    ; VRAM destiny addr
+    call    DrawString    
+
+    ; draw space string
+    ld      hl, Space_String                   ; Addr of string
+    ld      iy, NAMTBL + (128 * ((192/2) - 8)) + ((128/2)-((9*4)/2)-6)    ; VRAM destiny addr
+    call    DrawString    
+
+    ; draw 'HI SCORE' string
+    ld      hl, HighScore_String                   ; Addr of string
+    ld      iy, NAMTBL + (128 * ((192/2))) + ((128/2)-((9*4)/2)-6)    ; VRAM destiny addr
+    call    DrawString
+
+    ; draw space string
+    ld      hl, Space_String                   ; Addr of string
+    ld      iy, NAMTBL + (128 * ((192/2) + 8)) + ((128/2)-((9*4)/2)-6)    ; VRAM destiny addr
     call    DrawString    
 
     ; play a 'game over' sound
@@ -420,5 +450,7 @@ JUMP_DELTA_Y_TABLE:        			                                    ; jump height:
 .size:  equ $ - JUMP_DELTA_Y_TABLE
 
 
-GameOver_String:
-    db  'GAME OVER', 0
+Space_String:       db  '            ', 0
+GameOver_String:    db  ' GAME OVER  ', 0
+Score_String:       db  ' SCORE      ', 0
+HighScore_String:   db  ' HI SCORE   ', 0

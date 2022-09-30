@@ -405,6 +405,16 @@ Tile_Char_9:                     ;
 	db  00111100 b 		; 
 	db  00000000 b 		; 
 
+Tile_Char_Space_Number:	equ Tile_Char_Dot_Number + 11
+Tile_Char_Space:                     ;
+	db  00000000 b 		; 
+	db  00000000 b 		; 
+	db  00000000 b 		; 
+	db  00000000 b 		; 
+	db  00000000 b 		; 
+	db  00000000 b 		; 
+	db  00000000 b 		; 
+	db  00000000 b 		; 
 
 
 
@@ -491,6 +501,24 @@ DrawChar:
     ret
 
 ; Inputs:
+;   A: BCD encoded number
+;   IY: VRAM dest addr
+DrawNumber:
+    push    af
+        and     1111 0000 b     ; get high nibble
+        srl     a               ; shift right 4 times
+        srl     a
+        srl     a
+        srl     a
+
+
+    pop     af
+
+    and     0000 1111 b     ; get low nibble
+
+    ret
+
+; Inputs:
 ;   HL: Addr of string (0 terminated)
 ;   IY: VRAM dest addr
 DrawString:
@@ -508,21 +536,36 @@ DrawString:
     cp      46
     jp      z, .dot
 
+    cp      32
+    jp      z, .space
+
 .print:
 
-    ;a = a * 8
-    sla     a   ; shift left A
-    sla     a
-    sla     a
-
-    ld      b, 0
-    ld      c, a
-
     push    hl
-        ld      hl, Fonts
+        ; hl = a
+        ld      h, 0
+        ld      l, a
+
+        ; multiply by 8 to get the correct address offset (each tile is 8 bytes long)
+        ; hl = hl * 8
+        add     hl, hl   ; shift left A
+        add     hl, hl
+        add     hl, hl
+
+        ; bc = Fonts
+        ld      bc, Fonts
+
+        ; hl = hl + Fonts
         add     hl, bc
 
         call    DrawChar
+
+        ; push    hl
+        ;     ld      hl, Fonts
+        ;     add     hl, bc
+
+        ;     call    DrawChar
+        ; pop     hl
     pop     hl
 
     inc     hl      ; next char on string
@@ -554,6 +597,9 @@ DrawString:
     ld      a, Tile_Char_Dot_Number
     jp      .print
 
+.space:
+    ld      a, Tile_Char_Space_Number
+    jp      .print
 
 
 Site_String:
