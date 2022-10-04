@@ -262,7 +262,7 @@ ROUT_A0:	; --- FIXES BITS 6 AND 7 OF MIXER ---
 
 
 ; ---------------------------------------
-; modified by Andre to fix bug of sound tone keeping playing:
+; modified to fix bug of sound tone keeping playing:
 ; check: https://www.msx.org/forum/msx-talk/development/ayfx-replayer-leaving-a-tiny-sound-after-play-a-sfx
 
 ; Stop the sound playback and mute the channel
